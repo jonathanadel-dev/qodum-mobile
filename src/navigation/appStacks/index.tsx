@@ -44,14 +44,19 @@ export default function AppTabs() {
       })}
     >
       <Tab.Screen
-        name="HomeStack"
-        component={HomeStack}
-        options={{ tabBarLabel: 'Home' }}
+        name="ProfileStack"
+        component={ActivityStack}
+        options={{ tabBarLabel: 'Profile' }}
       />
       <Tab.Screen
         name="ActivityStack"
         component={ActivityStack}
         options={{ tabBarLabel: 'Activity' }}
+      />
+      <Tab.Screen
+        name="HomeStack"
+        component={HomeStack}
+        options={{ tabBarLabel: 'Home' }}
       />
     </Tab.Navigator>
   );

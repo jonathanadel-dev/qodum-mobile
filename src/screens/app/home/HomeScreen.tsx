@@ -1,4 +1,3 @@
-import Ionicons from "@react-native-vector-icons/ionicons";
 import { Text, View } from "react-native";
 
 export default function HomeScreen() {

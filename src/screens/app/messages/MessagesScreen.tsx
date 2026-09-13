@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 
-export default function LoginScreen() {
+export default function MessagesScreen() {
   return (
     <View>
-      <Text>Forgot Password</Text>
+      <Text>Messages Screen</Text>
     </View>
   );
 }

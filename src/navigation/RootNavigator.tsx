@@ -1,5 +1,3 @@
-// src/navigation/RootNavigator.tsx
-
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
@@ -8,16 +6,16 @@ import AppTabs from './appStacks';
 import SplashScreen from '../screens/SplashScreen';
 
 export default function RootNavigator() {
-  // const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
 
-  // if (isLoading) {
-  //   return <SplashScreen />;
-  // }
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
   return (
     <NavigationContainer>
-      {/* {isAuthenticated ? <AppTabs /> : <AuthStack />} */}
-      <AppTabs />
+      {isAuthenticated ? <AppTabs /> : <AuthStack />}
+      {/* <AppTabs /> */}
       {/* <AuthStack /> */}
     </NavigationContainer>
   );

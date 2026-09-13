@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type UserRole = 'teacher' | 'student' | 'staff';
 
+// Types
+type UserRole = 'teacher' | 'student';
 interface User {
   id: string;
   name: string;
   role: UserRole;
 }
-
 interface AuthContextType {
   user: User | null;
   token: string | null;
@@ -18,11 +18,14 @@ interface AuthContextType {
   logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Constants
 const TOKEN_KEY = 'qodum_auth_token';
 const USER_KEY = 'qodum_auth_user';
 
+
+// Context
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
@@ -73,7 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAuthenticated: !!token,
         isLoading,
         login,
-        logout,
+        logout
       }}
     >
       {children}
@@ -81,6 +84,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
+
+// Hook
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

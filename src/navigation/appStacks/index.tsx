@@ -1,8 +1,15 @@
 import React from 'react';
-import HomeStack from './HomeStack';
-import ActivityStack from "./ActivityStack"
+import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { colors, radii, spacing, typography } from '../../styles/theme';
+import { commonStyles } from '../../styles/common';
+// Stacks
+import HomeStack from './HomeStack';
+import ActivityStack from './ActivityStack';
+import MessagesStack from './MessagesStack';
+import SettingsStack from './SettingsStack';
+import ProfileStack from './ProfileStack';
 
 const Tab = createBottomTabNavigator<any>();
 
@@ -11,41 +18,92 @@ export default function AppTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
         tabBarStyle: {
           position: 'absolute',
-          left: 16,
-          right: 16,
+          left: 10,
+          right: 10,
           height: 70,
-          borderRadius: 20,
-          backgroundColor: '#111827',
-          borderTopWidth: 0,
-          elevation: 8,
-          shadowColor: '#000',
-          shadowOpacity: 0.2,
-          shadowRadius: 10,
-          shadowOffset: { width: 0, height: 4 },
+          backgroundColor: '#ECEFF2',
+          borderTopWidth: 2,
+          elevation: 0
         },
-        tabBarActiveTintColor: '#22c55e',
-        tabBarInactiveTintColor: '#9ca3af',
-        tabBarIcon: ({ color, size, focused }) => {
-          let iconName: React.ComponentProps<typeof Ionicons>['name'];
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: '500',
+          marginTop: 2,
+        },
+        tabBarActiveTintColor: '#1E7CF5',
+        tabBarInactiveTintColor: '#889cb5',
+        tabBarIcon: ({ focused }) => {
 
-          if (route.name === 'HomeStack') {
-            iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'ActivityStack') {
-            iconName = focused ? 'notifications' : 'notifications-outline';
-          } else {
-            iconName = 'home-outline';
+          const isHomeTab = route.name === 'HomeStack';
+
+          const iconMap: Record<string, React.ComponentProps<typeof Ionicons>['name']> = {
+            HomeStack: 'home',
+            ActivityStack: focused ? 'notifications' : 'notifications-outline',
+            MessagesStack: focused ? 'chatbubble' : 'chatbubble-outline',
+            SettingsStack: focused ? 'settings' : 'settings-outline',
+            ProfileStack: focused ? 'person' : 'person-outline',
+          };
+
+          const iconName = iconMap[route.name];
+          const iconColor = focused ? '#1E7CF5' : '#889cb5'
+
+          if (isHomeTab) {
+            return (
+              <View
+                style={{
+                  width: 58,
+                  height: 58,
+                  borderRadius: 100,
+                  backgroundColor: '#1E7CF5',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Ionicons
+                  name='home'
+                  size={28}
+                  color="#FFFFFF"
+                />
+              </View>
+            );
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              {/* {route.name === 'ActivityStack' && !focused ? (
+                <View
+                  style={{
+                    position: 'absolute',
+                    left: 8,
+                    top: -4,
+                    minWidth: 18,
+                    height: 18,
+                    borderRadius: 9,
+                    backgroundColor: colors.danger,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingHorizontal: 5,
+                    zIndex: 2,
+                    borderWidth: 2,
+                    borderColor: colors.background,
+                  }}
+                >
+                  <Ionicons name="notifications" size={8} color="#FFFFFF" />
+                </View>
+              ) : null} */}
+
+              <Ionicons name={iconName} size={24} color={iconColor} />
+            </View>
+          );
         },
       })}
     >
       <Tab.Screen
         name="ProfileStack"
-        component={ActivityStack}
+        component={ProfileStack}
         options={{ tabBarLabel: 'Profile' }}
       />
       <Tab.Screen
@@ -56,7 +114,17 @@ export default function AppTabs() {
       <Tab.Screen
         name="HomeStack"
         component={HomeStack}
-        options={{ tabBarLabel: 'Home' }}
+        options={{ tabBarLabel: '' }}
+      />
+      <Tab.Screen
+        name="MessagesStack"
+        component={MessagesStack}
+        options={{ tabBarLabel: 'Messages' }}
+      />
+      <Tab.Screen
+        name="SettingsStack"
+        component={SettingsStack}
+        options={{ tabBarLabel: 'Settings' }}
       />
     </Tab.Navigator>
   );

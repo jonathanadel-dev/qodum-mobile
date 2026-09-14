@@ -140,7 +140,7 @@ export default function ContinueAsScreen ({ navigation }: any) {
                         icon="🎓"
                         title="Student Admission"
                         description="Apply to a school and start your admission journey."
-                        pressHandler={() => navigation.navigate('StudentAdmission')}
+                        pressHandler={() => navigation.navigate('StudentAdmissionForm')}
                     />
 
                     <OptionCard

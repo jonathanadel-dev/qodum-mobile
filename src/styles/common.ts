@@ -11,7 +11,6 @@ export const formStyles = StyleSheet.create({
     },
     scrollContent: {
         paddingHorizontal: 20,
-        paddingTop: 25,
         paddingBottom: 50,
     },
     header: {

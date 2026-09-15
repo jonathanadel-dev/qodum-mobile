@@ -34,7 +34,9 @@ type CodeError =
 
 
 // School code screen
-export default function SchoolCodeScreen({ navigation }: Props) {
+export default function SchoolCodeScreen({ navigation, route }: Props) {
+
+    const nextPage = route.params.next_page;
 
     // State
     const CODE_LENGTH = 6;
@@ -81,7 +83,11 @@ export default function SchoolCodeScreen({ navigation }: Props) {
                 return;
             }
             setSelectedSchool(school);
-            navigation.navigate('StudentAdmissionForm', { schoolCode: school.code });
+            if (nextPage === 'StudentAdmissionForm') {
+                navigation.navigate('StudentAdmissionForm', { schoolCode: school.code });
+            } else if (nextPage === 'Login'){
+                navigation.navigate('Login', { schoolCode:school.code });
+            }
         } catch {
             setError('server');
         } finally {

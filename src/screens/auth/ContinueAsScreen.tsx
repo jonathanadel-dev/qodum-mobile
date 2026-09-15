@@ -138,14 +138,14 @@ export default function ContinueAsScreen ({ navigation }: any) {
                         icon="🎓"
                         title="Student Admission"
                         description="Apply to a school and start your admission journey."
-                        pressHandler={() => navigation.navigate('SchoolCode')}
+                        pressHandler={() => navigation.navigate('SchoolCode', {next_page:'StudentAdmissionForm'})}
                     />
 
                     <OptionCard
                         icon="🏫"
                         title="School Login"
                         description="Access your school account, assignments, fees, and activities."
-                        pressHandler={() => navigation.navigate('SchoolLogin')}
+                        pressHandler={() => navigation.navigate('SchoolCode', {next_page:'Login'})}
                     />
 
                     <OptionCard
@@ -159,7 +159,7 @@ export default function ContinueAsScreen ({ navigation }: any) {
                         icon="🤝"
                         title="Join Alumni Network"
                         description="Connect with your school community and join the alumni network."
-                        pressHandler={() => navigation.navigate('Alumni')}
+                        pressHandler={() => navigation.navigate('AlumniForm')}
                     />
 
                 </View>

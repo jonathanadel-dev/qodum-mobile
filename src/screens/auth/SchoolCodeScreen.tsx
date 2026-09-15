@@ -18,8 +18,8 @@ import Header from '../../components/Header';
 import CustomStatusBar from '../../components/CustomStatusBar';
 import SchoolSearchSheet from '../../components/schoolCode/SchoolSearchSheet';
 import { colors, radius, spacing, typography } from '../../styles/theme';
-import { School } from '../../types/school';
-import { verifySchoolCode } from '../../lib/schoolApi';
+import { School } from '../../lib/types/school';
+import { verifySchoolCode } from '../../lib/api/schoolApi';
 import OutlineButton from '../../components/OutlineButton';
 
 

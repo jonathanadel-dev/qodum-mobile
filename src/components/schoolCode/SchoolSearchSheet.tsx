@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 
 import { colors, radius, spacing, typography } from '../../styles/theme';
-import { School } from '../../types/school';
-import { searchSchools } from '../../lib/schoolApi';
+import { School } from '../../lib/types/school';
+import { searchSchools } from '../../lib/api/schoolApi';
 import AnimatedSchoolResult from './AnimatedSchoolResult';
 import CustomModal, { CustomModalRef } from '../CustomModal';
 

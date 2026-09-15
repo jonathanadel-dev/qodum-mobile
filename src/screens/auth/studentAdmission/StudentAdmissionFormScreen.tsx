@@ -19,7 +19,7 @@ import FormField from '../../../components/form/input/FormField';
 import FormDateField from '../../../components/form/datePicker/FormDateField';
 import FormSection from '../../../components/form/FormSection';
 import SubmitButton from '../../../components/form/SubmitButton';
-import { admissionSchema, AdmissionFormData } from '../../../zodSchemas/admissionFormSchema';
+import { admissionSchema, AdmissionFormData } from '../../../lib/zodSchemas/admissionFormSchema';
 import { formStyles as styles } from '../../../styles/common';
 import CustomStatusBar from '../../../components/CustomStatusBar';
 import BackButton from '../../../components/Header';

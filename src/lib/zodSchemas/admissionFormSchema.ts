@@ -7,7 +7,7 @@ import {
     NAME_MSG,
     MOBILE_MSG,
     INCOME_MSG,
-} from '../lib/validationPatterns';
+} from '../validationPatterns';
 
 const requiredName = z
     .string()

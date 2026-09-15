@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { colors, radius, spacing } from '../../styles/theme';
-import { School } from '../../types/school';
+import { School } from '../../lib/types/school';
 
 
 // Type

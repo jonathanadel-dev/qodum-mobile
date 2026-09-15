@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "510540191561",
+    "project_id": "qodum-mobile",
+    "storage_bucket": "qodum-mobile.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510540191561:android:e5e632b421b249b8dd6c98",
+        "android_client_info": {
+          "package_name": "com.qodum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTVsDm6mQL3NL9pKrEoTrVKjQWPd71D7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

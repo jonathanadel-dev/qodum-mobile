@@ -8,6 +8,7 @@ import {
     Platform,
     Image,
     StyleSheet,
+    StatusBar,
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,10 +21,12 @@ import FormSection from '../../../components/form/FormSection';
 import SubmitButton from '../../../components/form/SubmitButton';
 import { admissionSchema, AdmissionFormData } from '../../../zodSchemas/admissionFormSchema';
 import { formStyles as styles } from '../../../styles/common';
+import CustomStatusBar from '../../../components/CustomStatusBar';
+import BackButton from '../../../components/Header';
 
 
-// Admission form screen
-export default function AdmissionFormScreen({ navigation }: any) {
+// Student admission form screen
+export default function StudentAdmissionFormScreen({ navigation }: any) {
 
     // Form
     const defaultValues: AdmissionFormData = {
@@ -100,6 +103,10 @@ export default function AdmissionFormScreen({ navigation }: any) {
 
     return (
         <View style={styles.container}>
+
+            {/* Status bar */}
+            <CustomStatusBar />
+
             <KeyboardAvoidingView
                 style={styles.keyboardView}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -111,9 +118,7 @@ export default function AdmissionFormScreen({ navigation }: any) {
                     contentContainerStyle={styles.scrollContent}
                 >
                     <View style={styles.header}>
-                        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
-                            <Text style={styles.backArrow}>‹</Text>
-                        </Pressable>
+                        <BackButton navigation={navigation}/>
 
                         <View style={styles.headerText}>
                             <Text style={styles.eyebrow}>STUDENT ADMISSION</Text>

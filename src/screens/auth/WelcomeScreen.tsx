@@ -129,6 +129,21 @@ export default function WelcomeScreen ({ navigation }: any) {
                 }),
             ]),
         ).start();
+
+        return () => {
+            [
+                logoOpacity,
+                logoScale,
+                logoTranslateY,
+                titleOpacity,
+                titleTranslateY,
+                subtitleOpacity,
+                subtitleTranslateY,
+                buttonOpacity,
+                buttonTranslateY,
+                floatingAnimation,
+            ].forEach(animation => animation.stopAnimation());
+        };
     }, []);
 
 

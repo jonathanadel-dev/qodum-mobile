@@ -10,8 +10,6 @@ import { colors, typography } from '../../styles/theme';
 import Card from '../../components/Card';
 
 
-const PRIMARY = colors.primary;
-
 
 // Option card
 type OptionProps = {
@@ -140,7 +138,7 @@ export default function ContinueAsScreen ({ navigation }: any) {
                         icon="🎓"
                         title="Student Admission"
                         description="Apply to a school and start your admission journey."
-                        pressHandler={() => navigation.navigate('StudentAdmissionForm')}
+                        pressHandler={() => navigation.navigate('SchoolCode')}
                     />
 
                     <OptionCard
@@ -226,7 +224,7 @@ const styles = StyleSheet.create({
     brandLine: {
         width: 28,
         height: 2,
-        backgroundColor: PRIMARY,
+        backgroundColor: colors.primary,
         borderRadius: 2,
         marginLeft: 10,
     },
@@ -315,7 +313,7 @@ const styles = StyleSheet.create({
         marginLeft: 6,
     },
     arrow: {
-        color: PRIMARY,
+        color: colors.primary,
         fontSize: 21,
         fontWeight: '400',
         marginTop: -2,

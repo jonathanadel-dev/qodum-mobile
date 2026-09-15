@@ -11,28 +11,11 @@ export const formStyles = StyleSheet.create({
     },
     scrollContent: {
         paddingHorizontal: 20,
-        paddingTop: 55,
+        paddingTop: 25,
         paddingBottom: 50,
     },
     header: {
         marginBottom: 25,
-    },
-    backButton: {
-        width: 42,
-        height: 42,
-        borderRadius: 14,
-        backgroundColor: '#FFFFFF',
-        borderWidth: 1,
-        borderColor: '#E5EEF3',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 22,
-    },
-    backArrow: {
-        fontSize: 32,
-        lineHeight: 32,
-        color: '#183247',
-        marginTop: -4,
     },
     headerText: {
         paddingHorizontal: 2,

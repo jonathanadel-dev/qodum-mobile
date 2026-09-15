@@ -9,9 +9,13 @@ import { colors, radius } from "../../styles/theme";
 export default function SubmitButton({
     loading,
     onPress,
+    label = 'Submit',
+    loadingLabel = 'Submitting...',
 }: {
     loading: boolean;
     onPress: () => void;
+    label?: string;
+    loadingLabel?: string;
 }) {
 
     const scale = useRef(new Animated.Value(1)).current;
@@ -41,11 +45,7 @@ export default function SubmitButton({
     return (
         <Animated.View style={{ transform: [{ scale }] }}>
             <Pressable
-                style={({ pressed }) => [
-                    styles.submitButton,
-                    pressed && !loading && styles.submitButtonPressed,
-                    loading && styles.submitButtonDisabled,
-                ]}
+                style={[styles.submitButton, loading && styles.submitButtonDisabled]}
                 onPress={onPress}
                 onPressIn={handlePressIn}
                 onPressOut={handlePressOut}
@@ -54,10 +54,10 @@ export default function SubmitButton({
                 {loading ? (
                     <>
                         <ActivityIndicator color="#FFFFFF" size="small" />
-                        <Text style={styles.submitText}>Submitting...</Text>
+                        <Text style={styles.submitText}>{loadingLabel}</Text>
                     </>
                 ) : (
-                    <Text style={styles.submitText}>Submit</Text>
+                    <Text style={styles.submitText}>{label}</Text>
                 )}
             </Pressable>
         </Animated.View>
@@ -69,30 +69,28 @@ export default function SubmitButton({
 const styles = StyleSheet.create({
     submitButton: {
         height: 56,
-        borderRadius: radius.xl,
+        borderRadius: radius.md,
         backgroundColor: colors.primary,
+        borderWidth: 1,
+        borderColor: colors.primaryPressed,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         gap: 8,
-        shadowColor: colors.primary,
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.22,
-        shadowRadius: 16,
-        elevation: 6,
-    },
-    submitButtonPressed: {
-        backgroundColor: colors.primaryPressed,
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 8,
+        elevation: 8,
     },
     submitButtonDisabled: {
         opacity: 0.65,
-        shadowOpacity: 0,
         elevation: 0,
+        shadowOpacity: 0,
     },
     submitText: {
-        fontSize: 15,
+        fontSize: 16,
         fontWeight: '700',
-        letterSpacing: 0.3,
         color: '#FFFFFF',
-    }
+    },
 })

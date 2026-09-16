@@ -152,7 +152,7 @@ export default function ContinueAsScreen ({ navigation }: any) {
                         icon="💼"
                         title="Job Opening"
                         description="Explore available positions and apply to join a school."
-                        pressHandler={() => navigation.navigate('JobOpening')}
+                        pressHandler={() => navigation.navigate('SchoolCode', {next_page:'JobOpening'})}
                     />
 
                     <OptionCard

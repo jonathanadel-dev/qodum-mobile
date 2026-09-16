@@ -1,7 +1,15 @@
 // components/form/SubmitButton.tsx
 
 import { useRef } from "react";
-import { ActivityIndicator, Animated, Pressable, StyleSheet, Text } from "react-native";
+import {
+    ActivityIndicator,
+    Animated,
+    Pressable,
+    StyleProp,
+    StyleSheet,
+    Text,
+    ViewStyle,
+} from "react-native";
 import { colors, radius } from "../../styles/theme";
 
 
@@ -11,11 +19,13 @@ export default function SubmitButton({
     onPress,
     label = 'Submit',
     loadingLabel = 'Submitting...',
+    style
 }: {
     loading: boolean;
     onPress: () => void;
     label?: string;
     loadingLabel?: string;
+    style?: StyleProp<ViewStyle>;
 }) {
 
     const scale = useRef(new Animated.Value(1)).current;
@@ -45,7 +55,11 @@ export default function SubmitButton({
     return (
         <Animated.View style={{ transform: [{ scale }] }}>
             <Pressable
-                style={[styles.submitButton, loading && styles.submitButtonDisabled]}
+                style={[
+                    styles.submitButton,
+                    loading && styles.submitButtonDisabled,
+                    style,
+                ]}
                 onPress={onPress}
                 onPressIn={handlePressIn}
                 onPressOut={handlePressOut}

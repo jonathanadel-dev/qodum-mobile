@@ -87,6 +87,8 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
                 navigation.navigate('StudentAdmissionForm', { schoolCode: school.code });
             } else if (nextPage === 'Login'){
                 navigation.navigate('Login', { schoolCode:school.code });
+            } else if (nextPage === 'JobOpening'){
+                navigation.navigate('JobOpening', { schoolCode:school.code });
             }
         } catch {
             setError('server');

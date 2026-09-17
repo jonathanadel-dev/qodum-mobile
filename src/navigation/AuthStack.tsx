@@ -15,12 +15,16 @@ import JobFormScreen from '../screens/auth/jobOpening/JobFormScreen';
 import JobAppliedScreen from '../screens/auth/jobOpening/JobAppliedScreen';
 import ChooseRoleScreen from '../screens/auth/schoolLogin/ChooseRoleScreen';
 import RegisterScreen from '../screens/auth/schoolLogin/RegisterScreen';
+import StudentAdmissionScreen from '../screens/auth/studentAdmission';
+import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/StudentAdmissionProcedureScreen';
+import StudentAdmittedScreen from '../screens/auth/studentAdmission/StudentAdmittedScreen';
+import TrackApplicationScreen from '../screens/auth/studentAdmission/TrackApplicationScreen';
 
 type AuthStackRouteName =
   | 'Splash'
   | 'Welcome'
   | 'ContinueAs'
-  | 'StudentAdmissionForm'
+  | 'StudentAdmission'
   | 'Login'
   | 'JobOpening'
   | 'ChooseRole'
@@ -34,7 +38,19 @@ export type AuthStackParamList = {
   };
 
   // Student admission
+  StudentAdmission: {
+    schoolCode: string;
+  };
+  StudentAdmissionProcedure: {
+    schoolCode: string;
+  };
   StudentAdmissionForm: {
+    schoolCode: string;
+  };
+  StudentAdmitted:{
+    schoolCode: string;
+  };
+  TrackApplication: {
     schoolCode: string;
   };
 
@@ -85,7 +101,11 @@ export default function AuthStack() {
       <Stack.Screen name="SchoolCode" component={SchoolCodeScreen} />
 
       {/* Student Admission */}
+      <Stack.Screen name="StudentAdmission" component={StudentAdmissionScreen} />
+      <Stack.Screen name="StudentAdmissionProcedure" component={StudentAdmissionProcedureScreen} />
       <Stack.Screen name="StudentAdmissionForm" component={StudentAdmissionFormScreen} />
+      <Stack.Screen name="StudentAdmitted" component={StudentAdmittedScreen} />
+      <Stack.Screen name="TrackApplication" component={TrackApplicationScreen} />
 
 
       {/* School Login */}

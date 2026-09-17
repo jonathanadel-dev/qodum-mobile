@@ -23,12 +23,19 @@ import { admissionSchema, AdmissionFormData } from '../../../lib/zodSchemas/admi
 import { formStyles as styles } from '../../../styles/common';
 import CustomStatusBar from '../../../components/CustomStatusBar';
 import BackButton from '../../../components/Header';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AuthStackParamList } from '../../../navigation/AuthStack';
+
+
+// Type
+type Props = NativeStackScreenProps<AuthStackParamList, 'StudentAdmissionForm'>;
 
 
 // Student admission form screen
-export default function StudentAdmissionFormScreen({ navigation }: any) {
+export default function StudentAdmissionFormScreen({ navigation, route }: Props) {
 
     // Form
+    const {schoolCode} = route.params;
     const defaultValues: AdmissionFormData = {
         image: '',
         name: '',
@@ -92,7 +99,7 @@ export default function StudentAdmissionFormScreen({ navigation }: any) {
     const onSubmit = async (data: AdmissionFormData) => {
         try {
             await new Promise((resolve:any) => setTimeout(resolve, 1200));
-            toast.success('Your admission application was submitted successfully.');
+            navigation.navigate('StudentAdmitted', {schoolCode})
         } catch {
             toast.error('Something went wrong. Please try again.');
         }

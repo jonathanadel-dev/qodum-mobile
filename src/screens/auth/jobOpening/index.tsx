@@ -13,7 +13,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '../../../components/Header';
 import CustomStatusBar from '../../../components/CustomStatusBar';
 import { colors } from '../../../styles/theme';
-import { JobOpening } from '../../../lib/types/job';
+import { JobType } from '../../../lib/api/jobApi';
 import { fetchJobOpenings } from '../../../lib/api/jobApi';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import JobCard from '../../../components/jobOpening/JobCard';
@@ -28,7 +28,7 @@ export default function JobOpeningScreen ({ navigation, route }: Props) {
 
     // State
     const { schoolCode } = route.params;
-    const [jobs, setJobs] = useState<JobOpening[]>([]);
+    const [jobs, setJobs] = useState<JobType[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
@@ -39,11 +39,7 @@ export default function JobOpeningScreen ({ navigation, route }: Props) {
             setLoading(true);
             setError('');
 
-            await new Promise((resolve:any) =>
-                setTimeout(resolve, 900),
-            );
-
-            const jobRes:JobOpening[] = await fetchJobOpenings();
+            const jobRes:JobType[] = await fetchJobOpenings(schoolCode);
             setJobs(jobRes);
         } catch (err) {
             setError('We could not load the available jobs. Please try again.');
@@ -57,10 +53,9 @@ export default function JobOpeningScreen ({ navigation, route }: Props) {
 
 
     // Handle job press
-    const handleJobPress = (job: JobOpening) => {
+    const handleJobPress = (job: JobType) => {
         navigation.navigate('JobDescription', {
-            schoolCode,
-            job
+            jobId: job.id
         });
     };
 

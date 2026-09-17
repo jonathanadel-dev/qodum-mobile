@@ -20,18 +20,18 @@ import Header from '../../../components/Header';
 import CustomStatusBar from '../../../components/CustomStatusBar';
 import { jobApplicationSchema, JobApplicationFormData } from '../../../lib/zodSchemas/jobFormSchema';
 import { formStyles as styles } from '../../../styles/common';
-import { JobOpening } from '../../../lib/types/job';
-import { fetchJobById } from '../../../lib/api/jobApi';
+import { JobType } from '../../../lib/api/jobApi';
+import { fetchJobById, jobApply } from '../../../lib/api/jobApi';
 import { colors } from '../../../styles/theme';
 
 
 // Job application form screen
 export default function JobApplicationFormScreen({ navigation, route }: any) {
 
-    const { jobId, schoolCode } = route.params;
+    const { jobId } = route.params;
 
     // Job lookup
-    const [job, setJob] = useState<JobOpening | null>(null);
+    const [job, setJob] = useState<JobType | null>(null);
     const [loadingJob, setLoadingJob] = useState(true);
 
     useEffect(() => {
@@ -97,6 +97,7 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
     const onSubmit = async (data: JobApplicationFormData) => {
         try {
             await new Promise((resolve: any) => setTimeout(resolve, 1200));
+            await jobApply(data);
             navigation.navigate('JobApplied');
         } catch {
             toast.error('Something went wrong. Please try again.');

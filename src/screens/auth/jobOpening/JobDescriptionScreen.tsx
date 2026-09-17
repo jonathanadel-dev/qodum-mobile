@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+    ActivityIndicator,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -14,6 +15,8 @@ import Header from '../../../components/Header';
 import { colors } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import Card from '../../../components/Card';
+import { fetchJobById, JobType } from '../../../lib/api/jobApi';
+import toast from '../../../lib/toast';
 
 
 // Types
@@ -57,16 +60,59 @@ const JobInfo = ({
 export default function JobDescriptionScreen ({navigation, route}: Props) {
 
     // State
-    const { schoolCode, job } = route.params;
+    const { jobId } = route.params;
+    const [job, setJob] = useState<JobType | null>(null);
+    const [loadingJob, setLoadingJob] = useState(true);
 
 
     // Handle apply
     const handleApply = () => {
         navigation.navigate('JobForm', {
-            schoolCode,
-            jobId: job.id,
+            jobId: jobId,
         });
     };
+
+
+    // Fetching job details
+    useEffect(() => {
+        let isActive = true;
+
+        const loadJob = async () => {
+            try {
+                const result = await fetchJobById(jobId);
+
+                if (!isActive) return;
+
+                if (!result) {
+                    toast.error('This job posting is no longer available.');
+                    navigation.goBack();
+                    return;
+                }
+
+                setJob(result);
+            } catch {
+                if (isActive) {
+                    toast.error('Unable to load this job. Please try again.');
+                    navigation.goBack();
+                }
+            } finally {
+                if (isActive) setLoadingJob(false);
+            }
+        };
+
+        loadJob();
+
+        return () => {
+            isActive = false;
+        };
+    }, [jobId]);
+    if (loadingJob || !job) {
+        return (
+            <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+                <ActivityIndicator size="small" color={colors.primary} />
+            </View>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -114,7 +160,7 @@ export default function JobDescriptionScreen ({navigation, route}: Props) {
                             </Text>
 
                             <Text style={styles.schoolCode}>
-                                {schoolCode}
+                                {job.schoolCode}
                             </Text>
                         </View>
                     </View>

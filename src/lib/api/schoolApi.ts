@@ -1,8 +1,13 @@
-// lib/schoolApi.ts
+// Type
+export type SchoolType = {
+    id: string;
+    name: string;
+    code: string;
+};
 
-import { School } from '../types/school';
 
-const MOCK_SCHOOLS: School[] = [
+// Mock data
+const MOCK_SCHOOLS: SchoolType[] = [
     { id: '1', name: 'Qodum International School', code: 'QDM001' },
     { id: '2', name: 'Al-Nahda Modern School', code: 'NHD245' },
     { id: '3', name: 'Future Leaders School', code: 'FLS102' },
@@ -10,13 +15,16 @@ const MOCK_SCHOOLS: School[] = [
     { id: '5', name: 'Nile Valley School', code: 'NVS456' },
 ];
 
-export const verifySchoolCode = async (code: string): Promise<School | null> => {
-    // TODO: replace with a real API request.
+
+// Verify code
+export const verifySchoolCode = async (code: string): Promise<SchoolType | null> => {
     await new Promise((resolve: any) => setTimeout(resolve, 1000));
     return MOCK_SCHOOLS.find(item => item.code === code) ?? null;
 };
 
-export const searchSchools = async (query: string): Promise<School[]> => {
+
+// Search school
+export const searchSchools = async (query: string): Promise<SchoolType[]> => {
     // TODO: replace with a real API request.
     await new Promise((resolve: any) => setTimeout(resolve, 700));
 

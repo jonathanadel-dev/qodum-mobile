@@ -145,7 +145,7 @@ export default function ContinueAsScreen ({ navigation }: any) {
                         icon="🏫"
                         title="School Login"
                         description="Access your school account, assignments, fees, and activities."
-                        pressHandler={() => navigation.navigate('SchoolCode', {next_page:'Login'})}
+                        pressHandler={() => navigation.navigate('SchoolCode', {next_page:'ChooseRole'})}
                     />
 
                     <OptionCard

@@ -1,19 +1,20 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Screens
-import LoginScreen from '../screens/auth/LoginScreen';
+import LoginScreen from '../screens/auth/schoolLogin/LoginScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';  
 import ContinueAsScreen from '../screens/auth/ContinueAsScreen';
-import StudentAdmissionFormScreen from '../screens/auth/StudentAdmissionFormScreen';
+import StudentAdmissionFormScreen from '../screens/auth/studentAdmission/StudentAdmissionFormScreen';
 import SchoolCodeScreen from '../screens/auth/SchoolCodeScreen';
 import SplashScreen from '../screens/SplashScreen';
 import AlumniFormScreen from '../screens/auth/alumni/AlumniFormScreen';
 import AlumniAddedScreen from '../screens/auth/alumni/AlumniAddedScreen';
 import JobOpeningScreen from '../screens/auth/jobOpening';
-import { JobOpening } from '../lib/types/job';
 import JobDescriptionScreen from '../screens/auth/jobOpening/JobDescriptionScreen';
 import JobFormScreen from '../screens/auth/jobOpening/JobFormScreen';
 import JobAppliedScreen from '../screens/auth/jobOpening/JobAppliedScreen';
+import ChooseRoleScreen from '../screens/auth/schoolLogin/ChooseRoleScreen';
+import RegisterScreen from '../screens/auth/schoolLogin/RegisterScreen';
 
 type AuthStackRouteName =
   | 'Splash'
@@ -22,6 +23,7 @@ type AuthStackRouteName =
   | 'StudentAdmissionForm'
   | 'Login'
   | 'JobOpening'
+  | 'ChooseRole'
 
 export type AuthStackParamList = {
   Splash: undefined;
@@ -30,26 +32,40 @@ export type AuthStackParamList = {
   SchoolCode: {
     next_page: AuthStackRouteName;
   };
+
+  // Student admission
   StudentAdmissionForm: {
     schoolCode: string;
   };
-  Login: {
+
+  // School login
+  ChooseRole: {
     schoolCode: string
   };
-  AlumniForm: undefined;
-  AlumniAdded: undefined;
+  Login: {
+    role: string;
+    schoolCode: string;
+  };
+  Register: {
+    role: string;
+    schoolCode: string;
+  };
+
+  // Job opening
   JobOpening: {
     schoolCode: string
   };
   JobDescription: {
-    schoolCode: string;
-    job: JobOpening;
+    jobId: string;
   };
   JobForm:{
-    schoolCode: string,
     jobId: string
   };
   JobApplied: undefined;
+
+  // Alumni
+  AlumniForm: undefined;
+  AlumniAdded: undefined;
 };
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
@@ -66,15 +82,17 @@ export default function AuthStack() {
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="ContinueAs" component={ContinueAsScreen} />
-
-      {/* School code */}
       <Stack.Screen name="SchoolCode" component={SchoolCodeScreen} />
 
       {/* Student Admission */}
       <Stack.Screen name="StudentAdmissionForm" component={StudentAdmissionFormScreen} />
 
-      {/* Login */}
+
+      {/* School Login */}
+      <Stack.Screen name="ChooseRole" component={ChooseRoleScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
+
 
       {/* Alumni */}
       <Stack.Screen name="AlumniForm" component={AlumniFormScreen} />

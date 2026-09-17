@@ -10,6 +10,7 @@ export const colors = {
   successBackground: '#E7F8ED',
   warningBackground: '#FFF3E0',
   infoBackground: '#E5F4FB',
+  heroSurface: '#1B3350',
 
   // Text
   text: '#12263A',

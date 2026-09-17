@@ -1,5 +1,3 @@
-// lib/zodSchemas/jobApplicationSchema.ts
-
 import { z } from 'zod';
 import {
     NAME_PATTERN,

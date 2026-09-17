@@ -18,7 +18,7 @@ import Header from '../../components/Header';
 import CustomStatusBar from '../../components/CustomStatusBar';
 import SchoolSearchSheet from '../../components/schoolCode/SchoolSearchSheet';
 import { colors, radius, spacing, typography } from '../../styles/theme';
-import { School } from '../../lib/types/school';
+import { SchoolType } from '../../lib/api/schoolApi';
 import { verifySchoolCode } from '../../lib/api/schoolApi';
 import OutlineButton from '../../components/OutlineButton';
 
@@ -44,7 +44,7 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
     const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<CodeError>('');
-    const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
+    const [selectedSchool, setSelectedSchool] = useState<SchoolType | null>(null);
 
 
     // Handle code change
@@ -85,8 +85,8 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
             setSelectedSchool(school);
             if (nextPage === 'StudentAdmissionForm') {
                 navigation.navigate('StudentAdmissionForm', { schoolCode: school.code });
-            } else if (nextPage === 'Login'){
-                navigation.navigate('Login', { schoolCode:school.code });
+            } else if (nextPage === 'ChooseRole'){
+                navigation.navigate('ChooseRole', { schoolCode:school.code });
             } else if (nextPage === 'JobOpening'){
                 navigation.navigate('JobOpening', { schoolCode:school.code });
             }
@@ -99,7 +99,7 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
 
 
     // Selecting school
-    const handleSchoolSelected = (school: School) => {
+    const handleSchoolSelected = (school: SchoolType) => {
         const schoolCode = school.code
             .toUpperCase()
             .replace(/[^A-Z0-9]/g, '')

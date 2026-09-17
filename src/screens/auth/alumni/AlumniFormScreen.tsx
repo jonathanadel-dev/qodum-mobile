@@ -20,6 +20,7 @@ import { alumniSchema, AlumniFormData } from '../../../lib/zodSchemas/alumniForm
 import { formStyles as styles } from '../../../styles/common';
 import CustomStatusBar from '../../../components/CustomStatusBar';
 import Header from '../../../components/Header';
+import { addAlumni } from '../../../lib/api/alumniApi';
 
 
 // Alumni form screen
@@ -81,7 +82,7 @@ export default function AlumniFormScreen({ navigation }: any) {
     // Submit handlers
     const onSubmit = async (data: AlumniFormData) => {
         try {
-            await new Promise((resolve: any) => setTimeout(resolve, 1200));
+            await addAlumni(data);
             navigation.navigate('AlumniAdded');
         } catch {
             toast.error('Something went wrong. Please try again.');

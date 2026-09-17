@@ -14,15 +14,15 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { launchImageLibrary } from 'react-native-image-picker';
 
-import toast from '../../lib/toast';
-import FormField from '../../components/form/input/FormField';
-import FormDateField from '../../components/form/datePicker/FormDateField';
-import FormSection from '../../components/form/FormSection';
-import SubmitButton from '../../components/form/SubmitButton';
-import { admissionSchema, AdmissionFormData } from '../../lib/zodSchemas/admissionFormSchema';
-import { formStyles as styles } from '../../styles/common';
-import CustomStatusBar from '../../components/CustomStatusBar';
-import BackButton from '../../components/Header';
+import toast from '../../../lib/toast';
+import FormField from '../../../components/form/input/FormField';
+import FormDateField from '../../../components/form/datePicker/FormDateField';
+import FormSection from '../../../components/form/FormSection';
+import SubmitButton from '../../../components/form/SubmitButton';
+import { admissionSchema, AdmissionFormData } from '../../../lib/zodSchemas/admissionFormSchema';
+import { formStyles as styles } from '../../../styles/common';
+import CustomStatusBar from '../../../components/CustomStatusBar';
+import BackButton from '../../../components/Header';
 
 
 // Student admission form screen

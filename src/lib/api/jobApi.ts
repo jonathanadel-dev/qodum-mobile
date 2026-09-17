@@ -1,8 +1,20 @@
-import { JobOpening } from '../types/job';
+// Type
+export type JobType = {
+    id: string;
+    schoolCode: string;
+    title: string;
+    salary: string;
+    experience: string;
+    description?: string;
+    applicationDeadline: string;
+};
 
-export const MOCK_JOBS: JobOpening[] = [
+
+// Mock data
+export const MOCK_JOBS: JobType[] = [
     {
         id: '1',
+        schoolCode:'QDM001',
         title: 'Mathematics Teacher',
         salary: '$800 - $1,200 / month',
         experience: '2+ years',
@@ -10,6 +22,7 @@ export const MOCK_JOBS: JobOpening[] = [
     },
     {
         id: '2',
+        schoolCode:'NHD245',
         title: 'English Language Teacher',
         salary: '$750 - $1,100 / month',
         experience: '2+ years',
@@ -17,6 +30,7 @@ export const MOCK_JOBS: JobOpening[] = [
     },
     {
         id: '3',
+        schoolCode:'FLS102',
         title: 'Primary School Teacher',
         salary: '$650 - $950 / month',
         experience: '1+ year',
@@ -24,6 +38,7 @@ export const MOCK_JOBS: JobOpening[] = [
     },
     {
         id: '4',
+        schoolCode:'FLS102',
         title: 'School Accountant',
         salary: '$900 - $1,300 / month',
         experience: '3+ years',
@@ -31,6 +46,7 @@ export const MOCK_JOBS: JobOpening[] = [
     },
     {
         id: '5',
+        schoolCode:'CMA321',
         title: 'IT Support Specialist',
         salary: '$850 - $1,250 / month',
         experience: '2+ years',
@@ -38,16 +54,22 @@ export const MOCK_JOBS: JobOpening[] = [
     },
 ];
 
-export const fetchJobOpenings = async (): Promise<JobOpening[]> => {
-    // TODO: replace with a real API request.
-    await new Promise((resolve:any) => setTimeout(resolve, 800));
 
+// Fetch jobs
+export const fetchJobOpenings = async (schoolCode: string): Promise<JobType[]> => {
+    await new Promise((resolve:any) => setTimeout(resolve, 800));
     return MOCK_JOBS;
 };
 
 
-export const fetchJobById = async (jobId: string): Promise<JobOpening | null> => {
-    // TODO: replace with a real API request.
+// Fetch job by id
+export const fetchJobById = async (jobId: string): Promise<JobType | null> => {
     await new Promise((resolve: any) => setTimeout(resolve, 700));
     return MOCK_JOBS.find(job => job.id === jobId) ?? null;
 };
+
+
+// Job apply
+export const jobApply = async (data:any) => {
+    // Job apply api
+}

@@ -25,12 +25,13 @@ type Props = {
     label?: string;
     icon?: any;
     loadingLabel?: string;
-    style?: StyleProp<ViewStyle>;
+    style?: any;
+    textStyle?: any;
     type: ButtonType
 }
 
 // Button
-export default function Button({ loading, onPress, label = 'Submit', loadingLabel = 'Submitting...', style, icon, type }: Props) {
+export default function Button({ loading, onPress, label = 'Submit', loadingLabel = 'Submitting...', style, textStyle, icon, type }: Props) {
 
 
     // Animation
@@ -87,12 +88,12 @@ export default function Button({ loading, onPress, label = 'Submit', loadingLabe
                             : loading ? (
                                 <>
                                     <ActivityIndicator color="#FFFFFF" size="small" />
-                                    <Text style={ styles.gradientText }>
+                                    <Text style={[styles.gradientText, textStyle]}>
                                         {loadingLabel}
                                     </Text>
                                 </>
                             ) : (
-                                <Text style={ styles.gradientText }>
+                                <Text style={[styles.gradientText, textStyle]}>
                                     {label}
                                     {icon}
                                 </Text>
@@ -123,12 +124,18 @@ export default function Button({ loading, onPress, label = 'Submit', loadingLabe
                 {loading ? (
                     <>
                         <ActivityIndicator color="#FFFFFF" size="small" />
-                        <Text style={type == 'white' ? styles.whiteText : styles.gradientText}>
+                        <Text style={[
+                            type == 'white' ? styles.whiteText : styles.gradientText,
+                            textStyle,
+                        ]}>
                             {loadingLabel}
                         </Text>
                     </>
                 ) : (
-                <Text style={type == 'white' ? styles.whiteText : styles.gradientText}>
+                    <Text style={[
+                        type == 'white' ? styles.whiteText : styles.gradientText,
+                        textStyle,
+                    ]}>
                         {label}
                         {icon}
                     </Text>

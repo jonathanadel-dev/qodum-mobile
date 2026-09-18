@@ -1,22 +1,34 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
 import { colors, radius, spacing, typography } from "../styles/theme";
+import LinearGradient from 'react-native-linear-gradient';
 
 
 // Header
 export default function Header({ navigation, title }: any) {
     return (
-        <View style={styles.container}>
-            <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
-                <Text style={styles.backArrow}>‹</Text>
-            </Pressable>
+        <>
+            <StatusBar barStyle='light-content'/>
+            <LinearGradient
+                colors={[colors.gradientStart, colors.gradientEnd]}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.container}
+            >
+                <Pressable onPress={() => navigation.goBack()}>
+                    <Text style={styles.backArrow}>‹</Text>
+                </Pressable>
 
-            {title ? (
-                <Text style={styles.title} numberOfLines={1}>
-                    {title}
-                </Text>
-            ) : null}
-        </View>
+                {title ? (
+                    <Text style={styles.title} numberOfLines={1}>
+                        {title}
+                    </Text>
+                ) : null}
+
+                <Text />
+            </LinearGradient>
+        </>
+
     );
 }
 
@@ -24,31 +36,24 @@ export default function Header({ navigation, title }: any) {
 // Styles
 const styles = StyleSheet.create({
     container: {
+        height: 110,
+        width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        width: '100%',
-        marginVertical: spacing.xl,
-        gap: spacing.md,
-    },
-    backButton: {
-        width: 42,
-        height: 42,
-        borderRadius: radius.md,
-        backgroundColor: colors.surface,
-        borderWidth: 1,
-        borderColor: colors.border,
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        borderBottomLeftRadius: radius.xxl,
+        borderBottomRightRadius: radius.xxl,
     },
     backArrow: {
-        fontSize: 32,
-        lineHeight: 32,
-        color: colors.text,
-        marginTop: -4,
+        fontSize: 45,
+        color: colors.background,
     },
     title: {
         ...typography.title,
+        marginTop: spacing.lg,
+        color: colors.background,
         marginBottom: 0,
-        flex: 1,
     },
 });

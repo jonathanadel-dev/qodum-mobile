@@ -8,8 +8,9 @@ import {
     Text,
     View,
 } from 'react-native';
-import { colors } from '../../../styles/theme';
+import { colors, radius } from '../../../styles/theme';
 import SubmitButton from '../../../components/Button';
+import Button from '../../../components/Button';
 
 
 // Job applied screen
@@ -203,11 +204,13 @@ export default function JobAppliedScreen ({navigation}: any) {
 
             {/* Bottom action */}
             <View style={styles.bottomArea}>
-                <SubmitButton
+                <Button
                     loading={false}
                     label="Back to home"
                     loadingLabel="Back to home"
                     onPress={() => navigation.replace('Welcome')}
+                    type='gradient'
+                    style={{height: 54, borderRadius: radius.lg}}
                 />
             </View>
         </View>

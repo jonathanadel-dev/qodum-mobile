@@ -10,6 +10,7 @@ export const formStyles = StyleSheet.create({
     },
     keyboardView: {
         flex: 1,
+        paddingTop: 20,
     },
     scrollContent: {
         paddingHorizontal: 20,

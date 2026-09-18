@@ -1,63 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
+    Image,
+    Pressable,
     SafeAreaView,
     ScrollView,
+    Share,
     StyleSheet,
     Text,
     View,
 } from 'react-native';
-
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import SubmitButton from '../../../components/Button';
-import CustomStatusBar from '../../../components/CustomStatusBar';
+import Ionicons from '@react-native-vector-icons/ionicons';
+
+import Button from '../../../components/Button';
 import Header from '../../../components/Header';
-import { colors } from '../../../styles/theme';
-import { AuthStackParamList } from '../../../navigation/AuthStack';
 import Card from '../../../components/Card';
+import { colors, fonts, radius, spacing, typography } from '../../../styles/theme';
+import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { fetchJobById, JobType } from '../../../lib/api/jobApi';
 import toast from '../../../lib/toast';
+import JobCard from '../../../components/jobOpening/JobCard';
 
 
-// Types
+// Props
 type Props = NativeStackScreenProps<AuthStackParamList, 'JobDescription'>;
-type JobInfoProps = {
-    icon: string;
-    label: string;
-    value: string;
-};
 
 
-// Job info
-const JobInfo = ({
-    icon,
-    label,
-    value,
-}: JobInfoProps) => {
-    return (
-        <View style={styles.infoRow}>
-            <View style={styles.infoIcon}>
-                <Text style={styles.infoIconText}>
-                    {icon}
-                </Text>
-            </View>
+// Text formatting
+function parseDescription(text: string) {
+    const paragraphs: string[] = [];
+    const bullets: string[] = [];
 
-            <View style={styles.infoContent}>
-                <Text style={styles.infoLabel}>
-                    {label}
-                </Text>
+    text.split('\n').forEach((line) => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
+        if (trimmed.startsWith('- ')) {
+            bullets.push(trimmed.slice(2));
+        } else {
+            paragraphs.push(trimmed);
+        }
+    });
 
-                <Text style={styles.infoValue}>
-                    {value}
-                </Text>
-            </View>
-        </View>
-    );
-};
+    return { paragraphs, bullets };
+}
 
 
 // Job description screen
-export default function JobDescriptionScreen ({navigation, route}: Props) {
+export default function JobDescriptionScreen({ navigation, route }: Props) {
 
     // State
     const { jobId } = route.params;
@@ -67,20 +57,30 @@ export default function JobDescriptionScreen ({navigation, route}: Props) {
 
     // Handle apply
     const handleApply = () => {
-        navigation.navigate('JobForm', {
-            jobId: jobId,
-        });
+        navigation.navigate('JobForm', { jobId });
     };
 
 
-    // Fetching job details
+    // Handle
+    const handleShare = async () => {
+        if (!job) return;
+        try {
+            await Share.share({
+                message: `${job.title} at ${job.schoolCode} — apply before ${job.applicationDeadline}.`,
+            });
+        } catch {
+            // user dismissed the share sheet — nothing to do
+        }
+    };
+
+
+    // Fetching job dat
     useEffect(() => {
         let isActive = true;
 
         const loadJob = async () => {
             try {
                 const result = await fetchJobById(jobId);
-
                 if (!isActive) return;
 
                 if (!result) {
@@ -88,7 +88,6 @@ export default function JobDescriptionScreen ({navigation, route}: Props) {
                     navigation.goBack();
                     return;
                 }
-
                 setJob(result);
             } catch {
                 if (isActive) {
@@ -101,349 +100,159 @@ export default function JobDescriptionScreen ({navigation, route}: Props) {
         };
 
         loadJob();
-
         return () => {
             isActive = false;
         };
     }, [jobId]);
     if (loadingJob || !job) {
         return (
-            <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+            <SafeAreaView style={[styles.container, styles.centerFill]}>
                 <ActivityIndicator size="small" color={colors.primary} />
-            </View>
+            </SafeAreaView>
         );
     }
 
+
+    // Formatted text
+    const { paragraphs, bullets } = parseDescription(job.description);
+
     return (
         <SafeAreaView style={styles.container}>
-            <CustomStatusBar />
+            <Header navigation={navigation} title="Job Detail" />
 
-            {/* Scrollable content */}
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={
-                    styles.scrollContent
-                }
+                contentContainerStyle={styles.scrollContent}
             >
-                
-                {/* Header */}
-                <Header navigation={navigation} title="Job Details"/>
 
-
-                {/* Job icon */}
-                <View style={styles.heroSection}>
-                    <View style={styles.jobIconContainer}>
-                        <Text style={styles.jobIcon}>
-                            💼
-                        </Text>
-                    </View>
-
-                    <Text style={styles.eyebrow}>
-                        JOB OPENING
-                    </Text>
-
-                    <Text style={styles.title}>
-                        {job.title}
-                    </Text>
-
-                    {/* School */}
-                    <View style={styles.schoolBadge}>
-                        <View style={styles.verifiedIcon}>
-                            <Text style={styles.verifiedCheck}>
-                                ✓
-                            </Text>
-                        </View>
-
-                        <View>
-                            <Text style={styles.schoolLabel}>
-                                SCHOOL CODE
-                            </Text>
-
-                            <Text style={styles.schoolCode}>
-                                {job.schoolCode}
-                            </Text>
-                        </View>
-                    </View>
-                </View>
-
-                {/* Key information */}
-                <Card>
-                    <JobInfo
-                        icon="$"
-                        label="Salary"
-                        value={job.salary}
-                    />
-
-                    <View style={styles.divider} />
-
-                    <JobInfo
-                        icon="◷"
-                        label="Experience"
-                        value={job.experience}
-                    />
-
-                    <View style={styles.divider} />
-
-                    <JobInfo
-                        icon="◫"
-                        label="Last date to apply"
-                        value={job.applicationDeadline}
-                    />
-                </Card>
-
-                {/* Description */}
-                <View style={styles.descriptionSection}>
-                    <Text style={styles.sectionTitle}>
-                        About the position
-                    </Text>
-
-                    <Text style={styles.description}>
-                        {job.description ||
-                            `We are looking for a motivated and qualified ${job.title} to join our school team. The successful candidate will contribute to creating a positive learning environment and work collaboratively with students, colleagues, and the wider school community.
-
-The ideal candidate should demonstrate professionalism, strong communication skills, and a genuine commitment to education. They should be able to work effectively in a dynamic school environment and contribute positively to the development of our students.
-
-If you meet the requirements and are interested in joining our team, we encourage you to submit your application before the application deadline.`}
-                    </Text>
-                </View>
-
-                <SubmitButton
-                    style={{marginTop:26}}
-                    loading={false}
-                    label='Apply for this position'
-                    onPress={handleApply}
+                <JobCard
+                    index={1}
+                    job={job}
+                    schoolCode={job.schoolCode}
+                    onPress={() => ''}
+                    isDesc={true}
                 />
 
-                {/* Application reminder */}
-                <View style={styles.reminderCard}>
-                    <View style={styles.reminderIcon}>
-                        <Text style={styles.reminderIconText}>
-                            !
-                        </Text>
+                {paragraphs.length > 0 && (
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Job Description</Text>
+                        {paragraphs.map((line, index) => (
+                            <Text key={index} style={styles.description}>
+                                {line}
+                            </Text>
+                        ))}
                     </View>
+                )}
 
-                    <View style={styles.reminderContent}>
-                        <Text style={styles.reminderTitle}>
-                            Application deadline
-                        </Text>
-
-                        <Text style={styles.reminderText}>
-                            Make sure to submit your application
-                            before {job.applicationDeadline}.
-                        </Text>
+                {bullets.length > 0 && (
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Key Responsibilities</Text>
+                        {bullets.map((item, index) => (
+                            <View key={index} style={styles.bulletRow}>
+                                <Text style={styles.bulletDot}>•</Text>
+                                <Text style={styles.bulletText}>{item}</Text>
+                            </View>
+                        ))}
                     </View>
+                )}
+
+                <View style={styles.scrollSpacer} />
+            </ScrollView>
+
+            <View style={styles.actionBar}>
+                <View style={styles.applyWrapper}>
+                    <Button type="gradient" label="Apply Now" onPress={handleApply} style={styles.applyButton} />
                 </View>
 
-                <Text style={styles.bottomHint}>
-                    Your application will be submitted to the
-                    school.
-                </Text>
-            </ScrollView>
+                <Button
+                    label='Share'
+                    onPress={handleShare}
+                    type='white'
+                    style={[
+                        {
+                            borderWidth:2,
+                            borderColor: colors.primary,
+                        },
+                        styles.applyButton
+                    ]}
+                    textStyle={{
+                        color: colors.primary,
+                        fontFamily: fonts.bold,
+                    }}
+                />
+            </View>
         </SafeAreaView>
     );
-};
+}
 
+
+// Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F7FAFC',
+        backgroundColor: colors.background,
     },
-
-
-    /* Scroll */
+    centerFill: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     scrollContent: {
-        paddingHorizontal: 20,
-        paddingTop: 18,
-        paddingBottom: 30,
+        paddingHorizontal: spacing.xxl,
+        paddingTop: spacing.xl,
     },
-
-
-    /* Hero */
-    heroSection: {
-        alignItems: 'center',
-        paddingTop: 8,
-        paddingBottom: 24,
-    },
-    jobIconContainer: {
-        width: 72,
-        height: 72,
-        borderRadius: 23,
-        backgroundColor: '#EAF7FD',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 18,
-    },
-    jobIcon: {
-        fontSize: 34,
-    },
-    eyebrow: {
-        fontSize: 11,
-        fontWeight: '800',
-        letterSpacing: 1.6,
-        color: colors.primary,
-        marginBottom: 8,
-    },
-    title: {
-        fontSize: 30,
-        lineHeight: 36,
-        fontWeight: '800',
-        color: '#111827',
-        textAlign: 'center',
-        letterSpacing: -0.7,
-        maxWidth: 360,
-    },
-
-
-    /* School badge */
-    schoolBadge: {
-        marginTop: 18,
-        paddingVertical: 9,
-        paddingHorizontal: 12,
-        borderRadius: 14,
-        backgroundColor: '#FFFFFF',
-        flexDirection: 'row',
-        alignItems: 'center',
-
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.04,
-        shadowRadius: 8,
-        elevation: 2,
-    },
-    verifiedIcon: {
-        width: 30,
-        height: 30,
-        borderRadius: 10,
-        backgroundColor: colors.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 9,
-    },
-    verifiedCheck: {
-        color: '#FFFFFF',
-        fontSize: 14,
-        fontWeight: '900',
-    },
-    schoolLabel: {
-        fontSize: 9,
-        fontWeight: '800',
-        letterSpacing: 1,
-        color: '#9CA3AF',
-        marginBottom: 2,
-    },
-    schoolCode: {
-        fontSize: 14,
-        fontWeight: '800',
-        color: '#111827',
-        letterSpacing: 1,
-    },
-
-
-    /* Information card */
-    infoRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    infoIcon: {
-        width: 42,
-        height: 42,
-        borderRadius: 13,
-        backgroundColor: '#EAF7FD',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 12,
-    },
-    infoIconText: {
-        fontSize: 17,
-        fontWeight: '800',
-        color: colors.primary,
-    },
-    infoContent: {
-        flex: 1,
-    },
-    infoLabel: {
-        fontSize: 11,
-        color: '#9CA3AF',
-        fontWeight: '600',
-        marginBottom: 3,
-    },
-    infoValue: {
-        fontSize: 15,
-        color: '#111827',
-        fontWeight: '800',
-    },
-    divider: {
-        height: 1,
-        backgroundColor: '#EEF0F3',
-        marginVertical: 14,
-    },
-
-
-    /* Description */
-    descriptionSection: {
-        marginTop: 28,
+    section: {
+        marginBottom: spacing.xxl,
     },
     sectionTitle: {
-        fontSize: 20,
-        fontWeight: '800',
-        color: '#111827',
-        marginBottom: 12,
+        ...typography.title,
+        fontSize: 19,
+        marginBottom: spacing.md,
     },
     description: {
         fontSize: 15,
-        lineHeight: 25,
-        color: '#4B5563',
+        lineHeight: 24,
+        color: colors.textSecondary,
+        marginBottom: spacing.sm,
     },
-
-
-    /* Deadline reminder */
-
-    reminderCard: {
-        marginTop: 10,
-        padding: 15,
-        borderRadius: 18,
-        backgroundColor: '#EAF7FD',
+    bulletRow: {
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        marginBottom: spacing.sm,
     },
-    reminderIcon: {
-        width: 34,
-        height: 34,
-        borderRadius: 11,
-        backgroundColor: colors.primary,
+    bulletDot: {
+        fontSize: 15,
+        color: colors.textSecondary,
+        marginRight: spacing.sm,
+        lineHeight: 23,
+    },
+    bulletText: {
+        flex: 1,
+        fontSize: 15,
+        lineHeight: 23,
+        color: colors.textSecondary,
+    },
+    scrollSpacer: {
+        height: 90,
+    },
+    actionBar: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 11,
+        gap: spacing.md,
+        paddingHorizontal: spacing.xxl,
+        paddingTop: spacing.md,
+        paddingBottom: spacing.xl,
+        backgroundColor: colors.background,
+        borderTopWidth: 1,
+        borderTopColor: colors.border,
     },
-    reminderIconText: {
-        color: '#FFFFFF',
-        fontSize: 17,
-        fontWeight: '900',
-    },
-    reminderContent: {
+    applyWrapper: {
         flex: 1,
     },
-    reminderTitle: {
-        fontSize: 13,
-        fontWeight: '800',
-        color: '#111827',
-        marginBottom: 4,
-    },
-    reminderText: {
-        fontSize: 13,
-        lineHeight: 19,
-        color: '#5B6470',
-    },
-
-
-    /* Bottom application area */
-    bottomHint: {
-        textAlign: 'center',
-        fontSize: 11,
-        color: '#9CA3AF',
-        marginTop: 8,
-    },
-}); 
+    applyButton: {
+        height: 52,
+        borderRadius: radius.lg,
+    }
+});

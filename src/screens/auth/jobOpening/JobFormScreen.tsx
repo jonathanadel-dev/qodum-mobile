@@ -22,7 +22,8 @@ import { jobApplicationSchema, JobApplicationFormData } from '../../../lib/zodSc
 import { formStyles as styles } from '../../../styles/common';
 import { JobType } from '../../../lib/api/jobApi';
 import { fetchJobById, jobApply } from '../../../lib/api/jobApi';
-import { colors } from '../../../styles/theme';
+import { colors, radius } from '../../../styles/theme';
+import Button from '../../../components/Button';
 
 
 // Job application form screen
@@ -119,7 +120,7 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
         <View style={styles.container}>
 
             {/* Status bar */}
-            <CustomStatusBar />
+            <Header navigation={navigation} title="Apply" />
 
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -131,7 +132,6 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={styles.scrollContent}
                 >
-                    <Header navigation={navigation} title="Apply" />
 
                     <View style={styles.header}>
                         <View style={styles.headerText}>
@@ -200,11 +200,13 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
                         <Text style={styles.submitHint}>
                             Please make sure all information is accurate before submitting.
                         </Text>
-                        <SubmitButton
+                        <Button
                             loading={isSubmitting}
                             onPress={handleSubmit(onSubmit, onInvalid)}
                             label="Submit application"
                             loadingLabel="Submitting..."
+                            type='gradient'
+                            style={{height: 54, borderRadius: radius.lg}}
                         />
                     </View>
                 </ScrollView>

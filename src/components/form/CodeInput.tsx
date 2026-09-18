@@ -112,16 +112,17 @@ export default function CodeInput ({ length = 6, value, onChangeText, error, aut
 const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
+        gap: 4,
         justifyContent: 'space-between',
     },
 
     box: {
         width: 48,
-        height: 58,
+        height: 48,
         borderRadius: radius.md,
         borderWidth: 1.5,
-        borderColor: colors.border,
-        backgroundColor: colors.surface,
+        borderColor: colors.hash,
+        backgroundColor: colors.background,
         textAlign: 'center',
         fontSize: 21,
         fontWeight: '700',

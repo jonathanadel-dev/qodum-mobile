@@ -28,10 +28,12 @@ export const searchSchools = async (query: string): Promise<SchoolType[]> => {
     // TODO: replace with a real API request.
     await new Promise((resolve: any) => setTimeout(resolve, 700));
 
-    const normalizedQuery = query.trim().toLowerCase();
-    if (!normalizedQuery) return [];
+    // const normalizedQuery = query.trim().toLowerCase();
+    // if (!normalizedQuery) return [];
 
-    return MOCK_SCHOOLS.filter(school =>
-        school.name.toLowerCase().includes(normalizedQuery),
-    );
+    // return MOCK_SCHOOLS.filter(school =>
+    //     school.name.toLowerCase().includes(normalizedQuery),
+    // );
+
+    return MOCK_SCHOOLS;
 };

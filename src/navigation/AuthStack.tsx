@@ -5,7 +5,7 @@ import LoginScreen from '../screens/auth/schoolLogin/LoginScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';  
 import ContinueAsScreen from '../screens/auth/ContinueAsScreen';
 import StudentAdmissionFormScreen from '../screens/auth/studentAdmission/StudentAdmissionFormScreen';
-import SchoolCodeScreen from '../screens/auth/SchoolCodeScreen';
+import SchoolCodeScreen from '../screens/auth/schoolCode/SchoolCodeScreen';
 import SplashScreen from '../screens/SplashScreen';
 import AlumniFormScreen from '../screens/auth/alumni/AlumniFormScreen';
 import AlumniAddedScreen from '../screens/auth/alumni/AlumniAddedScreen';
@@ -19,6 +19,8 @@ import StudentAdmissionScreen from '../screens/auth/studentAdmission';
 import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/StudentAdmissionProcedureScreen';
 import StudentAdmittedScreen from '../screens/auth/studentAdmission/StudentAdmittedScreen';
 import TrackApplicationScreen from '../screens/auth/studentAdmission/TrackApplicationScreen';
+import SchoolSearchScreen from '../screens/auth/schoolCode/SchoolSearchScreen';
+import { SchoolType } from '../lib/api/schoolApi';
 
 type AuthStackRouteName =
   | 'Splash'
@@ -33,8 +35,13 @@ export type AuthStackParamList = {
   Splash: undefined;
   Welcome: undefined;
   ContinueAs: undefined;
+
+  // School code
   SchoolCode: {
     next_page: AuthStackRouteName;
+  };
+  SchoolSearch: {
+    onSelect: (school: SchoolType) => void
   };
 
   // Student admission
@@ -98,7 +105,10 @@ export default function AuthStack() {
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="ContinueAs" component={ContinueAsScreen} />
+
+      {/* School Code */}
       <Stack.Screen name="SchoolCode" component={SchoolCodeScreen} />
+      <Stack.Screen name="SchoolSearch" component={SchoolSearchScreen} />
 
       {/* Student Admission */}
       <Stack.Screen name="StudentAdmission" component={StudentAdmissionScreen} />

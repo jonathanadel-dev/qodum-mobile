@@ -78,27 +78,18 @@ export default function Button({ loading, onPress, label = 'Submit', loadingLabe
                             style,
                         ]}
                     >
-                        {type == 'arrowRight'
-                            ? (
-                                <Ionicons name='arrow-forward' size={20} color='#fff'/>
-                            )
-                            : type == 'arrowLeft' ? (
-                                <Ionicons name='arrow-back' size={20} color='#fff'/>
-                            )
-                            : loading ? (
-                                <>
-                                    <ActivityIndicator color="#FFFFFF" size="small" />
-                                    <Text style={[styles.gradientText, textStyle]}>
-                                        {loadingLabel}
-                                    </Text>
-                                </>
-                            ) : (
-                                <Text style={[styles.gradientText, textStyle]}>
-                                    {label}
-                                    {icon}
-                                </Text>
-                            )
-                        }
+                        {loading ? (
+                            <ActivityIndicator color="#FFFFFF" size="small" />
+                        ) : type == 'arrowRight' ? (
+                            <Ionicons name='arrow-forward' size={20} color='#fff'/>
+                        ) : type == 'arrowLeft' ? (
+                            <Ionicons name='arrow-back' size={20} color='#fff'/>
+                        ) : (
+                            <Text style={[styles.gradientText, textStyle]}>
+                                {label}
+                                {icon}
+                            </Text>
+                        )}
                     </LinearGradient>
                 </Pressable>
             </Animated.View>

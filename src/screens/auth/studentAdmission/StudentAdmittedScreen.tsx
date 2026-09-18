@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { colors } from '../../../styles/theme';
-import SubmitButton from '../../../components/form/SubmitButton';
+import SubmitButton from '../../../components/Button';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 

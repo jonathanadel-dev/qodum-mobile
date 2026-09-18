@@ -1,53 +1,60 @@
 export const colors = {
-  primary: '#0193db',
-  primaryPressed: '#0179B3',
+    primary: '#3e5daa',
+    primaryPressed: '#0179B3',
 
-  // Backgrounds
-  background: '#FFFFFF',
-  surface: '#FFFFFF',
-  iconBackground: '#F4FAFC',
-  dangerBackground: '#FDF2F3',
-  successBackground: '#E7F8ED',
-  warningBackground: '#FFF3E0',
-  infoBackground: '#E5F4FB',
-  heroSurface: '#1B3350',
+    // Backgrounds
+    background: '#FFFFFF',
+    iconBackground: '#F4FAFC',
+    dangerBackground: '#FDF2F3',
+    successBackground: '#E7F8ED',
+    warningBackground: '#FFF3E0',
+    infoBackground: '#E5F4FB',
+    gradientStart: '#3d5eab',
+    gradientEnd: '#4ea8dc',
+    dotInactive: '#D6DEE4',
 
-  // Text
-  text: '#12263A',
-  textSecondary: '#718096',
-  hash: '#A6B2BC',
-  inactive: '#7A7F8A',
+    // Text
+    text: '#12263A',
+    textSecondary: '#718096',
+    hash: '#A6B2BC',
+    inactive: '#7A7F8A',
 
-  // States
-  danger: '#FF3B30',
-  success: '#34C759',
-  warning: '#FF9500',
+    // States
+    danger: '#FF3B30',
+    success: '#34C759',
+    warning: '#FF9500',
 
-  // Borders
-  border: '#E5EAF0',
-  borderFocused: '#0193db',
+    // Borders
+    border: '#E5EAF0',
+    borderFocused: '#0193db',
 
-  // Overlay
-  overlay: 'rgba(0, 0, 0, 0.45)',
+    // Overlay
+    overlay: 'rgba(0, 0, 0, 0.45)',
+};
+
+export const fonts = {
+    regular: 'Quicksand-Regular',
+    medium: 'Quicksand-Medium',
+    semiBold: 'Quicksand-SemiBold',
+    bold: 'Quicksand-Bold',
 };
 
 export const typography = {
     title: {
         fontSize: 17,
-        fontWeight: '700' as const,
+        fontFamily: fonts.bold,
         color: '#12263A',
         marginBottom: 5,
     },
-
     description: {
         fontSize: 13,
         lineHeight: 19,
+        fontFamily: fonts.regular,
         color: '#718096',
     },
-
     label: {
         fontSize: 14,
-        fontWeight: '600' as const,
+        fontFamily: fonts.semiBold,   // was: fontWeight: '600'
         color: '#12263A',
         marginBottom: 8,
     },
@@ -67,6 +74,17 @@ export const typography = {
         fontSize: 15,
         fontWeight: '700' as const,
     },
+
+    onboardingTitle: {
+        fontSize: 26,
+        fontWeight: '700' as const,
+        color: '#12263A',
+    },
+    onboardingSubtitle: {
+        fontSize: 15,
+        lineHeight: 22,
+        color: '#718096',
+    },
 };
 
 export const spacing = {
@@ -76,14 +94,16 @@ export const spacing = {
     lg: 16,
     xl: 20,
     xxl: 24,
-    xxxl: 32,
+    xxxl: 40,
 };
 
 export const radius = {
+    xs: 4,
     sm: 8,
     md: 12,
     lg: 16,
     xl: 20,
+    xxl: 32, 
     round: 999,
 };
 

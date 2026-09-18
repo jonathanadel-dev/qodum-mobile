@@ -13,7 +13,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AuthStackParamList } from '../../navigation/AuthStack';
 
 import CodeInput from '../../components/form/CodeInput';
-import SubmitButton from '../../components/form/SubmitButton';
+import SubmitButton from '../../components/Button';
 import Header from '../../components/Header';
 import CustomStatusBar from '../../components/CustomStatusBar';
 import SchoolSearchSheet from '../../components/schoolCode/SchoolSearchSheet';

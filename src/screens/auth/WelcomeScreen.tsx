@@ -1,475 +1,278 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
     Text,
     StyleSheet,
     Image,
-    Pressable,
     Animated,
-    Easing,
     Dimensions,
     StatusBar,
+    NativeSyntheticEvent,
+    NativeScrollEvent,
 } from 'react-native';
-import { colors } from '../../styles/theme';
+import LinearGradient from 'react-native-linear-gradient';
+import { colors, typography, spacing, radius } from '../../styles/theme';
+import Button from '../../components/Button';
+import { AuthStackParamList } from '../../navigation/AuthStack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 
+// Width
 const { width } = Dimensions.get('window');
-const PRIMARY = colors.primary;
 
 
-export default function WelcomeScreen ({ navigation }: any) {
+// Types
+type Props = NativeStackScreenProps<AuthStackParamList, 'Welcome'>;
+type Slide = {
+    id: string;
+    image: any;
+    title: string;
+    subtitle: string;
+};
 
-    // Animations
-    const logoOpacity = useRef(new Animated.Value(0)).current;
-    const logoScale = useRef(new Animated.Value(0.82)).current;
-    const logoTranslateY = useRef(new Animated.Value(20)).current;
 
-    const titleOpacity = useRef(new Animated.Value(0)).current;
-    const titleTranslateY = useRef(new Animated.Value(20)).current;
+// Slides
+const slides: Slide[] = [
+    {
+        id: '1',
+        image: require('../../assets/images/welcome/teachers.png'),
+        title: 'Teachers',
+        subtitle: 'School Teachers',
+    },
+    {
+        id: '2',
+        image: require('../../assets/images/welcome/attendance.png'),
+        title: 'Attendance',
+        subtitle: "Student's Monthly Attendance",
+    },
+    {
+        id: '3',
+        image: require('../../assets/images/welcome/report-card.png'),
+        title: 'Report Card',
+        subtitle: "Student's Report Card",
+    },
+];
 
-    const subtitleOpacity = useRef(new Animated.Value(0)).current;
-    const subtitleTranslateY = useRef(new Animated.Value(15)).current;
 
-    const buttonOpacity = useRef(new Animated.Value(0)).current;
-    const buttonTranslateY = useRef(new Animated.Value(25)).current;
+// Welcome screen
+export default function WelcomeScreen({ navigation }: Props) {
 
-    const floatingAnimation = useRef(new Animated.Value(0)).current;
+    // State
+    const AUTOPLAY_INTERVAL_MS = 3500;
+    const [activeIndex, setActiveIndex] = useState(0);
+    const activeIndexRef = useRef(0);
+    const autoPlayEnabled = useRef(true);
+    const listRef = useRef<any>(null);
+    const scrollX = useRef(new Animated.Value(0)).current;
+    const isLastSlide = activeIndex === slides.length - 1;
 
-    const floatingY = floatingAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, -8],
-    });
 
+    // Functions
+    const goToContinue = () => navigation.navigate('ContinueAs');
+    const scrollToIndex = (index: number) => {
+        listRef.current?.scrollToIndex({ index, animated: true });
+    };
+    const handleNext = () => {
+        if (isLastSlide) {
+            goToContinue();
+            return;
+        }
+        scrollToIndex(activeIndex + 1);
+    };
+    const handleScrollBeginDrag = () => {
+        autoPlayEnabled.current = false;
+    };
+    const handleMomentumScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+        const index = Math.round(e.nativeEvent.contentOffset.x / width);
+        activeIndexRef.current = index;
+        setActiveIndex(index);
+        autoPlayEnabled.current = true;
+    };
+
+
+    // Auto scrolling
     useEffect(() => {
-        // Entrance animation
-        Animated.sequence([
-            Animated.parallel([
-                Animated.timing(logoOpacity, {
-                    toValue: 1,
-                    duration: 700,
-                    easing: Easing.out(Easing.cubic),
-                    useNativeDriver: true,
-                }),
+        const timer = setInterval(() => {
+            if (!autoPlayEnabled.current) return;
+            const next = (activeIndexRef.current + 1) % slides.length;
+            scrollToIndex(next);
+        }, AUTOPLAY_INTERVAL_MS);
 
-                Animated.spring(logoScale, {
-                    toValue: 1,
-                    friction: 7,
-                    tension: 45,
-                    useNativeDriver: true,
-                }),
-
-                Animated.timing(logoTranslateY, {
-                    toValue: 0,
-                    duration: 700,
-                    easing: Easing.out(Easing.cubic),
-                    useNativeDriver: true,
-                }),
-            ]),
-
-            Animated.parallel([
-                Animated.timing(titleOpacity, {
-                    toValue: 1,
-                    duration: 500,
-                    useNativeDriver: true,
-                }),
-
-                Animated.timing(titleTranslateY, {
-                    toValue: 0,
-                    duration: 500,
-                    easing: Easing.out(Easing.cubic),
-                    useNativeDriver: true,
-                }),
-            ]),
-
-            Animated.parallel([
-                Animated.timing(subtitleOpacity, {
-                    toValue: 1,
-                    duration: 450,
-                    useNativeDriver: true,
-                }),
-
-                Animated.timing(subtitleTranslateY, {
-                    toValue: 0,
-                    duration: 450,
-                    easing: Easing.out(Easing.cubic),
-                    useNativeDriver: true,
-                }),
-            ]),
-
-            Animated.parallel([
-                Animated.timing(buttonOpacity, {
-                    toValue: 1,
-                    duration: 500,
-                    useNativeDriver: true,
-                }),
-
-                Animated.timing(buttonTranslateY, {
-                    toValue: 0,
-                    duration: 500,
-                    easing: Easing.out(Easing.cubic),
-                    useNativeDriver: true,
-                }),
-            ]),
-        ]).start();
-
-        // Subtle continuous floating animation
-        Animated.loop(
-            Animated.sequence([
-                Animated.timing(floatingAnimation, {
-                    toValue: 1,
-                    duration: 2200,
-                    easing: Easing.inOut(Easing.sin),
-                    useNativeDriver: true,
-                }),
-                Animated.timing(floatingAnimation, {
-                    toValue: 0,
-                    duration: 2200,
-                    easing: Easing.inOut(Easing.sin),
-                    useNativeDriver: true,
-                }),
-            ]),
-        ).start();
-
-        return () => {
-            [
-                logoOpacity,
-                logoScale,
-                logoTranslateY,
-                titleOpacity,
-                titleTranslateY,
-                subtitleOpacity,
-                subtitleTranslateY,
-                buttonOpacity,
-                buttonTranslateY,
-                floatingAnimation,
-            ].forEach(animation => animation.stopAnimation());
-        };
+        return () => clearInterval(timer);
     }, []);
 
-
     return (
-        <Pressable
+        <LinearGradient
+            colors={[colors.gradientStart, colors.gradientEnd]}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 1, y: 1 }}
             style={styles.container}
-            onPress={() => navigation.navigate('ContinueAs')}
         >
+            <View style={styles.whiteContent}>
+                <StatusBar barStyle="dark-content" />
 
-            <StatusBar barStyle="dark-content"/>
+                <Animated.FlatList
+                    ref={listRef}
+                    data={slides}
+                    keyExtractor={(item) => item.id}
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    onScrollBeginDrag={handleScrollBeginDrag}
+                    onMomentumScrollEnd={handleMomentumScrollEnd}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                        { useNativeDriver: false },
+                    )}
+                    scrollEventThrottle={16}
+                    renderItem={({ item }) => (
+                        <View style={styles.slide}>
+                            <Image
+                                source={require('../../assets/images/logo.png')}
+                                style={styles.logo}
+                                resizeMode="contain"
+                            />
 
-            {/* Decorative background elements */}
-            <View style={styles.backgroundCircleLarge} />
-            <View style={styles.backgroundCircleSmall} />
+                            <View style={styles.illustrationWrapper}>
+                                <Image
+                                    source={item.image}
+                                    style={styles.illustration}
+                                    resizeMode="contain"
+                                />
+                            </View>
 
-            {/* Top branding */}
-            <View style={styles.topArea}>
-                <Text style={styles.brandLabel}>QODUM</Text>
-                <View style={styles.brandLine} />
-            </View>
-
-            {/* Main content */}
-            <View style={styles.content}>
-
-                {/* Logo */}
-                <Animated.View
-                    style={[
-                        styles.logoWrapper,
-                        {
-                        opacity: logoOpacity,
-                        transform: [
-                            { scale: logoScale },
-                            { translateY: logoTranslateY },
-                            { translateY: floatingY },
-                        ],
-                        },
-                    ]}
-                >
-                <View style={styles.logoGlow} />
-
-                <Image
-                    source={require('../../assets/images/logo.png')}
-                    style={styles.logo}
-                    resizeMode="contain"
+                            <Text style={styles.title}>{item.title}</Text>
+                            <Text style={styles.subtitle}>{item.subtitle}</Text>
+                        </View>
+                    )}
                 />
-                </Animated.View>
 
-                {/* Title */}
-                <Animated.View
-                    style={[
-                        styles.titleContainer,
-                        {
-                            opacity: titleOpacity,
-                            transform: [
-                                { translateY: titleTranslateY },
-                            ],
-                        },
-                    ]}
-                >
-                    <Text style={styles.welcomeText}>
-                        Welcome to
-                    </Text>
-
-                    <Text style={styles.qodumText}>
-                        Qodum
-                    </Text>
-                </Animated.View>
-
-                {/* Subtitle */}
-                <Animated.View
-                    style={[
-                        styles.subtitleContainer,
-                        {
-                            opacity: subtitleOpacity,
-                            transform: [
-                                { translateY: subtitleTranslateY },
-                            ],
-                        },
-                    ]}
-                >
-                <Text style={styles.subtitle}>
-                    Your school, your journey.
-                </Text>
-
-                <Text style={styles.subtitle}>
-                    Everything in one place.
-                </Text>
-                </Animated.View>
-
+                <AnimatedDots scrollX={scrollX} count={slides.length} />
             </View>
+            <View style={styles.footer}>
+                <Button
+                    label='Skip'
+                    onPress={goToContinue}
+                    type='plain'
+                />
 
-            {/* Bottom decoration */}
-            <View style={styles.bottomWave}>
-                <View style={styles.waveInner} />
+                <Button
+                    label={isLastSlide ? 'Done' : 'Next'}
+                    onPress={handleNext}
+                    type='white'
+                />
             </View>
-
-            {/* Bottom CTA */}
-            <Animated.View
-                style={[
-                    styles.bottomArea,
-                    {
-                        opacity: buttonOpacity,
-                        transform: [
-                            { translateY: buttonTranslateY },
-                        ],
-                    },
-                ]}
-            >
-                <View style={styles.continueButton}>
-                    <Text style={styles.continueText}>
-                        Continue
-                    </Text>
-
-                    <View style={styles.arrowCircle}>
-                        <Text style={styles.arrow}>
-                            →
-                        </Text>
-                    </View>
-                </View>
-
-                <Text style={styles.tapHint}>
-                    Tap anywhere to continue
-                </Text>
-            </Animated.View>
-
-        </Pressable>
+        </LinearGradient>
     );
-};
+}
+
+
+// Dots animation
+function AnimatedDots({ scrollX, count }: {scrollX: Animated.Value; count: number;}) {
+    return (
+        <View style={styles.dotsRow}>
+            {Array.from({ length: count }).map((_, i) => {
+                const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
+
+                const dotWidth = scrollX.interpolate({
+                    inputRange,
+                    outputRange: [8, 24, 8],
+                    extrapolate: 'clamp',
+                });
+
+                const dotColor = scrollX.interpolate({
+                    inputRange,
+                    outputRange: [colors.dotInactive, colors.primary, colors.dotInactive],
+                    extrapolate: 'clamp',
+                });
+
+                return (
+                    <Animated.View
+                        key={i}
+                        style={[
+                            styles.dot,
+                            { width: dotWidth, backgroundColor: dotColor },
+                        ]}
+                    />
+                );
+            })}
+        </View>
+    );
+}
 
 
 // Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
-        overflow: 'hidden',
     },
-
-    // Background
-    backgroundCircleLarge: {
-        position: 'absolute',
-        width: width * 1.15,
-        height: width * 1.15,
-        borderRadius: width,
-        backgroundColor: '#F0FAFE',
-        top: -width * 0.35,
-        right: -width * 0.45,
+    whiteContent:{
+        flex:1,
+        backgroundColor: colors.background,
+        borderBottomLeftRadius: radius.xxl,
+        borderBottomRightRadius: radius.xxl,
     },
-    backgroundCircleSmall: {
-        position: 'absolute',
-        width: 180,
-        height: 180,
-        borderRadius: 90,
-        backgroundColor: '#F7FCFE',
-        bottom: 50,
-        left: -100,
-    },
-
-
-    // Branding
-    topArea: {
-        position: 'absolute',
-        top: 65,
-        left: 28,
-        flexDirection: 'row',
+    slide: {
+        width,
         alignItems: 'center',
-    },
-    brandLabel: {
-        fontSize: 12,
-        fontWeight: '800',
-        letterSpacing: 3,
-        color: '#0D1B2A',
-    },
-    brandLine: {
-        width: 28,
-        height: 2,
-        marginLeft: 10,
-        backgroundColor: PRIMARY,
-        borderRadius: 2,
-    },
-
-
-    // Main content
-    content: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 50,
-    },
-
-    // Logo
-    logoWrapper: {
-        width: width * 0.78,
-        height: width * 0.40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 18,
+        paddingTop: 65,
+        paddingHorizontal: spacing.xxl,
     },
     logo: {
+        width: 180,
+        height: 60,
+        marginBottom: spacing.xxxl,
+    },
+    illustrationWrapper: {
         width: '100%',
-        height: '100%',
-    },
-    logoGlow: {
-        position: 'absolute',
-        width: 170,
-        height: 170,
-        borderRadius: 85,
-        backgroundColor: '#E6F7FD',
-        opacity: 0.8,
-    },
-
-
-
-    // Typography
-    titleContainer: {
-        alignItems: 'center',
-        marginTop: 5,
-    },
-    welcomeText: {
-        fontSize: 32,
-        fontWeight: '600',
-        color: '#12263A',
-        letterSpacing: -0.8,
-    },
-    qodumText: {
-        marginTop: -2,
-        fontSize: 46,
-        fontWeight: '800',
-        color: PRIMARY,
-        letterSpacing: -1.5,
-    },
-    subtitleContainer: {
-        alignItems: 'center',
-        marginTop: 13,
-    },
-    subtitle: {
-        fontSize: 16,
-        lineHeight: 25,
-        color: '#687789',
-        fontWeight: '400',
-        textAlign: 'center',
-    },
-
-
-    // Bottom CTA
-    bottomArea: {
-        position: 'absolute',
-        left: 24,
-        right: 24,
-        bottom: 42,
-        alignItems: 'center',
-        zIndex: 2,
-    },
-    continueButton: {
-        width: '100%',
-        height: 62,
-        borderRadius: 20,
-        backgroundColor: PRIMARY,
-
-        flexDirection: 'row',
+        height: width * 0.62,
         alignItems: 'center',
         justifyContent: 'center',
-
-        shadowColor: PRIMARY,
-        shadowOffset: {
-            width: 0,
-            height: 8,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 16,
-        elevation: 7,
+        marginBottom: spacing.xl,
     },
-    continueText: {
-        color: '#FFFFFF',
-        fontSize: 18,
-        fontWeight: '700',
-        letterSpacing: 0.1,
+    illustration: {
+        width: '100%',
+        height: '70%',
     },
-    arrowCircle: {
-        display:'flex',
-        width: 36,
-        height: 36,
-        borderRadius: 18,
-        backgroundColor: 'rgba(255,255,255,0.18)',
-
+    title: {
+        marginTop:spacing.xxxl,
+        ...typography.onboardingTitle,
+        marginBottom: spacing.sm,
+    },
+    subtitle: {
+        ...typography.onboardingSubtitle,
+    },
+    dotsRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
         alignItems: 'center',
-
-        marginLeft: 12,
+        marginBottom: spacing.xl,
     },
-    arrow: {
-        color: '#FFFFFF',
-        fontSize: 22,
-        fontWeight: '400',
+    dot: {
+        height: 8,
+        borderRadius: radius.round,
+        marginHorizontal: spacing.xs / 2,
     },
-    tapHint: {
-        marginTop: 13,
-        fontSize: 12,
-        color: '#4B5B6B',
-        letterSpacing: 0.2,
-        fontWeight: '600',
-        textAlign: 'center',
-        zIndex: 2,
+    footer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 130,
+        justifyContent: 'space-between',
+        paddingHorizontal: spacing.xxl,
+        paddingVertical: spacing.xxl,
     },
-
-
-    // Bottom decoration
-    bottomWave: {
-        position: 'absolute',
-        bottom: -95,
-        left: -40,
-        right: -40,
-        height: 150,
-        borderRadius: 100,
-        backgroundColor: '#E9F8FD',
-        zIndex: 1,
-        transform: [
-            { rotate: '-3deg' },
-        ],
+    skipText: {
+        ...typography.button,
+        color: colors.background,
     },
-    waveInner: {
-        position: 'absolute',
-        top: 25,
-        left: -20,
-        right: -20,
-        height: 110,
-        borderRadius: 100,
-        backgroundColor: '#F5FCFE',
+    nextButton: {
+        backgroundColor: colors.background,
+        paddingHorizontal: spacing.xxl,
+        paddingVertical: spacing.md,
+        borderRadius: radius.lg,
+    },
+    nextButtonText: {
+        ...typography.button,
+        color: colors.primary,
     },
 });

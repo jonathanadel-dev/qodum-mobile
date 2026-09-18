@@ -15,7 +15,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import toast from '../../../lib/toast';
 import FormField from '../../../components/form/input/FormField';
 import FormSection from '../../../components/form/FormSection';
-import SubmitButton from '../../../components/form/SubmitButton';
+import SubmitButton from '../../../components/Button';
 import { alumniSchema, AlumniFormData } from '../../../lib/zodSchemas/alumniFormSchema';
 import { formStyles as styles } from '../../../styles/common';
 import CustomStatusBar from '../../../components/CustomStatusBar';

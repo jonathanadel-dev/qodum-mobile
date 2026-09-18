@@ -1,335 +1,181 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-} from 'react-native';
-import { colors, typography } from '../../styles/theme';
+// screens/ContinueAs/ContinueAsScreen.tsx
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { colors, typography, spacing, radius, fonts } from '../../styles/theme';
+import BackgroundScreen from '../../components/BackgroundScreen';
 import Card from '../../components/Card';
+import Button from '../../components/Button';
+import toast from '../../lib/toast';
 
+type OptionKey = 'admission' | 'login' | 'jobs';
 
+const OPTIONS: {
+    key: OptionKey;
+    icon: any;
+    title: string;
+    description: string;
+    nextPage: string;
+}[] = [
+    {
+        key: 'admission',
+        icon: require('../../assets/images/continueAs/new-admission.png'),
+        title: 'NEW ADMISSION',
+        description: 'Apply to get admission at the school for a new academic session!',
+        nextPage: 'StudentAdmission',
+    },
+    {
+        key: 'login',
+        icon: require('../../assets/images/continueAs/secure-login.png'),
+        title: 'SECURE LOGIN',
+        description: 'Select to login with your school or college code!',
+        nextPage: 'ChooseRole',
+    },
+    {
+        key: 'jobs',
+        icon: require('../../assets/images/continueAs/job-openings.png'),
+        title: 'JOB OPENINGS',
+        description: 'Search for relevant jobs and apply for jobs today!',
+        nextPage: 'JobOpening',
+    },
+];
 
-// Option card
-type OptionProps = {
-  title: string;
-  description: string;
-  icon: string;
-  pressHandler: () => void;
-};
-const OptionCard = ({
-    title,
-    description,
-    icon,
-    pressHandler,
-}: OptionProps) => {
+export default function ContinueAsScreen({ navigation }: any) {
+    const [selected, setSelected] = useState<OptionKey | null>(null);
+
+    const handleContinue = () => {
+        if (!selected) {
+            toast.error('Please select an option to continue');
+            return;
+        }
+        const option = OPTIONS.find((o) => o.key === selected)!;
+        navigation.navigate('SchoolCode', { next_page: option.nextPage });
+    };
 
     return (
-        <Card onPress={pressHandler}>
-            <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                {/* Icon */}
-                <View style={styles.iconContainer}>
-                    <Text style={styles.icon}>{icon}</Text>
-                </View>
+        <BackgroundScreen navigation={navigation}>
+            <View style={styles.content}>
+                <Text style={styles.title}>Continue as:</Text>
 
-                {/* Text */}
-                <View style={styles.cardContent}>
-                    <Text style={typography.title}>
-                        {title}
-                    </Text>
+                <View style={styles.list}>
+                    {OPTIONS.map((option) => {
+                        const isSelected = selected === option.key;
+                        return (
+                            <Card
+                                key={option.key}
+                                contentStyle={styles.cardContent}
+                                onPress={() => setSelected(option.key)}
+                            >
+                                <View style={styles.iconCircle}>
+                                    <Image
+                                        source={option.icon}
+                                        style={styles.icon}
+                                        resizeMode="contain"
+                                    />
+                                </View>
 
-                    <Text style={typography.description}>
-                        {description}
-                    </Text>
-                    </View>
-
-                    {/* Arrow */}
-                    <View style={styles.arrowContainer}>
-                    <Text style={styles.arrow}>
-                        →
-                    </Text>
+                                <View style={styles.textBlock}>
+                                    <View style={styles.titleRow}>
+                                        <Text style={styles.optionTitle}>{option.title}</Text>
+                                        <StatusDot selected={isSelected} />
+                                    </View>
+                                    <Text style={styles.description}>{option.description}</Text>
+                                </View>
+                            </Card>
+                        );
+                    })}
                 </View>
             </View>
-        </Card>
-    )
 
-    // return (
-    //     <Animated.View
-    //         style={[
-    //             styles.cardWrapper,
-    //             {
-    //                 transform: [{ scale }],
-    //             },
-    //         ]}
-    //     >
-    //         <Pressable
-    //             style={styles.card}
-    //             onPress={onPress}
-    //             onPressIn={handlePressIn}
-    //             onPressOut={handlePressOut}
-    //         >
-    //             {/* Icon */}
-    //             <View style={styles.iconContainer}>
-    //                 <Text style={styles.icon}>{icon}</Text>
-    //             </View>
-
-    //             {/* Text */}
-    //             <View style={styles.cardContent}>
-    //                 <Text style={typography.title}>
-    //                     {title}
-    //                 </Text>
-
-    //                 <Text style={typography.description}>
-    //                     {description}
-    //                 </Text>
-    //                 </View>
-
-    //                 {/* Arrow */}
-    //                 <View style={styles.arrowContainer}>
-    //                 <Text style={styles.arrow}>
-    //                     →
-    //                 </Text>
-    //             </View>
-    //         </Pressable>
-    //     </Animated.View>
-    // );
-};
-
-export default function ContinueAsScreen ({ navigation }: any) {
-    return (
-        <View style={styles.container}>
-            
-            <StatusBar
-                barStyle="dark-content"
-            />
-
-            {/* Background decoration */}
-            <View style={styles.backgroundCircle} />
-
-            <ScrollView
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-                // bounces={false}
-            >
-                {/* Header */}
-                <View style={styles.header}>
-                    <View style={styles.brandRow}>
-                        <Text style={styles.brand}>
-                            QODUM
-                        </Text>
-
-                        <View style={styles.brandLine} />
-                    </View>
-
-                    <Text style={styles.title}>
-                        Continue as
-                    </Text>
-
-                    <Text style={styles.subtitle}>
-                        Choose how you want to use Qodum.
-                    </Text>
-                </View>
-
-                {/* Options */}
-                <View style={styles.optionsContainer}>
-
-                    <OptionCard
-                        icon="🎓"
-                        title="Student Admission"
-                        description="Apply to a school and start your admission journey."
-                        pressHandler={() => navigation.navigate('SchoolCode', {next_page:'StudentAdmission'})}
-                    />
-
-                    <OptionCard
-                        icon="🏫"
-                        title="School Login"
-                        description="Access your school account, assignments, fees, and activities."
-                        pressHandler={() => navigation.navigate('SchoolCode', {next_page:'ChooseRole'})}
-                    />
-
-                    <OptionCard
-                        icon="💼"
-                        title="Job Opening"
-                        description="Explore available positions and apply to join a school."
-                        pressHandler={() => navigation.navigate('SchoolCode', {next_page:'JobOpening'})}
-                    />
-
-                    <OptionCard
-                        icon="🤝"
-                        title="Join Alumni Network"
-                        description="Connect with your school community and join the alumni network."
-                        pressHandler={() => navigation.navigate('AlumniForm')}
-                    />
-
-                </View>
-
-                {/* Footer */}
-                <View style={styles.footer}>
-                    <Text style={styles.footerText}>
-                        One platform. Every part of your school journey.
-                    </Text>
-                </View>
-            </ScrollView>
-        </View>
+            <View style={styles.fabWrapper}>
+                <Button type="arrowRight" onPress={handleContinue} />
+            </View>
+        </BackgroundScreen>
     );
-};
+}
 
+function StatusDot({ selected }: { selected: boolean }) {
+    if (selected) {
+        return (
+            <View style={styles.checkCircle}>
+                <Text style={styles.checkMark}>✓</Text>
+            </View>
+        );
+    }
+    return <View style={styles.radioCircle} />;
+}
 
-// Styles
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        overflow: 'hidden',
-    },
-
-
-    // Background
-    backgroundCircle: {
-        position: 'absolute',
-        width: 280,
-        height: 280,
-        borderRadius: 140,
-        backgroundColor: '#F1FAFE',
-        top: -150,
-        right: -110,
-    },
-
-
-    // Scroll
-    scrollContent: {
-        flexGrow: 1,
-        paddingHorizontal: 24,
-        paddingTop: 62,
-        paddingBottom: 35,
-    },
-
-
-    // Header
-    header: {
-        marginBottom: 30,
-    },
-    brandRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 25,
-    },
-    brand: {
-        fontSize: 12,
-        fontWeight: '800',
-        letterSpacing: 3,
-        color: '#0D1B2A',
-    },
-    brandLine: {
-        width: 28,
-        height: 2,
-        backgroundColor: colors.primary,
-        borderRadius: 2,
-        marginLeft: 10,
+    content:{
+        flex: 1
     },
     title: {
-        fontSize: 36,
-        fontWeight: '800',
-        color: '#12263A',
-        letterSpacing: -1,
+        ...typography.title,
+        fontSize: 22,
+        color: colors.text,
+        marginTop: spacing.xxxl,
+        marginBottom: spacing.xl,
     },
-    subtitle: {
-        fontSize: 16,
-        lineHeight: 24,
-        color: '#718096',
-        marginTop: 8,
-        maxWidth: 310,
+    list: {
+        gap: spacing.lg,
     },
-
-
-    // Options
-    optionsContainer: {
-        gap: 14,
-    },
-    cardWrapper: {
-        width: '100%',
-    },
-    card: {
-        minHeight: 105,
-        backgroundColor: '#FFFFFF',
-
-        borderWidth: 1,
-        borderColor: '#E6EEF3',
-
-        borderRadius: 22,
-
-        padding: 16,
-
+    cardContent: {
         flexDirection: 'row',
         alignItems: 'center',
-
-        shadowColor: '#0B2538',
-        shadowOffset: {
-        width: 0,
-        height: 5,
-        },
-        shadowOpacity: 0.055,
-        shadowRadius: 14,
-        elevation: 2,
     },
-
-
-    // Icon
-    iconContainer: {
-        width: 58,
-        height: 58,
-        borderRadius: 18,
-
-        backgroundColor: colors.iconBackground,
-
+    iconCircle: {
+        width: 76,
+        height: 76,
+        borderRadius: radius.round,
+        backgroundColor: '#e0e0e0',
         alignItems: 'center',
         justifyContent: 'center',
-
-        marginRight: 14,
+        marginRight: spacing.lg,
     },
     icon: {
-        fontSize: 26,
+        width: 52,
+        height: 52,
     },
-
-
-    // Card content
-    cardContent: {
+    textBlock: {
         flex: 1,
-        paddingRight: 8,
     },
-
-
-    // Arrow
-    arrowContainer: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
-
-        backgroundColor: colors.iconBackground,
-
+    titleRow: {
+        flexDirection: 'row',
         alignItems: 'center',
-
-        marginLeft: 6,
+        justifyContent: 'space-between',
     },
-    arrow: {
-        color: colors.primary,
-        fontSize: 21,
-        fontWeight: '400',
-        marginTop: -2,
+    optionTitle: {
+        ...typography.title,
+        fontSize: 17,
+        color: colors.text,
+        letterSpacing: 0.3,
     },
-
-
-    // Footer
-    footer: {
+    description: {
+        ...typography.description,
+        fontFamily: fonts.semiBold,
+        maxWidth: 210,
+    },
+    checkCircle: {
+        width: 26,
+        height: 26,
+        borderRadius: radius.round,
+        backgroundColor: colors.success,
         alignItems: 'center',
-        marginTop: 32,
+        justifyContent: 'center',
     },
-    footerText: {
-        fontSize: 11,
-        color: '#A0ADB8',
-        textAlign: 'center',
-        letterSpacing: 0.1,
-    }
-
+    checkMark: {
+        color: colors.background,
+        fontSize: 14,
+        fontWeight: '700',
+    },
+    radioCircle: {
+        width: 24,
+        height: 24,
+        borderRadius: radius.round,
+        borderWidth: 1.5,
+        borderColor: colors.border,
+    },
+    fabWrapper: {
+        marginTop: spacing.xxxl,
+        alignItems: 'center',
+    },
 });

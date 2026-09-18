@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import toast from '../../../lib/toast';
 import FormField from '../../../components/form/input/FormField';
-import SubmitButton from '../../../components/form/SubmitButton';
+import SubmitButton from '../../../components/Button';
 import Card from '../../../components/Card';
 import { formStyles as styles } from '../../../styles/common';
 import { colors, radius, spacing, typography } from '../../../styles/theme';

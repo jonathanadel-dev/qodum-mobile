@@ -9,7 +9,7 @@ import {
     View,
 } from 'react-native';
 import { colors } from '../../../styles/theme';
-import SubmitButton from '../../../components/form/SubmitButton';
+import SubmitButton from '../../../components/Button';
 
 
 // Alumni added screen

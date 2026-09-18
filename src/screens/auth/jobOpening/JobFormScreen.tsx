@@ -15,7 +15,7 @@ import toast from '../../../lib/toast';
 import FormField from '../../../components/form/input/FormField';
 import FormDateField from '../../../components/form/datePicker/FormDateField';
 import FormSection from '../../../components/form/FormSection';
-import SubmitButton from '../../../components/form/SubmitButton';
+import SubmitButton from '../../../components/Button';
 import Header from '../../../components/Header';
 import CustomStatusBar from '../../../components/CustomStatusBar';
 import { jobApplicationSchema, JobApplicationFormData } from '../../../lib/zodSchemas/jobFormSchema';

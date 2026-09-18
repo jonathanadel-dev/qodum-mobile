@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { colors, radius, spacing, typography } from './theme';
 
+
+// Form styles
 export const formStyles = StyleSheet.create({
     container: {
         flex: 1,

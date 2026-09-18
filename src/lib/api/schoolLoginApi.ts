@@ -1,21 +1,18 @@
 // Login
 type LoginProps = {
-    admission_no: string;
+    email: string;
     password: string;
-    role: string;
-}
-export const login = async ({admission_no, password, role}: LoginProps) => {
-    
+};
+export const login = async ({ email, password }: LoginProps) => {
+
 }
 
 
 // Register
 type RegisterProps = {
-    admission_no: string;
+    email: string;
     password: string;
-    confirmPassword: string;
-    role: string;
-}
-export const register = async ({admission_no, password, confirmPassword, role}: RegisterProps) => {
+};
+export const register = async ({ email, password }: RegisterProps) => {
 
 }

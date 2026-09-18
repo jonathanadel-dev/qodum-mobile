@@ -1,502 +1,254 @@
+// screens/StudentAdmission/StudentAdmissionScreen.tsx
 import React from 'react';
-import Ionicons from '@react-native-vector-icons/ionicons';
 import {
+    Dimensions,
+    Image,
+    Pressable,
     ScrollView,
     StatusBar,
     StyleSheet,
     Text,
     View,
 } from 'react-native';
-
-import Card from '../../../components/Card';
-import Header from '../../../components/Header';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
-import { formStyles as styles } from '../../../styles/common';
-import Slider from '../../../components/form/Slider';
-import { AuthStackParamList } from '../../../navigation/AuthStack';
+import LinearGradient from 'react-native-linear-gradient';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+import Button from '../../../components/Button';
+import Slider from '../../../components/Slider';
+import { colors, radius, spacing, typography } from '../../../styles/theme';
+import { AuthStackParamList } from '../../../navigation/AuthStack';
 
 
 // Types
 type Props = NativeStackScreenProps<AuthStackParamList, 'StudentAdmission'>;
-type Route = keyof Pick<
-    AuthStackParamList,
-    'StudentAdmissionProcedure' | 'StudentAdmissionForm' | 'TrackApplication'
->;
+type Route = keyof Pick <AuthStackParamList, 'StudentAdmissionProcedure' | 'StudentAdmissionForm' | 'TrackApplication'>;
 type AdmissionOption = {
     id: string;
     title: string;
-    description: string;
-    icon: React.ComponentProps<typeof Ionicons>['name'];
+    icon: any;
     route?: Route;
 };
 
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SLIDER_HEIGHT = SCREEN_HEIGHT * 0.26;
 
-// Admission options
+// Dummy — swap for a real fetch by schoolCode once that endpoint exists
+const school = {
+    name: 'The Pillar Public School',
+    logo: require('../../../assets/images/logo.png'),
+    admissionHelpline: '7355378251',
+    email: 'wecare@gmail.com',
+};
+
 const ADMISSION_OPTIONS: AdmissionOption[] = [
     {
         id: 'procedure',
         title: 'Admission Procedure',
-        description:
-            'Learn about the admission process, requirements and important steps.',
-        icon: 'list-outline',
+        icon: require('../../../assets/images/studentAdmission/admission-procedure.png'),
         route: 'StudentAdmissionProcedure',
     },
     {
         id: 'form',
-        title: 'Admission Form',
-        description:
-            'Complete your application and submit your information to the school.',
-        icon: 'document-text-outline',
+        title: 'Registration for Admission',
+        icon: require('../../../assets/images/studentAdmission/registration-for-admission.png'),
         route: 'StudentAdmissionForm',
     },
     {
         id: 'track',
-        title: 'Track Application',
-        description:
-            'Use your registration number to check the status of your application.',
-        icon: 'search-outline',
-        route: 'TrackApplication'
+        title: 'Track The Application',
+        icon: require('../../../assets/images/studentAdmission/track-application.png'),
+        route: 'TrackApplication',
     },
     {
         id: 'admit',
         title: 'Download Admit Card',
-        description:
-            'Download your admit card once your application has been approved.',
-        icon: 'download-outline',
+        icon: require('../../../assets/images/studentAdmission/download-card.png'),
     },
     {
         id: 'result',
-        title: 'Admission Result',
-        description:
-            'Check your admission or selection result after the application process.',
-        icon: 'checkmark-circle-outline',
+        title: 'Result',
+        icon: require('../../../assets/images/studentAdmission/result.png'),
     },
     {
         id: 'bus',
         title: 'Bus Stoppage',
-        description:
-            'Find available school bus routes and the stops serving your area.',
-        icon: 'bus-outline',
-    }
+        icon: require('../../../assets/images/studentAdmission/bus-stoppage.png'),
+    },
 ];
 
 
-// Student admission screen
+// Student admission
 export default function StudentAdmissionScreen({ navigation, route }: Props) {
-
-    // State
     const { schoolCode } = route.params;
 
-
-    // Press handler
-    const pressHandler = (route: Route | undefined) => {
-        if(!route) return;
-        navigation.navigate(route, {schoolCode})
-    }
+    const pressHandler = (targetRoute: Route | undefined) => {
+        if (!targetRoute) return;
+        navigation.navigate(targetRoute, { schoolCode });
+    };
 
     return (
-        <View style={styles.container}>
+        <View style={styles.root}>
+            <StatusBar barStyle="light-content" />
 
-            {/* Status bar */}
-            <StatusBar barStyle='dark-content' />
-
-            {/* Background decoration */}
-            <View style={screenStyles.backgroundCircleTop} />
-            <View style={screenStyles.backgroundCircleBottom} />
-
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={screenStyles.scrollContent}
+            <LinearGradient
+                colors={[colors.gradientStart, colors.gradientEnd]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.background}
             >
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.scrollContent}
+                >
+                    <View style={styles.heroWrapper}>
+                        <Slider height={SLIDER_HEIGHT} />
 
-                <Header navigation={navigation} />
+                        <View style={styles.backButtonWrapper}>
+                            <Button
+                                type="arrowLeft"
+                                onPress={() => navigation.goBack()}
+                                style={styles.backButton}
+                            />
+                        </View>
+                    </View>
 
+                    <View style={styles.panel}>
+                        <Text style={styles.sectionTitle}>Actions</Text>
 
-                {/* Header */}
-                <View style={screenStyles.header}>
-
-                    <View style={screenStyles.headerTop}>
-
-                        <View style={screenStyles.eyebrowContainer}>
-                            <View style={screenStyles.eyebrowDot} />
-
-                            <Text style={screenStyles.eyebrow}>
-                                ADMISSION PORTAL
-                            </Text>
+                        <View style={styles.grid}>
+                            {ADMISSION_OPTIONS.map((option) => (
+                                <Pressable
+                                    key={option.id}
+                                    style={styles.tile}
+                                    onPress={() => pressHandler(option.route)}
+                                >
+                                    <View style={styles.tileIconFrame}>
+                                        <Image
+                                            source={option.icon}
+                                            style={styles.tileIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <Text style={styles.tileTitle} numberOfLines={2}>
+                                        {option.title}
+                                    </Text>
+                                </Pressable>
+                            ))}
                         </View>
 
-                        <View style={screenStyles.schoolCodePill}>
-                            <Text style={screenStyles.schoolCodeLabel}>
-                                {schoolCode || '------'}
+                        <View style={styles.footer}>
+                            <Image
+                                source={school.logo}
+                                style={styles.footerLogo}
+                                resizeMode="contain"
+                            />
+                            <Text style={styles.footerSchoolName}>{school.name}</Text>
+                            <Text style={styles.footerLine}>
+                                Admission Helpline: {school.admissionHelpline}
                             </Text>
+                            <Text style={styles.footerLine}>Email: {school.email}</Text>
                         </View>
-
                     </View>
-
-
-                    <Text style={screenStyles.title}>
-                        Begin your journey.
-                    </Text>
-
-                    <Text style={screenStyles.subtitle}>
-                        Everything you need to apply, track your
-                        application and prepare for admission.
-                    </Text>
-
-                </View>
-
-
-                {/* Image slider */}
-                <Slider />
-
-
-                {/* Portal heading */}
-                <View style={screenStyles.sectionHeader}>
-
-                    <View>
-                        <Text style={screenStyles.sectionEyebrow}>
-                            EXPLORE
-                        </Text>
-
-                        <Text style={screenStyles.sectionTitle}>
-                            Admission services
-                        </Text>
-                    </View>
-
-                </View>
-
-
-                {/* Admission options */}
-                <View style={screenStyles.options}>
-
-                    {ADMISSION_OPTIONS.map((option) => (
-
-                        <Card
-                            key={option.id}
-                            onPress={() => pressHandler(option.route)}
-                            style={screenStyles.optionCard}
-                            contentStyle={screenStyles.optionContent}
-                        >
-
-                            {/* Icon */}
-                            <View style={screenStyles.optionIcon}>
-                                <Ionicons
-                                    name={option.icon}
-                                    size={22}
-                                    color={colors.primary}
-                                />
-                            </View>
-
-
-                            {/* Content */}
-                            <View style={screenStyles.optionBody}>
-
-                                <Text style={screenStyles.optionTitle}>
-                                    {option.title}
-                                </Text>
-
-                                <Text style={screenStyles.optionDescription}>
-                                    {option.description}
-                                </Text>
-
-                            </View>
-
-
-                            {/* Arrow */}
-                            <View style={screenStyles.optionArrow}>
-                                <Text style={screenStyles.optionArrowText}>
-                                    →
-                                </Text>
-                            </View>
-
-                        </Card>
-
-                    ))}
-
-                </View>
-
-
-                {/* Bottom information */}
-                <View style={screenStyles.bottomInfo}>
-
-                    <View style={screenStyles.bottomInfoIcon}>
-                        <Text style={screenStyles.bottomInfoIconText}>
-                            i
-                        </Text>
-                    </View>
-
-                    <View style={screenStyles.bottomInfoContent}>
-
-                        <Text style={screenStyles.bottomInfoTitle}>
-                            Need help with your application?
-                        </Text>
-
-                        <Text style={screenStyles.bottomInfoText}>
-                            Make sure you have your registration number
-                            available when checking your application status.
-                        </Text>
-
-                    </View>
-
-                </View>
-
-
-                {/* Footer */}
-                <View style={screenStyles.footer}>
-
-                    <Text style={screenStyles.footerText}>
-                        SCHOOL CODE
-                    </Text>
-
-                    <View style={screenStyles.footerDot} />
-
-                    <Text style={screenStyles.footerCode}>
-                        {schoolCode || '------'}
-                    </Text>
-
-                </View>
-
-            </ScrollView>
+                </ScrollView>
+            </LinearGradient>
         </View>
     );
 }
 
 
 // Styles
-const screenStyles = StyleSheet.create({
-
-    /* Layout */
+const styles = StyleSheet.create({
+    root: { flex: 1 },
+    background: { flex: 1 },
     scrollContent: {
-        paddingHorizontal:20,
-        paddingVertical: 20,
+        flexGrow: 1,
     },
-
-
-    /* Background */
-    backgroundCircleTop: {
+    heroWrapper: {
+        position: 'relative',
+        paddingHorizontal: spacing.xl,
+        paddingTop: spacing.xxxl,
+        paddingBottom: spacing.lg, 
+    },
+    backButtonWrapper: {
         position: 'absolute',
-        width: 330,
-        height: 330,
-        borderRadius: 165,
-        backgroundColor: '#EAF8FE',
-        top: -220,
-        right: -180,
-        opacity: 0.75,
+        top: spacing.xxxl + 16,
+        left: spacing.xl + 16,
+        zIndex: 2,
     },
-    backgroundCircleBottom: {
-        position: 'absolute',
-        width: 280,
-        height: 280,
-        borderRadius: 140,
-        backgroundColor: '#F3FAFD',
-        bottom: -180,
-        left: -170,
+    backButton: {
+        width: 46,
+        height: 46,
     },
-
-
-    /* Header */
-    header: {
-        marginTop: spacing.md,
-        marginBottom: spacing.xl,
-    },
-    headerTop: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: spacing.md,
-    },
-    eyebrowContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    eyebrowDot: {
-        width: 7,
-        height: 7,
-        borderRadius: radius.round,
-        backgroundColor: colors.primary,
-        marginRight: 7,
-    },
-    eyebrow: {
-        fontSize: 10,
-        fontWeight: '800',
-        letterSpacing: 1.5,
-        color: colors.primary,
-    },
-    schoolCodePill: {
-        paddingHorizontal: 11,
-        paddingVertical: 6,
-        borderRadius: radius.round,
-        backgroundColor: '#F1F8FB',
-        borderWidth: 1,
-        borderColor: '#E2EEF3',
-    },
-    schoolCodeLabel: {
-        fontSize: 10,
-        fontWeight: '800',
-        letterSpacing: 1,
-        color: colors.textSecondary,
-    },
-    title: {
-        fontSize: 31,
-        lineHeight: 38,
-        fontWeight: '800',
-        color: colors.text,
-        letterSpacing: -1,
-    },
-    subtitle: {
-        ...typography.description,
-        marginTop: spacing.sm + 2,
-        lineHeight: 21,
-        maxWidth: 350,
-    },
-
-
-    /* Section header */
-    sectionHeader: {
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-        justifyContent: 'space-between',
-        marginBottom: spacing.md,
-    },
-    sectionEyebrow: {
-        fontSize: 9,
-        fontWeight: '800',
-        letterSpacing: 1.5,
-        color: colors.primary,
-        marginBottom: 5,
+    panel: {
+        flex: 1,
+        marginTop: 0,
+        backgroundColor: colors.background,
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        paddingHorizontal: spacing.xl,
+        paddingTop: spacing.xxl,
+        paddingBottom: spacing.xxxl,
     },
     sectionTitle: {
-        fontSize: 21,
-        fontWeight: '800',
-        color: colors.text,
-        letterSpacing: -0.3,
+        ...typography.title,
+        fontSize: 24,
+        textAlign: 'center',
+        marginBottom: spacing.xl,
     },
-
-
-    /* Options */
-    options: {
-        gap: 11,
-    },
-    optionCard: {
-        marginBottom: 0,
-    },
-    optionContent: {
-        minHeight: 105,
-        padding: 15,
+    grid: {
         flexDirection: 'row',
-        alignItems: 'center',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
     },
-    optionIcon: {
-        width: 47,
-        height: 47,
-        borderRadius: 15,
-        backgroundColor: colors.iconBackground,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 13,
-    },
-    optionIconText: {
-        fontSize: 22,
-        fontWeight: '500',
-        color: colors.primary,
-    },
-    optionBody: {
-        flex: 1,
-        paddingRight: 25,
-    },
-    optionTitle: {
-        fontSize: 15,
-        fontWeight: '800',
-        color: colors.text,
-        marginBottom: 5,
-    },
-    optionDescription: {
-        fontSize: 11.5,
-        lineHeight: 17,
-        color: colors.textSecondary,
-    },
-    optionArrow: {
-        width: 31,
-        height: 31,
-        borderRadius: radius.round,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft: 8,
-    },
-    optionArrowText: {
-        fontSize: 17,
-        fontWeight: '600',
-        color: colors.primary,
-        marginTop: -1,
-    },
-
-
-    /* Bottom information */
-    bottomInfo: {
-        marginTop: spacing.xl,
-        padding: 15,
-        borderRadius: 17,
-        backgroundColor: '#F7FBFD',
+    tile: {
+        width: '31%',
         borderWidth: 1,
-        borderColor: '#E2EEF3',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
+        borderColor: colors.border,
+        borderRadius: radius.lg,
+        paddingVertical: spacing.md,
+        paddingHorizontal: spacing.xs,
+        alignItems: 'center',
+        marginBottom: spacing.md,
     },
-    bottomInfoIcon: {
-        width: 31,
-        height: 31,
-        borderRadius: radius.round,
-        backgroundColor: '#E5F6FC',
+    tileIconFrame: {
+        width: 52,
+        height: 52,
+        borderRadius: radius.md,
+        borderWidth: 1,
+        borderColor: colors.border,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: 11,
+        marginBottom: spacing.sm,
+        overflow: 'hidden',
     },
-    bottomInfoIconText: {
-        fontSize: 15,
-        fontWeight: '800',
-        color: colors.primary,
+    tileIcon: {
+        width: '75%',
+        height: '75%',
     },
-    bottomInfoContent: {
-        flex: 1,
-    },
-    bottomInfoTitle: {
-        fontSize: 12.5,
-        fontWeight: '700',
-        color: colors.text,
-        marginBottom: 4,
-    },
-    bottomInfoText: {
+    tileTitle: {
         fontSize: 11,
-        lineHeight: 17,
-        color: colors.textSecondary,
+        fontWeight: '600',
+        color: colors.text,
+        textAlign: 'center',
+        lineHeight: 14,
     },
-
-
-    /* Footer */
     footer: {
-        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: spacing.xxl,
+        marginTop: spacing.xl,
     },
-    footerText: {
-        fontSize: 9,
-        fontWeight: '700',
-        letterSpacing: 1,
-        color: colors.hash,
+    footerLogo: {
+        width: 90,
+        height: 60,
+        marginBottom: spacing.md,
     },
-    footerDot: {
-        width: 3,
-        height: 3,
-        borderRadius: radius.round,
-        backgroundColor: colors.border,
-        marginHorizontal: 8,
+    footerSchoolName: {
+        ...typography.title,
+        fontSize: 18,
+        marginBottom: spacing.xs,
     },
-    footerCode: {
-        fontSize: 10,
-        fontWeight: '800',
-        letterSpacing: 1,
+    footerLine: {
+        fontSize: 13,
         color: colors.textSecondary,
-    }
+        marginBottom: 2,
+    },
 });

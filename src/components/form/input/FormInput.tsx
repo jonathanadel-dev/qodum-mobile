@@ -10,8 +10,9 @@ import { colors } from '../../../styles/theme';
 
 
 type FormInputProps = TextInputProps & {
-    label: string;
+    label?: string;
     error?: string;
+    icon?: string;
 };
 
 
@@ -21,6 +22,7 @@ const FormInput = forwardRef<TextInput, FormInputProps>(
         {
             label,
             error,
+            icon,
             style,
             onFocus,
             onBlur,
@@ -32,9 +34,11 @@ const FormInput = forwardRef<TextInput, FormInputProps>(
 
         return (
             <View style={styles.inputGroup}>
-                <Text style={styles.label}>
-                    {label}
-                </Text>
+                {label ? (
+                    <Text style={styles.label}>
+                        {label}
+                    </Text>
+                ) : null}
 
                 <TextInput
                     // @ts-ignore

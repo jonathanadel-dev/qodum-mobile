@@ -1,36 +1,35 @@
-// screens/auth/login/LoginScreen.tsx
-
-import React from 'react';
+// screens/Login/LoginScreen.tsx
+import React, { useState } from 'react';
 import {
-    View,
-    Text,
-    Pressable,
-    ScrollView,
+    Image,
     KeyboardAvoidingView,
     Platform,
+    Pressable,
+    ScrollView,
     StyleSheet,
+    Text,
+    View,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import LinearGradient from 'react-native-linear-gradient';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Ionicons from '@react-native-vector-icons/ionicons';
 
 import toast from '../../../lib/toast';
 import FormField from '../../../components/form/input/FormField';
-import SubmitButton from '../../../components/Button';
-import Card from '../../../components/Card';
-import { formStyles as styles } from '../../../styles/common';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import Button from '../../../components/Button';
 import CustomStatusBar from '../../../components/CustomStatusBar';
-import Header from '../../../components/Header';
+import { colors, radius, spacing, typography } from '../../../styles/theme';
 import {
     loginSchema,
     LoginFormData,
 } from '../../../lib/zodSchemas/loginFormSchema';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { login } from '../../../lib/api/schoolLoginApi';
 
 
-// Type
+// Props
 type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
 
 
@@ -38,14 +37,13 @@ type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
 export default function LoginScreen({ navigation, route }: Props) {
 
     // State
-    const { role, schoolCode } = route.params;
-    const isStudent = role === 'student';
-    const roleLabel = isStudent ? 'Student' : 'Teacher';
+    const { schoolCode } = route.params || {};
+    const [saveMe, setSaveMe] = useState(false);
 
 
     // Form
     const defaultValues: LoginFormData = {
-        admission_number: '',
+        email: '',
         password: '',
     };
     const {
@@ -62,16 +60,13 @@ export default function LoginScreen({ navigation, route }: Props) {
     const onSubmit = async (data: LoginFormData) => {
         try {
             await login({
-                admission_no: data.admission_number,
+                email: data.email,
                 password: data.password,
-                role,
             });
-
             // TODO: Auth context and redirection
             await new Promise((resolve: any) => setTimeout(resolve, 1200));
-
         } catch {
-            toast.error('Unable to sign in. Please check your details and try again.');
+            toast.error('Unable to log in. Please check your details and try again.');
         }
     };
     const onInvalid = () => {
@@ -79,267 +74,200 @@ export default function LoginScreen({ navigation, route }: Props) {
     };
 
 
-    // Register
-    const handleRegister = () => {
-        navigation.navigate('Register', { role, schoolCode });
+    // Handle register
+    const handleSignUp = () => {
+        navigation.replace('Register', { schoolCode });
     };
 
 
-    return (
-        <View style={styles.container}>
+    // Handle forgot password
+    const handleForgotPassword = () => {
+        // TODO: no forgot-password route wired up yet
+    };
 
-            {/* Status bar */}
+    return (
+        <LinearGradient
+            colors={[colors.gradientStart, colors.gradientEnd]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.background}
+        >
             <CustomStatusBar />
 
-            <KeyboardAvoidingView
-                style={styles.keyboardView}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
-            >
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps="handled"
-                    contentContainerStyle={styles.scrollContent}
+            <View style={styles.panel}>
+                <KeyboardAvoidingView
+                    style={styles.flex}
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
                 >
-                    <Header navigation={navigation} />
-
-                    {/* Header */}
-                    <View style={loginStyles.header}>
-                        <View style={loginStyles.roleBadge}>
-                            <View style={loginStyles.roleDot} />
-                            <Text style={loginStyles.roleBadgeText}>
-                                {roleLabel.toUpperCase()}
-                            </Text>
-                        </View>
-
-                        <Text style={loginStyles.title}>Welcome back.</Text>
-
-                        <Text style={loginStyles.subtitle}>
-                            Sign in to continue to your school account.
-                        </Text>
-                    </View>
-
-                    {/* School identity */}
-                    <Card style={loginStyles.schoolCard} contentStyle={loginStyles.schoolCardContent}>
-                        <View style={loginStyles.schoolIcon}>
-                            <Text style={loginStyles.schoolIconText}>✓</Text>
-                        </View>
-
-                        <View style={loginStyles.schoolDetails}>
-                            <Text style={loginStyles.schoolLabel}>VERIFIED SCHOOL</Text>
-                            <Text style={loginStyles.schoolCode}>{schoolCode || '------'}</Text>
-                        </View>
-
-                        <View style={loginStyles.verifiedBadge}>
-                            <Text style={loginStyles.verifiedText}>Verified</Text>
-                        </View>
-                    </Card>
-
-                    {/* Login */}
-                    <Card style={loginStyles.loginCard} contentStyle={loginStyles.loginCardContent}>
-                        <View style={loginStyles.formHeader}>
-                            <Text style={loginStyles.formTitle}>Sign in</Text>
-                            <Text style={loginStyles.formSubtitle}>Enter your school credentials.</Text>
-                        </View>
-
-                        <FormField
-                            control={control}
-                            name="admission_number"
-                            label={isStudent ? 'Admission number' : 'Staff number'}
-                            placeholder={isStudent ? 'Enter admission number' : 'Enter staff number'}
-                            autoCapitalize="none"
-                            autoCorrect={false}
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
+                        contentContainerStyle={styles.scrollContent}
+                    >
+                        <Image
+                            source={require('../../../assets/images/logo.png')}
+                            style={styles.logo}
+                            resizeMode="contain"
                         />
 
-                        <FormField
-                            control={control}
-                            name="password"
-                            label="Password"
-                            placeholder="Enter your password"
-                            secureTextEntry
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                        />
+                        <Text style={styles.title}>Welcome Back</Text>
+                        <Text style={styles.subtitle}>Login to continue to your account!</Text>
 
-                        <View style={loginStyles.submitArea}>
-                            <SubmitButton
-                                loading={isSubmitting}
-                                onPress={handleSubmit(onSubmit, onInvalid)}
-                                label="Sign in"
-                                loadingLabel="Signing in..."
+                        <View style={styles.form}>
+                            <FormField<LoginFormData>
+                                control={control}
+                                name="email"
+                                placeholder="Email Address"
+                                icon="mail-outline"
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+
+                            <FormField<LoginFormData>
+                                control={control}
+                                name="password"
+                                placeholder="Password"
+                                icon="lock-closed-outline"
+                                secureTextEntry
+                                autoCapitalize="none"
+                                autoCorrect={false}
                             />
                         </View>
-                    </Card>
 
-                    {/* Register */}
-                    <View style={loginStyles.registerArea}>
-                        <Text style={loginStyles.registerPrompt}>Don't have an account?</Text>
-                        <Pressable onPress={handleRegister}>
-                            <Text style={loginStyles.registerLink}>Create one</Text>
-                        </Pressable>
-                    </View>
+                        <View style={styles.optionsRow}>
+                            <Pressable
+                                style={styles.checkboxRow}
+                                onPress={() => setSaveMe((prev) => !prev)}
+                                hitSlop={8}
+                            >
+                                <View style={[styles.checkbox, saveMe && styles.checkboxChecked]}>
+                                    {saveMe && <Ionicons name="checkmark" size={14} color={colors.background} />}
+                                </View>
+                                <Text style={styles.checkboxLabel}>Save me</Text>
+                            </Pressable>
 
-                    {/* Footer */}
-                    <View style={loginStyles.footer}>
-                        <Text style={loginStyles.footerText}>Signing in as {roleLabel}</Text>
-                        <View style={loginStyles.footerDot} />
-                        <Text style={loginStyles.footerText}>{schoolCode || 'School'}</Text>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                            <Pressable onPress={handleForgotPassword} hitSlop={8}>
+                                <Text style={styles.forgotText}>Forgot Password?</Text>
+                            </Pressable>
+                        </View>
+
+                        <Button
+                            type="gradient"
+                            loading={isSubmitting}
+                            onPress={handleSubmit(onSubmit, onInvalid)}
+                            label="Login"
+                            loadingLabel="Logging in..."
+                            style={styles.signUpButton}
+                        />
+
+                        <View style={styles.signInArea}>
+                            <Text style={styles.signInPrompt}>Don't have an account ? </Text>
+                            <Pressable onPress={handleSignUp} hitSlop={8}>
+                                <Text style={styles.signInLink}>Sign up</Text>
+                            </Pressable>
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </View>
+        </LinearGradient>
     );
 }
 
 
-// Login styles
-const loginStyles = StyleSheet.create({
-    header: {
-        alignItems: 'center',
-        marginBottom: spacing.md,
+// Styles
+const styles = StyleSheet.create({
+    background: {
+        flex: 1,
     },
-    roleBadge: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: spacing.md,
-        paddingVertical: spacing.sm - 2,
-        borderRadius: radius.round,
-        backgroundColor: colors.infoBackground,
-        marginBottom: spacing.lg,
+    panel: {
+        flex: 1,
+        marginTop: '10%',
+        backgroundColor: colors.background,
+        borderTopLeftRadius: 48,
+        borderTopRightRadius: 48,
     },
-    roleDot: {
-        width: 6,
-        height: 6,
-        borderRadius: radius.round,
-        backgroundColor: colors.primary,
-        marginRight: spacing.sm - 1,
+    flex: { flex: 1 },
+    scrollContent: {
+        paddingHorizontal: spacing.xxl,
+        paddingTop: spacing.xxxl,
+        paddingBottom: spacing.xxxl,
     },
-    roleBadgeText: {
-        fontSize: 10,
-        fontWeight: '800',
-        letterSpacing: 1.3,
-        color: colors.primary,
+    logo: {
+        width: 200,
+        height: 80,
+        marginBottom: spacing.xl,
+        alignSelf: 'center',
     },
     title: {
-        fontSize: 30,
-        lineHeight: 36,
-        fontWeight: '800',
-        color: colors.text,
-        letterSpacing: -0.8,
+        ...typography.title,
+        fontSize: 24,
+        marginBottom: spacing.sm,
         textAlign: 'center',
     },
     subtitle: {
         ...typography.description,
+        fontSize: 15,
+        marginBottom: spacing.xxl,
         textAlign: 'center',
-        marginTop: spacing.sm + 2,
-        maxWidth: 300,
+    },
+    form: {
+        width: '100%',
+        gap: spacing.lg,
+    },
+    optionsRow: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: spacing.lg,
+        marginBottom: spacing.xxl,
+    },
+    checkboxRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: spacing.sm,
+    },
+    checkbox: {
+        width: 20,
+        height: 20,
+        borderRadius: radius.xs,
+        borderWidth: 1.5,
+        borderColor: colors.border,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    checkboxChecked: {
+        backgroundColor: colors.primary,
+        borderColor: colors.primary,
+    },
+    checkboxLabel: {
+        fontSize: 14,
+        color: colors.text,
+        fontWeight: '600',
+    },
+    forgotText: {
+        fontSize: 14,
+        color: colors.textSecondary,
+        fontWeight: '600',
+    },
+    signUpButton: {
+        width: '100%',
+        height: 56,
+    },
+    signInArea: {
+        flexDirection: 'row',
+        marginTop: spacing.xxxl * 2,
         alignSelf: 'center',
     },
-
-    schoolCard: {
-        marginBottom: spacing.lg,
-    },
-    schoolCardContent: {
-        padding: spacing.md + 2,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    schoolIcon: {
-        width: 40,
-        height: 40,
-        borderRadius: radius.round,
-        backgroundColor: colors.iconBackground,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: spacing.md,
-    },
-    schoolIconText: {
-        color: colors.primary,
-        fontSize: 18,
-        fontWeight: '800',
-    },
-    schoolDetails: {
-        flex: 1,
-    },
-    schoolLabel: {
-        fontSize: 10,
-        fontWeight: '800',
-        letterSpacing: 1.1,
-        color: colors.textSecondary,
-        marginBottom: 3,
-    },
-    schoolCode: {
-        fontSize: 15,
-        fontWeight: '800',
+    signInPrompt: {
+        fontSize: 14,
         color: colors.text,
-        letterSpacing: 1.1,
     },
-    verifiedBadge: {
-        paddingHorizontal: spacing.sm + 2,
-        paddingVertical: spacing.sm - 2,
-        borderRadius: radius.sm + 2,
-        backgroundColor: colors.successBackground,
-    },
-    verifiedText: {
-        fontSize: 11,
+    signInLink: {
+        fontSize: 14,
         fontWeight: '700',
-        color: colors.success,
-    },
-
-    loginCard: {
-        marginBottom: 0,
-    },
-    loginCardContent: {
-        padding: spacing.xl,
-    },
-    formHeader: {
-        marginBottom: spacing.xl + 1,
-    },
-    formTitle: {
-        fontSize: 19,
-        fontWeight: '800',
-        color: colors.text,
-    },
-    formSubtitle: {
-        ...typography.description,
-        marginTop: spacing.xs + 1,
-    },
-    submitArea: {
-        marginTop: spacing.xs,
-    },
-
-    registerArea: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: spacing.xxl - 2,
-    },
-    registerPrompt: {
-        fontSize: 13,
-        color: colors.textSecondary,
-    },
-    registerLink: {
-        fontSize: 13,
-        fontWeight: '800',
         color: colors.primary,
-        marginLeft: spacing.xs + 1,
-    },
-
-    footer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: spacing.xxl,
-    },
-    footerText: {
-        fontSize: 11,
-        color: colors.hash,
-    },
-    footerDot: {
-        width: 3,
-        height: 3,
-        borderRadius: radius.round,
-        backgroundColor: colors.border,
-        marginHorizontal: spacing.sm,
     },
 });

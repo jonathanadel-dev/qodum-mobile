@@ -5,9 +5,10 @@ import FormInput from './FormInput';
 
 
 type FormFieldProps<T extends FieldValues> = Omit<TextInputProps, 'value' | 'onChangeText'> & {
-    control: Control<T>;
+    control: Control<T, any>;
     name: Path<T>;
-    label: string;
+    label?: string;
+    icon?: string;
 };
 
 
@@ -16,6 +17,7 @@ export default function FormField<T extends FieldValues>({
     control,
     name,
     label,
+    icon,
     ...inputProps
 }: FormFieldProps<T>) {
     return (
@@ -25,6 +27,7 @@ export default function FormField<T extends FieldValues>({
             render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <FormInput
                     label={label}
+                    icon={icon}
                     value={value as string}
                     onChangeText={onChange}
                     onBlur={onBlur}

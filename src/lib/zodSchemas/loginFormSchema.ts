@@ -1,18 +1,8 @@
-// lib/zodSchemas/loginFormSchema.ts
-
 import { z } from 'zod';
-import {
-    REQUIRED_MSG,
-} from '../validationPatterns';
-
-
-const requiredText = z.string().trim().min(1, REQUIRED_MSG);
-
 
 export const loginSchema = z.object({
-    admission_number: requiredText,
-    password: requiredText,
+    email: z.string().min(1, 'Email is required').email('Enter a valid email address'),
+    password: z.string().min(1, 'Password is required'),
 });
-
 
 export type LoginFormData = z.infer<typeof loginSchema>;

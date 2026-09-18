@@ -74,8 +74,8 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
             }
             if (nextPage === 'StudentAdmission') {
                 navigation.navigate('StudentAdmission', { schoolCode: school.code });
-            } else if (nextPage === 'ChooseRole') {
-                navigation.navigate('ChooseRole', { schoolCode: school.code });
+            } else if (nextPage === 'ChooseAction') {
+                navigation.navigate('ChooseAction', { schoolCode: school.code });
             } else if (nextPage === 'JobOpening') {
                 navigation.navigate('JobOpening', { schoolCode: school.code });
             }

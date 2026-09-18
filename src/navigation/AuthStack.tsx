@@ -13,7 +13,7 @@ import JobOpeningScreen from '../screens/auth/jobOpening';
 import JobDescriptionScreen from '../screens/auth/jobOpening/JobDescriptionScreen';
 import JobFormScreen from '../screens/auth/jobOpening/JobFormScreen';
 import JobAppliedScreen from '../screens/auth/jobOpening/JobAppliedScreen';
-import ChooseRoleScreen from '../screens/auth/schoolLogin/ChooseRoleScreen';
+import ChooseRoleScreen from '../screens/auth/schoolLogin/ChooseActionScreen';
 import RegisterScreen from '../screens/auth/schoolLogin/RegisterScreen';
 import StudentAdmissionScreen from '../screens/auth/studentAdmission';
 import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/StudentAdmissionProcedureScreen';
@@ -21,6 +21,7 @@ import StudentAdmittedScreen from '../screens/auth/studentAdmission/StudentAdmit
 import TrackApplicationScreen from '../screens/auth/studentAdmission/TrackApplicationScreen';
 import SchoolSearchScreen from '../screens/auth/schoolCode/SchoolSearchScreen';
 import { SchoolType } from '../lib/api/schoolApi';
+import ChooseActionScreen from '../screens/auth/schoolLogin/ChooseActionScreen';
 
 type AuthStackRouteName =
   | 'Splash'
@@ -29,7 +30,7 @@ type AuthStackRouteName =
   | 'StudentAdmission'
   | 'Login'
   | 'JobOpening'
-  | 'ChooseRole'
+  | 'ChooseAction'
 
 export type AuthStackParamList = {
   Splash: undefined;
@@ -62,15 +63,13 @@ export type AuthStackParamList = {
   };
 
   // School login
-  ChooseRole: {
+  ChooseAction: {
     schoolCode: string
   };
   Login: {
-    role: string;
     schoolCode: string;
   };
   Register: {
-    role: string;
     schoolCode: string;
   };
 
@@ -85,10 +84,6 @@ export type AuthStackParamList = {
     jobId: string
   };
   JobApplied: undefined;
-
-  // Alumni
-  AlumniForm: undefined;
-  AlumniAdded: undefined;
 };
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
@@ -119,14 +114,10 @@ export default function AuthStack() {
 
 
       {/* School Login */}
-      <Stack.Screen name="ChooseRole" component={ChooseRoleScreen} />
+      <Stack.Screen name="ChooseAction" component={ChooseActionScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-
-
-      {/* Alumni */}
-      <Stack.Screen name="AlumniForm" component={AlumniFormScreen} />
-      <Stack.Screen name="AlumniAdded" component={AlumniAddedScreen} />
+      
 
       {/* Job Opening */}
       <Stack.Screen name="JobOpening" component={JobOpeningScreen} />

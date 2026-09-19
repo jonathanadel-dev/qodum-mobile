@@ -20,7 +20,7 @@ import { AuthStackParamList } from '../../../navigation/AuthStack';
 
 // Types
 type Props = NativeStackScreenProps<AuthStackParamList, 'StudentAdmission'>;
-type Route = keyof Pick <AuthStackParamList, 'StudentAdmissionProcedure' | 'OTP' | 'TrackApplication'>;
+type Route = keyof Pick <AuthStackParamList, 'StudentAdmissionProcedure' | 'OTP' | 'TrackApplication' | 'AdmitCard' | 'ExamResult' | 'BusStoppage'>;
 type AdmissionOption = {
     id: string;
     title: string;
@@ -59,16 +59,19 @@ const ADMISSION_OPTIONS: AdmissionOption[] = [
         id: 'admit',
         title: 'Download Admit Card',
         icon: require('../../../assets/images/studentAdmission/download-card.png'),
+        route: 'AdmitCard',
     },
     {
         id: 'result',
         title: 'Result',
         icon: require('../../../assets/images/studentAdmission/result.png'),
+        route: 'ExamResult'
     },
     {
         id: 'bus',
         title: 'Bus Stoppage',
         icon: require('../../../assets/images/studentAdmission/bus-stoppage.png'),
+        route: 'BusStoppage'
     },
 ];
 

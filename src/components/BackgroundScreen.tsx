@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { ImageBackground, StatusBar, StyleSheet, View } from 'react-native';
-import CustomStatusBar from './CustomStatusBar';
 import Button from './Button';
+import Header from './Header';
 
-export default function BackgroundScreen({ children, navigation }: { children: ReactNode, navigation: any }) {
+export default function BackgroundScreen({ children, navigation, isHeader = false, title='' }: { children: ReactNode, navigation: any, isHeader?: boolean, title?: string }) {
     return (
         <ImageBackground
             source={require('../assets/images/background.png')}
@@ -11,12 +11,18 @@ export default function BackgroundScreen({ children, navigation }: { children: R
             style={styles.background}
         >
             <StatusBar barStyle='dark-content'/>
+            {isHeader ? (
+                <Header title={title} navigation={navigation}/>
+            ) : (
+                <View style={styles.backButtonWrapper}>
+                    <Button
+                        type='arrowLeft'
+                        onPress={() => navigation.goBack()}
+                    />
+                </View>
+            )}
             <View style={styles.content}>
-                <Button
-                    type='arrowLeft'
-                    onPress={() => navigation.goBack()}
-                />
-                {children}
+            {children}
             </View>
         </ImageBackground>
     );
@@ -31,7 +37,11 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     width: '100%',
-    paddingVertical: 40,
-    paddingHorizontal: 20
+    paddingVertical: 20,
+    paddingHorizontal: 15
   },
+  backButtonWrapper:{
+    paddingVertical: 40, 
+    paddingHorizontal: 20
+  }
 });

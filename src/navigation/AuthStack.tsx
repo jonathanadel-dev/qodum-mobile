@@ -24,6 +24,9 @@ import { SchoolType } from '../lib/api/schoolApi';
 import ChooseActionScreen from '../screens/auth/schoolLogin/ChooseActionScreen';
 import OTPScreen from '../screens/auth/studentAdmission/registrationForAdmission/OTPScreen';
 import ApplicationStatusScreen from '../screens/auth/studentAdmission/trackTheApplication/ApplicationStatusScreen';
+import AdmitCardScreen from '../screens/auth/studentAdmission/AdmitCardScreen';
+import ExamResultScreen from '../screens/auth/studentAdmission/ExamResultScreen';
+import BusStoppageScreen from '../screens/auth/studentAdmission/BusStoppageScreen';
 
 type AuthStackRouteName =
   | 'Splash'
@@ -74,6 +77,18 @@ export type AuthStackParamList = {
   };
   ApplicationStatus: {
     status: ApplicationStatus
+  };
+  // Admit card
+  AdmitCard:{
+    schoolCode: string;
+  }
+  // Exam result
+  ExamResult: {
+    schoolCode: string;
+  };
+  // Bus stoppage
+  BusStoppage: {
+    schoolCode: string;
   };
 
   // School login
@@ -130,6 +145,12 @@ export default function AuthStack() {
 
       <Stack.Screen name="TrackApplication" component={TrackApplicationScreen} />
       <Stack.Screen name="ApplicationStatus" component={ApplicationStatusScreen} />
+
+      <Stack.Screen name="AdmitCard" component={AdmitCardScreen} />
+      
+      <Stack.Screen name="ExamResult" component={ExamResultScreen} />
+
+      <Stack.Screen name="BusStoppage" component={BusStoppageScreen} />
 
 
       {/* School Login */}

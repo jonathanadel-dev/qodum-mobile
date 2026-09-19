@@ -14,7 +14,6 @@ import JobAppliedScreen from '../screens/auth/jobOpening/JobAppliedScreen';
 import RegisterScreen from '../screens/auth/schoolLogin/RegisterScreen';
 import StudentAdmissionScreen from '../screens/auth/studentAdmission';
 import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/StudentAdmissionProcedureScreen';
-import StudentAdmittedScreen from '../screens/auth/studentAdmission/registrationForAdmission/StudentAdmittedScreen';
 import TrackApplicationScreen from '../screens/auth/studentAdmission/trackTheApplication/TrackApplicationScreen';
 import SchoolSearchScreen from '../screens/auth/schoolCode/SchoolSearchScreen';
 import { SchoolType } from '../lib/api/schoolApi';
@@ -25,6 +24,7 @@ import AdmitCardScreen from '../screens/auth/studentAdmission/AdmitCardScreen';
 import ExamResultScreen from '../screens/auth/studentAdmission/ExamResultScreen';
 import BusStoppageScreen from '../screens/auth/studentAdmission/BusStoppageScreen';
 import AdmissionDetailsScreen from '../screens/auth/studentAdmission/registrationForAdmission/AdmissionDetailsScreen';
+import CheckOTPScreen from '../screens/auth/schoolLogin/CheckOTP';
 
 type AuthStackRouteName =
   | 'Splash'
@@ -71,9 +71,6 @@ export type AuthStackParamList = {
     admissionId: string,
     student: any,
   }
-  StudentAdmitted:{
-    schoolCode: string;
-  };
   // Track application
   TrackApplication: {
     schoolCode: string;
@@ -104,6 +101,9 @@ export type AuthStackParamList = {
   Register: {
     schoolCode: string;
   };
+  CheckOTP:{
+    schoolCode: string;
+  }
 
   // Job opening
   JobOpening: {
@@ -144,7 +144,6 @@ export default function AuthStack() {
 
       <Stack.Screen name="OTP" component={OTPScreen} />
       <Stack.Screen name="StudentAdmissionForm" component={StudentAdmissionFormScreen} />
-      {/* <Stack.Screen name="StudentAdmitted" component={StudentAdmittedScreen} /> */}
       <Stack.Screen name="AdmissionDetails" component={AdmissionDetailsScreen} />
 
       <Stack.Screen name="TrackApplication" component={TrackApplicationScreen} />
@@ -161,6 +160,7 @@ export default function AuthStack() {
       <Stack.Screen name="ChooseAction" component={ChooseActionScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="CheckOTP" component={CheckOTPScreen} />
 
 
       {/* Job Opening */}

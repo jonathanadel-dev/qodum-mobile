@@ -1,4 +1,3 @@
-// screens/ChooseAction/ChooseActionScreen.tsx
 import React from 'react';
 import {
     Image,

@@ -65,6 +65,7 @@ export default function LoginScreen({ navigation, route }: Props) {
             });
             // TODO: Auth context and redirection
             await new Promise((resolve: any) => setTimeout(resolve, 1200));
+            navigation.navigate('CheckOTP', {schoolCode});
         } catch {
             toast.error('Unable to log in. Please check your details and try again.');
         }

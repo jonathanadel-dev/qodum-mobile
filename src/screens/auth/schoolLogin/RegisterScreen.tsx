@@ -64,6 +64,7 @@ export default function RegisterScreen({ navigation, route }: Props) {
             });
             // TODO: Auth context and redirection
             await new Promise((resolve: any) => setTimeout(resolve, 1200));
+            navigation.navigate('CheckOTP', {schoolCode});
         } catch {
             toast.error('Unable to create your account. Please try again.');
         }

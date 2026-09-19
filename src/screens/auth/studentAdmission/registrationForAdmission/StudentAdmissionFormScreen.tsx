@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -26,6 +26,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
 import Button from '../../../../components/Button';
 import Header from '../../../../components/Header';
+import FloatingModal from '../../../../components/FloatingModal';
+import Ionicons from '@react-native-vector-icons/ionicons';
+import { colors, spacing } from '../../../../styles/theme';
 
 
 // Type
@@ -34,6 +37,12 @@ type Props = NativeStackScreenProps<AuthStackParamList, 'StudentAdmissionForm'>;
 
 // Student admission form screen
 export default function StudentAdmissionFormScreen({ navigation, route }: Props) {
+
+    // State
+    const [successVisible, setSuccessVisible] = useState(false);
+    const [admissionId, setAdmissionId] = useState('');
+    const [submittedData, setSubmittedData] = useState<AdmissionFormData | null>(null);
+
 
     // Form
     const {schoolCode} = route.params;
@@ -96,11 +105,29 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
     const removeImage = () => setValue('image', '', { shouldValidate: true });
 
 
+    // Handle success
+    const handleSuccessOk = () => {
+        setSuccessVisible(false);
+        if (!submittedData) return;
+
+        navigation.navigate('AdmissionDetails', {
+            schoolCode,
+            admissionId,
+            student: submittedData,
+        });
+    };
+
+
     // Submit handlers
     const onSubmit = async (data: AdmissionFormData) => {
         try {
             await new Promise((resolve:any) => setTimeout(resolve, 1200));
-            navigation.navigate('StudentAdmitted', {schoolCode})
+            // TODO: real admission ID should come from the backend response
+            const generatedId = `ADM${Math.floor(100000 + Math.random() * 900000)}`;
+
+            setSubmittedData(data);
+            setAdmissionId(generatedId);
+            setSuccessVisible(true);
         } catch {
             toast.error('Something went wrong. Please try again.');
         }
@@ -265,6 +292,48 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
+
+            <FloatingModal visible={successVisible} onClose={() => setSuccessVisible(false)}>
+                <View style={successStyles.header}>
+                    <Ionicons name="checkmark-circle" size={56} color={colors.success} />
+                    <Text style={successStyles.title}>Registration Successful!</Text>
+                    <Text style={successStyles.subtitle}>
+                        Your admission form has been submitted successfully.
+                    </Text>
+                    <Text style={successStyles.admissionId}>Admission ID: {admissionId}</Text>
+                </View>
+
+                <Button type="gradient" label="OK" onPress={handleSuccessOk} style={successStyles.okButton} />
+            </FloatingModal>
         </View>
     );
 }
+
+
+const successStyles = StyleSheet.create({
+    header: {
+        alignItems: 'center',
+        marginBottom: spacing.xl,
+    },
+    title: {
+        fontSize: 19,
+        fontWeight: '800',
+        color: colors.success,
+        marginTop: spacing.md,
+        marginBottom: spacing.sm,
+    },
+    subtitle: {
+        fontSize: 14,
+        color: colors.textSecondary,
+        textAlign: 'center',
+        marginBottom: spacing.md,
+    },
+    admissionId: {
+        fontSize: 15,
+        fontWeight: '800',
+        color: colors.primary,
+    },
+    okButton: {
+        height: 52,
+    },
+});

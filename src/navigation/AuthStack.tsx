@@ -7,13 +7,10 @@ import ContinueAsScreen from '../screens/auth/ContinueAsScreen';
 import StudentAdmissionFormScreen from '../screens/auth/studentAdmission/registrationForAdmission/StudentAdmissionFormScreen';
 import SchoolCodeScreen from '../screens/auth/schoolCode/SchoolCodeScreen';
 import SplashScreen from '../screens/SplashScreen';
-import AlumniFormScreen from '../screens/auth/alumni/AlumniFormScreen';
-import AlumniAddedScreen from '../screens/auth/alumni/AlumniAddedScreen';
 import JobOpeningScreen from '../screens/auth/jobOpening';
 import JobDescriptionScreen from '../screens/auth/jobOpening/JobDescriptionScreen';
 import JobFormScreen from '../screens/auth/jobOpening/JobFormScreen';
 import JobAppliedScreen from '../screens/auth/jobOpening/JobAppliedScreen';
-import ChooseRoleScreen from '../screens/auth/schoolLogin/ChooseActionScreen';
 import RegisterScreen from '../screens/auth/schoolLogin/RegisterScreen';
 import StudentAdmissionScreen from '../screens/auth/studentAdmission';
 import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/StudentAdmissionProcedureScreen';
@@ -27,6 +24,7 @@ import ApplicationStatusScreen from '../screens/auth/studentAdmission/trackTheAp
 import AdmitCardScreen from '../screens/auth/studentAdmission/AdmitCardScreen';
 import ExamResultScreen from '../screens/auth/studentAdmission/ExamResultScreen';
 import BusStoppageScreen from '../screens/auth/studentAdmission/BusStoppageScreen';
+import AdmissionDetailsScreen from '../screens/auth/studentAdmission/registrationForAdmission/AdmissionDetailsScreen';
 
 type AuthStackRouteName =
   | 'Splash'
@@ -68,6 +66,11 @@ export type AuthStackParamList = {
   StudentAdmissionForm: {
     schoolCode: string;
   };
+  AdmissionDetails:{
+    schoolCode: string,
+    admissionId: string,
+    student: any,
+  }
   StudentAdmitted:{
     schoolCode: string;
   };
@@ -141,7 +144,8 @@ export default function AuthStack() {
 
       <Stack.Screen name="OTP" component={OTPScreen} />
       <Stack.Screen name="StudentAdmissionForm" component={StudentAdmissionFormScreen} />
-      <Stack.Screen name="StudentAdmitted" component={StudentAdmittedScreen} />
+      {/* <Stack.Screen name="StudentAdmitted" component={StudentAdmittedScreen} /> */}
+      <Stack.Screen name="AdmissionDetails" component={AdmissionDetailsScreen} />
 
       <Stack.Screen name="TrackApplication" component={TrackApplicationScreen} />
       <Stack.Screen name="ApplicationStatus" component={ApplicationStatusScreen} />

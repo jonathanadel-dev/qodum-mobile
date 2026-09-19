@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { colors, fonts, radius, spacing } from '../../../styles/theme';
+import { colors, fonts, spacing } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import BackgroundScreen from '../../../components/BackgroundScreen';
@@ -32,7 +32,7 @@ export default function BusStoppageScreen({ navigation }: Props) {
     const busOpacity = useRef(new Animated.Value(0)).current;
     const routeProgress = useRef(new Animated.Value(0)).current;
 
-    const stopSpacing = 120;
+    const stopSpacing = 80;
     const routeLength = (selectedRoute.stops.length - 1) * stopSpacing;
     const containerHeight = routeLength + 240;
 

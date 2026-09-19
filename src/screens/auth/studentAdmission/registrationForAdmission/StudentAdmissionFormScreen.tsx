@@ -14,17 +14,18 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { launchImageLibrary } from 'react-native-image-picker';
 
-import toast from '../../../lib/toast';
-import FormField from '../../../components/form/input/FormField';
-import FormDateField from '../../../components/form/datePicker/FormDateField';
-import FormSection from '../../../components/form/FormSection';
-import SubmitButton from '../../../components/Button';
-import { admissionSchema, AdmissionFormData } from '../../../lib/zodSchemas/admissionFormSchema';
-import { formStyles as styles } from '../../../styles/common';
-import CustomStatusBar from '../../../components/CustomStatusBar';
-import BackButton from '../../../components/Header';
+import toast from '../../../../lib/toast';
+import FormField from '../../../../components/form/input/FormField';
+import FormDateField from '../../../../components/form/datePicker/FormDateField';
+import FormSection from '../../../../components/form/FormSection';
+import SubmitButton from '../../../../components/Button';
+import { admissionSchema, AdmissionFormData } from '../../../../lib/zodSchemas/admissionFormSchema';
+import { formStyles as styles } from '../../../../styles/common';
+import CustomStatusBar from '../../../../components/CustomStatusBar';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../../navigation/AuthStack';
+import { AuthStackParamList } from '../../../../navigation/AuthStack';
+import Button from '../../../../components/Button';
+import Header from '../../../../components/Header';
 
 
 // Type
@@ -112,7 +113,7 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
         <View style={styles.container}>
 
             {/* Status bar */}
-            <CustomStatusBar />
+            <Header navigation={navigation} title="New Admission"/>
 
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -124,7 +125,6 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={styles.scrollContent}
                 >
-                    <BackButton navigation={navigation}/>
                     <View style={styles.header}>
 
                         <View style={styles.headerText}>
@@ -256,7 +256,12 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
                         <Text style={styles.submitHint}>
                             Please make sure all information is accurate before submitting.
                         </Text>
-                        <SubmitButton loading={isSubmitting} onPress={handleSubmit(onSubmit, onInvalid)} />
+                        <Button
+                            loading={isSubmitting}
+                            onPress={handleSubmit(onSubmit, onInvalid)}
+                            type='gradient'
+                            style={{height: 50}}
+                        />
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

@@ -1,7 +1,6 @@
-// screens/StudentAdmission/StudentAdmissionScreen.tsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
-    Dimensions,
+    Animated,
     Image,
     Pressable,
     ScrollView,
@@ -21,16 +20,13 @@ import { AuthStackParamList } from '../../../navigation/AuthStack';
 
 // Types
 type Props = NativeStackScreenProps<AuthStackParamList, 'StudentAdmission'>;
-type Route = keyof Pick <AuthStackParamList, 'StudentAdmissionProcedure' | 'StudentAdmissionForm' | 'TrackApplication'>;
+type Route = keyof Pick <AuthStackParamList, 'StudentAdmissionProcedure' | 'OTP' | 'TrackApplication'>;
 type AdmissionOption = {
     id: string;
     title: string;
     icon: any;
     route?: Route;
 };
-
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-const SLIDER_HEIGHT = SCREEN_HEIGHT * 0.26;
 
 // Dummy — swap for a real fetch by schoolCode once that endpoint exists
 const school = {
@@ -51,7 +47,7 @@ const ADMISSION_OPTIONS: AdmissionOption[] = [
         id: 'form',
         title: 'Registration for Admission',
         icon: require('../../../assets/images/studentAdmission/registration-for-admission.png'),
-        route: 'StudentAdmissionForm',
+        route: 'OTP',
     },
     {
         id: 'track',
@@ -81,6 +77,39 @@ const ADMISSION_OPTIONS: AdmissionOption[] = [
 export default function StudentAdmissionScreen({ navigation, route }: Props) {
     const { schoolCode } = route.params;
 
+    const cardAnimations = useRef(
+        ADMISSION_OPTIONS.map(() => ({
+            translateY: new Animated.Value(18),
+            opacity: new Animated.Value(0),
+            scale: new Animated.Value(0.97),
+        }))
+    ).current;
+
+    useEffect(() => {
+        const animations = cardAnimations.map((animation) =>
+            Animated.parallel([
+                Animated.timing(animation.translateY, {
+                    toValue: 0,
+                    duration: 500,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(animation.opacity, {
+                    toValue: 1,
+                    duration: 400,
+                    useNativeDriver: true,
+                }),
+                Animated.spring(animation.scale, {
+                    toValue: 1,
+                    speed: 18,
+                    bounciness: 2,
+                    useNativeDriver: true,
+                }),
+            ])
+        );
+
+        Animated.stagger(70, animations).start();
+    }, [cardAnimations]);
+
     const pressHandler = (targetRoute: Route | undefined) => {
         if (!targetRoute) return;
         navigation.navigate(targetRoute, { schoolCode });
@@ -101,7 +130,7 @@ export default function StudentAdmissionScreen({ navigation, route }: Props) {
                     contentContainerStyle={styles.scrollContent}
                 >
                     <View style={styles.heroWrapper}>
-                        <Slider height={SLIDER_HEIGHT} />
+                        <Slider height={180} />
 
                         <View style={styles.backButtonWrapper}>
                             <Button
@@ -116,24 +145,43 @@ export default function StudentAdmissionScreen({ navigation, route }: Props) {
                         <Text style={styles.sectionTitle}>Actions</Text>
 
                         <View style={styles.grid}>
-                            {ADMISSION_OPTIONS.map((option) => (
-                                <Pressable
-                                    key={option.id}
-                                    style={styles.tile}
-                                    onPress={() => pressHandler(option.route)}
-                                >
-                                    <View style={styles.tileIconFrame}>
-                                        <Image
-                                            source={option.icon}
-                                            style={styles.tileIcon}
-                                            resizeMode="contain"
-                                        />
-                                    </View>
-                                    <Text style={styles.tileTitle} numberOfLines={2}>
-                                        {option.title}
-                                    </Text>
-                                </Pressable>
-                            ))}
+                            {ADMISSION_OPTIONS.map((option, index) => {
+                                const animation = cardAnimations[index];
+
+                                return (
+                                    <Animated.View
+                                        key={option.id}
+                                        style={{
+                                            width: '31%',
+                                            opacity: animation.opacity,
+                                            transform: [
+                                                { translateY: animation.translateY },
+                                                { scale: animation.scale },
+                                            ],
+                                        }}
+                                    >
+                                        <Pressable
+                                            style={styles.tile}
+                                            onPress={() => pressHandler(option.route)}
+                                        >
+                                            <View style={styles.tileIconFrame}>
+                                                <Image
+                                                    source={option.icon}
+                                                    style={styles.tileIcon}
+                                                    resizeMode="contain"
+                                                />
+                                            </View>
+
+                                            <Text
+                                                style={styles.tileTitle}
+                                                numberOfLines={2}
+                                            >
+                                                {option.title}
+                                            </Text>
+                                        </Pressable>
+                                    </Animated.View>
+                                );
+                            })}
                         </View>
 
                         <View style={styles.footer}>
@@ -142,11 +190,15 @@ export default function StudentAdmissionScreen({ navigation, route }: Props) {
                                 style={styles.footerLogo}
                                 resizeMode="contain"
                             />
-                            <Text style={styles.footerSchoolName}>{school.name}</Text>
+                            <Text style={styles.footerSchoolName}>
+                                {school.name}
+                            </Text>
                             <Text style={styles.footerLine}>
                                 Admission Helpline: {school.admissionHelpline}
                             </Text>
-                            <Text style={styles.footerLine}>Email: {school.email}</Text>
+                            <Text style={styles.footerLine}>
+                                Email: {school.email}
+                            </Text>
                         </View>
                     </View>
                 </ScrollView>
@@ -167,7 +219,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         paddingHorizontal: spacing.xl,
         paddingTop: spacing.xxxl,
-        paddingBottom: spacing.lg, 
+        paddingBottom: spacing.lg,
     },
     backButtonWrapper: {
         position: 'absolute',
@@ -201,8 +253,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     tile: {
-        width: '31%',
+        width: '100%',
         borderWidth: 1,
+        height:120,
         borderColor: colors.border,
         borderRadius: radius.lg,
         paddingVertical: spacing.md,

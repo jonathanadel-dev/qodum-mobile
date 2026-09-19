@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/auth/schoolLogin/LoginScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';  
 import ContinueAsScreen from '../screens/auth/ContinueAsScreen';
-import StudentAdmissionFormScreen from '../screens/auth/studentAdmission/StudentAdmissionFormScreen';
+import StudentAdmissionFormScreen from '../screens/auth/studentAdmission/registrationForAdmission/StudentAdmissionFormScreen';
 import SchoolCodeScreen from '../screens/auth/schoolCode/SchoolCodeScreen';
 import SplashScreen from '../screens/SplashScreen';
 import AlumniFormScreen from '../screens/auth/alumni/AlumniFormScreen';
@@ -17,11 +17,13 @@ import ChooseRoleScreen from '../screens/auth/schoolLogin/ChooseActionScreen';
 import RegisterScreen from '../screens/auth/schoolLogin/RegisterScreen';
 import StudentAdmissionScreen from '../screens/auth/studentAdmission';
 import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/StudentAdmissionProcedureScreen';
-import StudentAdmittedScreen from '../screens/auth/studentAdmission/StudentAdmittedScreen';
-import TrackApplicationScreen from '../screens/auth/studentAdmission/TrackApplicationScreen';
+import StudentAdmittedScreen from '../screens/auth/studentAdmission/registrationForAdmission/StudentAdmittedScreen';
+import TrackApplicationScreen from '../screens/auth/studentAdmission/trackTheApplication/TrackApplicationScreen';
 import SchoolSearchScreen from '../screens/auth/schoolCode/SchoolSearchScreen';
 import { SchoolType } from '../lib/api/schoolApi';
 import ChooseActionScreen from '../screens/auth/schoolLogin/ChooseActionScreen';
+import OTPScreen from '../screens/auth/studentAdmission/registrationForAdmission/OTPScreen';
+import ApplicationStatusScreen from '../screens/auth/studentAdmission/trackTheApplication/ApplicationStatusScreen';
 
 type AuthStackRouteName =
   | 'Splash'
@@ -31,6 +33,10 @@ type AuthStackRouteName =
   | 'Login'
   | 'JobOpening'
   | 'ChooseAction'
+type ApplicationStatus =
+    | 'submitted'
+    | 'reviewing'
+    | 'validated';
 
 export type AuthStackParamList = {
   Splash: undefined;
@@ -52,14 +58,22 @@ export type AuthStackParamList = {
   StudentAdmissionProcedure: {
     schoolCode: string;
   };
+  // Registration for admission
+  OTP:{
+    schoolCode: string;
+  }
   StudentAdmissionForm: {
     schoolCode: string;
   };
   StudentAdmitted:{
     schoolCode: string;
   };
+  // Track application
   TrackApplication: {
     schoolCode: string;
+  };
+  ApplicationStatus: {
+    status: ApplicationStatus
   };
 
   // School login
@@ -107,17 +121,22 @@ export default function AuthStack() {
 
       {/* Student Admission */}
       <Stack.Screen name="StudentAdmission" component={StudentAdmissionScreen} />
+
       <Stack.Screen name="StudentAdmissionProcedure" component={StudentAdmissionProcedureScreen} />
+
+      <Stack.Screen name="OTP" component={OTPScreen} />
       <Stack.Screen name="StudentAdmissionForm" component={StudentAdmissionFormScreen} />
       <Stack.Screen name="StudentAdmitted" component={StudentAdmittedScreen} />
+
       <Stack.Screen name="TrackApplication" component={TrackApplicationScreen} />
+      <Stack.Screen name="ApplicationStatus" component={ApplicationStatusScreen} />
 
 
       {/* School Login */}
       <Stack.Screen name="ChooseAction" component={ChooseActionScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      
+
 
       {/* Job Opening */}
       <Stack.Screen name="JobOpening" component={JobOpeningScreen} />

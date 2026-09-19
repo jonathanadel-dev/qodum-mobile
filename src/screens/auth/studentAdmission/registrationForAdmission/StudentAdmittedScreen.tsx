@@ -8,10 +8,11 @@ import {
     View,
 } from 'react-native';
 
-import { colors } from '../../../styles/theme';
-import SubmitButton from '../../../components/Button';
-import { AuthStackParamList } from '../../../navigation/AuthStack';
+import { colors } from '../../../../styles/theme';
+import SubmitButton from '../../../../components/Button';
+import { AuthStackParamList } from '../../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Button from '../../../../components/Button';
 
 
 // Type
@@ -172,11 +173,12 @@ export default function StudentAdmittedScreen({ navigation, route }: Props) {
 
             {/* Bottom action */}
             <View style={styles.bottomArea}>
-                <SubmitButton
+                <Button
                     loading={false}
                     label="Back to admission portal"
                     loadingLabel="Back to admission portal"
                     onPress={() => navigation.replace('StudentAdmission', { schoolCode })}
+                    type='gradient'
                 />
             </View>
         </View>

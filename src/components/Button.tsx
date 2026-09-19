@@ -69,7 +69,7 @@ export default function Button({ loading, onPress, label = 'Submit', loadingLabe
                     disabled={loading}
                 >
                     <LinearGradient
-                        colors={['#3E5DAA', '#45AAD5']}
+                        colors={[colors.gradientStart, colors.gradientEnd]}
                         start={{ x: 0, y: 0.5 }}
                         end={{ x: 1, y: 0.5 }}
                         style={[

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ImageBackground, StyleSheet, View } from 'react-native';
+import { ImageBackground, StatusBar, StyleSheet, View } from 'react-native';
 import CustomStatusBar from './CustomStatusBar';
 import Button from './Button';
 
@@ -10,7 +10,7 @@ export default function BackgroundScreen({ children, navigation }: { children: R
             resizeMode="cover"
             style={styles.background}
         >
-            <CustomStatusBar />
+            <StatusBar barStyle='dark-content'/>
             <View style={styles.content}>
                 <Button
                     type='arrowLeft'

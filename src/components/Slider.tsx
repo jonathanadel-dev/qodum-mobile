@@ -1,4 +1,3 @@
-// components/Slider.tsx
 import { Image, NativeScrollEvent, NativeSyntheticEvent, ScrollView, ScrollViewInstance, StyleSheet, View } from "react-native";
 import { colors, radius } from "../styles/theme";
 import { useEffect, useRef, useState } from "react";

@@ -15,6 +15,7 @@ import { colors, radius, spacing, typography } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import CodeInput from '../../../components/form/CodeInput';
 import toast from '../../../lib/toast';
+import { useAuth } from '../../../context/AuthContext';
 
 
 // Type
@@ -31,6 +32,7 @@ const maskedPhone = '**********99';
 export default function CheckOTPScreen({ navigation, route }: Props) {
 
     // State
+    const {login} = useAuth();
     const { schoolCode } = route.params;
     const [otp, setOtp] = useState('');
     const [resendSeconds, setResendSeconds] = useState(RESEND_SECONDS);
@@ -49,6 +51,12 @@ export default function CheckOTPScreen({ navigation, route }: Props) {
         try {
             // TODO: real OTP verification API call
             await new Promise((resolve:any) => setTimeout(resolve, 900));
+            login('dthth', {
+                id:'456164',
+                number:'684684',
+                name: 'Danilla Mohamed',
+                role: 'student'
+            });
         } catch {
             toast.error('Invalid code. Please try again.');
         } finally {

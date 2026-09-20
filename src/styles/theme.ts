@@ -8,7 +8,7 @@ export const colors = {
     dangerBackground: '#FDF2F3',
     successBackground: '#E7F8ED',
     warningBackground: '#FFF3E0',
-    infoBackground: '#E5F4FB',
+    infoBackground: '#dae0f0',
     gradientStart: '#3d5eab',
     gradientEnd: '#4ea8dc',
     dotInactive: '#D6DEE4',

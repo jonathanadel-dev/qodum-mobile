@@ -1,14 +1,14 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Screens
-import SettingsScreen from '../../screens/app/settings/SettingsScreen';
+import FeeScreen from '../../screens/app/fee/FeeScreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function SettingsStack() {
+export default function FeeStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="Fee" component={FeeScreen} />
     </Stack.Navigator>
   );
 }

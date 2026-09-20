@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 type UserRole = 'teacher' | 'student';
 interface User {
   id: string;
+  number: string;
   name: string;
   role: UserRole;
 }

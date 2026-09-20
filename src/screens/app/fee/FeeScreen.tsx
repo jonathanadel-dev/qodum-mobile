@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 
-export default function SettingsScreen() {
+export default function FeeScreen() {
   return (
     <View>
-      <Text>Settings Screen</Text>
+      <Text>Fee Screen</Text>
     </View>
   );
 }

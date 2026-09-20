@@ -25,15 +25,12 @@ import ExamResultScreen from '../screens/auth/studentAdmission/ExamResultScreen'
 import BusStoppageScreen from '../screens/auth/studentAdmission/BusStoppageScreen';
 import AdmissionDetailsScreen from '../screens/auth/studentAdmission/registrationForAdmission/AdmissionDetailsScreen';
 import CheckOTPScreen from '../screens/auth/schoolLogin/CheckOTP';
+import NumberValidationScreen from '../screens/auth/schoolLogin/NumberValidation';
 
-type AuthStackRouteName =
-  | 'Splash'
-  | 'Welcome'
-  | 'ContinueAs'
+type NextPage =
   | 'StudentAdmission'
-  | 'Login'
   | 'JobOpening'
-  | 'ChooseAction'
+  | 'NumberValidation'
 type ApplicationStatus =
     | 'submitted'
     | 'reviewing'
@@ -46,7 +43,7 @@ export type AuthStackParamList = {
 
   // School code
   SchoolCode: {
-    next_page: AuthStackRouteName;
+    next_page: NextPage;
   };
   SchoolSearch: {
     onSelect: (school: SchoolType) => void
@@ -92,6 +89,9 @@ export type AuthStackParamList = {
   };
 
   // School login
+  NumberValidation:{
+    schoolCode: string;
+  }
   ChooseAction: {
     schoolCode: string
   };
@@ -157,6 +157,7 @@ export default function AuthStack() {
 
 
       {/* School Login */}
+      <Stack.Screen name="NumberValidation" component={NumberValidationScreen} />
       <Stack.Screen name="ChooseAction" component={ChooseActionScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />

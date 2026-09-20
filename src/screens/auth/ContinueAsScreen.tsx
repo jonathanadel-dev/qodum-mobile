@@ -28,7 +28,7 @@ type OptionKey = 'admission' | 'login' | 'jobs';
 type Props = NativeStackScreenProps<AuthStackParamList, 'ContinueAs'>;
 type ValidNextPage = Extract<
     keyof AuthStackParamList,
-    'StudentAdmission' | 'ChooseAction' | 'JobOpening'
+    'StudentAdmission' | 'NumberValidation' | 'JobOpening'
 >;
 
 
@@ -54,7 +54,7 @@ const OPTIONS: {
         title: 'SECURE LOGIN',
         description:
             'Select to login with your school or college code!',
-        nextPage: 'ChooseAction',
+        nextPage: 'NumberValidation',
     },
     {
         key: 'jobs',

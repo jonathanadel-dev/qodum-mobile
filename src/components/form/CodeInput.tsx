@@ -26,6 +26,8 @@ export default function CodeInput ({ length = 6, value, onChangeText, error, aut
 
     const boxes = Array.from({ length }, (_, index) => value[index] ?? '');
 
+    const sanitize = (text: string) => text.replace(/[^0-9]/g, '');
+
     const focusBox = (index: number) => {
         if (index >= 0 && index < length) {
             inputRefs.current[index]?.focus();
@@ -33,7 +35,7 @@ export default function CodeInput ({ length = 6, value, onChangeText, error, aut
     };
 
     const handleChangeText = (index: number, text: string) => {
-        const cleaned = text.toUpperCase().replace(/[^A-Z0-9]/g, '');
+        const cleaned = sanitize(text);
 
         // Pasted or multi-character input: spread it across the remaining boxes.
         if (cleaned.length > 1) {
@@ -88,7 +90,7 @@ export default function CodeInput ({ length = 6, value, onChangeText, error, aut
                         onChangeText={text => handleChangeText(index, text)}
                         onKeyPress={event => handleKeyPress(index, event)}
                         maxLength={length}
-                        autoCapitalize="characters"
+                        keyboardType="number-pad"
                         autoCorrect={false}
                         autoFocus={autoFocus && index === 0}
                         returnKeyType="done"

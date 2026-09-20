@@ -1,10 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 // Stacks
 import HomeStack from './HomeStack';
-import ActivityStack from './ActivityStack';
+import NotificationStack from './NotificationStack';
 import MessagesStack from './MessagesStack';
 import FeeStack from './FeeStack';
 import ProfileStack from './ProfileStack';
@@ -12,79 +13,91 @@ import { colors } from '../../styles/theme';
 
 const Tab = createBottomTabNavigator<any>();
 
+const HIDDEN_TAB_BAR_ROUTES: Record<string, string[]> = {
+  NotificationStack: ['NotificationDetails'],
+};
+
+const TAB_BAR_STYLE = {
+  position: 'absolute' as const,
+  left: 10,
+  right: 10,
+  height: 70,
+  backgroundColor: '#FFFFFF',
+  borderTopWidth: 0,
+  borderTopLeftRadius: 24,
+  borderTopRightRadius: 24,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: -2 },
+  shadowOpacity: 0.06,
+  shadowRadius: 12,
+  elevation: 8,
+};
+
 export default function AppTabs() {
   return (
     <Tab.Navigator
       initialRouteName='HomeStack'
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarShowLabel: true,
-        tabBarStyle: {
-          position: 'absolute',
-          left: 10,
-          right: 10,
-          height: 70,
-          backgroundColor: '#FFFFFF',
-          borderTopWidth: 0,
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.06,
-          shadowRadius: 12,
-          elevation: 8,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '500',
-          marginTop: 2,
-        },
-        tabBarActiveTintColor: colors.gradientEnd,
-        tabBarInactiveTintColor: colors.hash,
-        tabBarIcon: ({ focused }) => {
+      screenOptions={({ route }) => {
+        const focusedRouteName = getFocusedRouteNameFromRoute(route) ?? '';
+        const hiddenRoutes = HIDDEN_TAB_BAR_ROUTES[route.name] ?? [];
+        const shouldHideTabBar = hiddenRoutes.includes(focusedRouteName);
 
-          const isHomeTab = route.name === 'HomeStack';
+        return {
+          headerShown: false,
+          tabBarShowLabel: true,
+          tabBarStyle: shouldHideTabBar ? { display: 'none' } : TAB_BAR_STYLE,
+          tabBarLabelStyle: {
+            fontSize: 11,
+            fontWeight: '500',
+            marginTop: 2,
+          },
+          tabBarActiveTintColor: colors.gradientEnd,
+          tabBarInactiveTintColor: colors.hash,
+          tabBarIcon: ({ focused }) => {
 
-          const iconMap: Record<string, React.ComponentProps<typeof Ionicons>['name']> = {
-            HomeStack: 'home',
-            ActivityStack: focused ? 'notifications' : 'notifications-outline',
-            MessagesStack: focused ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline',
-            FeeStack: 'logo-usd',
-            ProfileStack: focused ? 'person' : 'person-outline',
-          };
+            const isHomeTab = route.name === 'HomeStack';
 
-          const iconName = iconMap[route.name];
-          const iconColor = focused ? colors.gradientEnd : colors.hash
+            const iconMap: Record<string, React.ComponentProps<typeof Ionicons>['name']> = {
+              HomeStack: 'home',
+              NotificationStack: focused ? 'notifications' : 'notifications-outline',
+              MessagesStack: focused ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline',
+              FeeStack: 'logo-usd',
+              ProfileStack: focused ? 'person' : 'person-outline',
+            };
 
-          if (isHomeTab) {
+            const iconName = iconMap[route.name];
+            const iconColor = focused ? colors.gradientEnd : colors.hash
+
+            if (isHomeTab) {
+              return (
+                <View
+                  style={{
+                    width: 58,
+                    height: 58,
+                    borderRadius: 100,
+                    backgroundColor: colors.gradientEnd,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: 30,
+                  }}
+                >
+                  <Ionicons
+                    name='home'
+                    size={28}
+                    color="#FFFFFF"
+                  />
+                </View>
+              );
+            }
+
             return (
-              <View
-                style={{
-                  width: 58,
-                  height: 58,
-                  borderRadius: 100,
-                  backgroundColor: colors.gradientEnd,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 30,
-                }}
-              >
-                <Ionicons
-                  name='home'
-                  size={28}
-                  color="#FFFFFF"
-                />
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Ionicons name={iconName} size={24} color={iconColor} />
               </View>
             );
-          }
-
-          return (
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <Ionicons name={iconName} size={24} color={iconColor} />
-            </View>
-          );
-        },
-      })}
+          },
+        };
+      }}
     >
       <Tab.Screen
         name="ProfileStack"
@@ -92,9 +105,9 @@ export default function AppTabs() {
         options={{ tabBarLabel: 'Profile' }}
       />
       <Tab.Screen
-        name="ActivityStack"
-        component={ActivityStack}
-        options={{ tabBarLabel: 'Activity' }}
+        name="NotificationStack"
+        component={NotificationStack}
+        options={{ tabBarLabel: 'Notification' }}
       />
       <Tab.Screen
         name="HomeStack"

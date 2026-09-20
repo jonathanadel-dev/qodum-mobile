@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 // Header
-export default function Header({ navigation, title }: any) {
+export default function Header({ navigation, title, isStack = false }: any) {
     return (
         <>
             <StatusBar barStyle='light-content'/>
@@ -15,9 +15,13 @@ export default function Header({ navigation, title }: any) {
                 end={{ x: 1, y: 1 }}
                 style={styles.container}
             >
-                <Pressable onPress={() => navigation.goBack()}>
-                    <Text style={styles.backArrow}>‹</Text>
-                </Pressable>
+                {!isStack ? (
+                    <Pressable onPress={() => navigation.goBack()}>
+                        <Text style={styles.backArrow}>‹</Text>
+                    </Pressable>
+                ) : (
+                    <View />
+                )}
 
                 {title ? (
                     <Text style={styles.title} numberOfLines={1}>

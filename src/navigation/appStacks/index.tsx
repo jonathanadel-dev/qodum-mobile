@@ -1,3 +1,4 @@
+// navigation/app/index.tsx (AppTabs)
 import React from 'react';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,8 +14,12 @@ import { colors } from '../../styles/theme';
 
 const Tab = createBottomTabNavigator<any>();
 
-const HIDDEN_TAB_BAR_ROUTES: Record<string, string[]> = {
-  NotificationStack: ['NotificationDetails'],
+const SHOWN_TAB_BAR_ROUTES: Record<string, string[]> = {
+  HomeStack: ['Home'],
+  NotificationStack: ['Notification'],
+  MessagesStack: ['Messages'],
+  FeeStack: ['Fee'],
+  ProfileStack: ['Profile'],
 };
 
 const TAB_BAR_STYLE = {
@@ -39,13 +44,16 @@ export default function AppTabs() {
       initialRouteName='HomeStack'
       screenOptions={({ route }) => {
         const focusedRouteName = getFocusedRouteNameFromRoute(route) ?? '';
-        const hiddenRoutes = HIDDEN_TAB_BAR_ROUTES[route.name] ?? [];
-        const shouldHideTabBar = hiddenRoutes.includes(focusedRouteName);
+        const shownRoutes = SHOWN_TAB_BAR_ROUTES[route.name] ?? [];
+        // Before any nested navigation happens, focusedRouteName is '' —
+        // treat that as "still on the root screen" so the bar shows by
+        // default on first mount, not just after an explicit match.
+        const shouldShowTabBar = focusedRouteName === '' || shownRoutes.includes(focusedRouteName);
 
         return {
           headerShown: false,
           tabBarShowLabel: true,
-          tabBarStyle: shouldHideTabBar ? { display: 'none' } : TAB_BAR_STYLE,
+          tabBarStyle: shouldShowTabBar ? TAB_BAR_STYLE : { display: 'none' },
           tabBarLabelStyle: {
             fontSize: 11,
             fontWeight: '500',

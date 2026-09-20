@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 export default function NotficationStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Notificaion" component={NotificationScreen} />
+      <Stack.Screen name="Notification" component={NotificationScreen} />
       <Stack.Screen name="NotificationDetails" component={NotificationDetailsScreen} />
     </Stack.Navigator>
   );

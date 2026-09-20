@@ -1,11 +1,11 @@
 import React from 'react';
-import { Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
 import { colors, radius, spacing, typography } from "../styles/theme";
 import LinearGradient from 'react-native-linear-gradient';
 
 
 // Header
-export default function Header({ navigation, title, isStack = false }: any) {
+export default function Header({ navigation, title, isStack = false, image }: any) {
     return (
         <>
             <StatusBar barStyle='light-content'/>
@@ -13,7 +13,7 @@ export default function Header({ navigation, title, isStack = false }: any) {
                 colors={[colors.gradientStart, colors.gradientEnd]}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 1 }}
-                style={styles.container}
+                style={[styles.container, image && styles.containerWithImage]}
             >
                 {!isStack ? (
                     <Pressable onPress={() => navigation.goBack()}>
@@ -23,13 +23,24 @@ export default function Header({ navigation, title, isStack = false }: any) {
                     <View />
                 )}
 
-                {title ? (
-                    <Text style={styles.title} numberOfLines={1}>
-                        {title}
-                    </Text>
-                ) : null}
+                {image ? (
+                    <View style={styles.titleImageRow}>
+                        <Image source={image} style={styles.avatar} />
+                        {title ? (
+                            <Text style={[styles.title, styles.titleWithImage]} numberOfLines={1}>
+                                {title}
+                            </Text>
+                        ) : null}
+                    </View>
+                ) : (
+                    title ? (
+                        <Text style={styles.title} numberOfLines={1}>
+                            {title}
+                        </Text>
+                    ) : null
+                )}
 
-                <Text />
+                {!image && <Text />}
             </LinearGradient>
         </>
 
@@ -50,6 +61,9 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: radius.xxl,
         borderBottomRightRadius: radius.xxl,
     },
+    containerWithImage: {
+        justifyContent: 'flex-start',
+    },
     backArrow: {
         fontSize: 45,
         color: colors.background,
@@ -59,5 +73,21 @@ const styles = StyleSheet.create({
         marginTop: spacing.lg,
         color: colors.background,
         marginBottom: 0,
+    },
+    titleImageRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: spacing.md,
+    },
+    avatar: {
+        width: 38,
+        height: 38,
+        borderRadius: radius.round,
+        borderWidth: 2,
+        borderColor: colors.background,
+        marginRight: spacing.md,
+    },
+    titleWithImage: {
+        marginTop: 0,
     },
 });

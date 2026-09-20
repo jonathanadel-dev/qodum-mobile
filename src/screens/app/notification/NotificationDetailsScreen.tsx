@@ -1,4 +1,3 @@
-// screens/Notification/NotificationDetailsScreen.tsx
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';

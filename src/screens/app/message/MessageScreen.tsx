@@ -67,7 +67,7 @@ export default function MessageScreen({ navigation }: NativeStackScreenProps<any
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
+    container: { flex: 1, backgroundColor: colors.background, paddingBottom: spacing.xxxl },
     list: {
         paddingHorizontal: spacing.xl,
         paddingBottom: spacing.xxxl,

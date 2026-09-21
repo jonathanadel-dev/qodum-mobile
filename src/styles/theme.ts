@@ -13,6 +13,7 @@ export const colors = {
     gradientEnd: '#4ea8dc',
     dotInactive: '#D6DEE4',
     admitCardBackground: '#f7f2f9',
+    inputBackground: '#f5f5f7',
 
     // Text
     text: '#12263A',

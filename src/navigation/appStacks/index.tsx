@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator<any>();
 const SHOWN_TAB_BAR_ROUTES: Record<string, string[]> = {
   HomeStack: ['Home'],
   NotificationStack: ['Notification'],
-  MessagesStack: ['Messages'],
+  MessagesStack: ['Message'],
   FeeStack: ['Fee'],
   ProfileStack: ['Profile'],
 };

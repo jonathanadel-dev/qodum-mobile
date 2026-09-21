@@ -14,6 +14,8 @@ export const colors = {
     dotInactive: '#D6DEE4',
     admitCardBackground: '#f7f2f9',
     inputBackground: '#f5f5f7',
+    iconFrameBackground: '#D9DADC',
+    sectionBackground: '#EEF1F3',
 
     // Text
     text: '#12263A',

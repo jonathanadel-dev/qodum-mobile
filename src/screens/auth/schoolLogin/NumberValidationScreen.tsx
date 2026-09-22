@@ -40,7 +40,7 @@ export default function NumberValidationScreen({ navigation, route }: Props) {
             return;
         }
 
-        navigation.navigate('ChooseAction', {schoolCode});
+        navigation.navigate('UserFound', { schoolCode, role: 'student' });
     };
 
 

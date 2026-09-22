@@ -1,7 +1,7 @@
-// screens/CheckOTP/CheckOTPScreen.tsx
 import React, { useEffect, useState } from 'react';
 import {
     Image,
+    Pressable,
     StatusBar,
     StyleSheet,
     Text,
@@ -16,10 +16,11 @@ import { AuthStackParamList } from '../../../navigation/AuthStack';
 import CodeInput from '../../../components/form/CodeInput';
 import toast from '../../../lib/toast';
 import { useAuth } from '../../../context/AuthContext';
+import Ionicons from '@react-native-vector-icons/ionicons';
 
 
 // Type
-type Props = NativeStackScreenProps<AuthStackParamList, 'CheckOTP'>;
+type Props = NativeStackScreenProps<AuthStackParamList, 'VerifyOTP'>;
 
 
 // Constants
@@ -29,7 +30,7 @@ const maskedPhone = '**********99';
 
 
 // Check OTP
-export default function CheckOTPScreen({ navigation, route }: Props) {
+export default function VerifyOTPScreen({ navigation, route }: Props) {
 
     // State
     const {login} = useAuth();
@@ -79,8 +80,12 @@ export default function CheckOTPScreen({ navigation, route }: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" />
+            <Pressable style={styles.backButton} onPress={() => navigation.goBack()} hitSlop={12}>
+                <Ionicons name="chevron-back" size={26} color={colors.primary} />
+            </Pressable>
 
             <View style={styles.content}>
+
 
                 <Image
                     source={require('../../../assets/images/logo.png')}
@@ -147,6 +152,10 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: spacing.xxl,
         paddingTop: spacing.xxxl * 2,
+    },
+    backButton: {
+        paddingHorizontal: spacing.xl,
+        paddingTop: spacing.md,
     },
     logo: {
         width: 220,

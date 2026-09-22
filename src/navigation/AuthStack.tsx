@@ -1,7 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Screens
-import LoginScreen from '../screens/auth/schoolLogin/LoginScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';  
 import ContinueAsScreen from '../screens/auth/ContinueAsScreen';
 import StudentAdmissionFormScreen from '../screens/auth/studentAdmission/registrationForAdmission/StudentAdmissionFormScreen';
@@ -11,21 +10,20 @@ import JobOpeningScreen from '../screens/auth/jobOpening';
 import JobDescriptionScreen from '../screens/auth/jobOpening/JobDescriptionScreen';
 import JobFormScreen from '../screens/auth/jobOpening/JobFormScreen';
 import JobAppliedScreen from '../screens/auth/jobOpening/JobAppliedScreen';
-import RegisterScreen from '../screens/auth/schoolLogin/RegisterScreen';
 import StudentAdmissionScreen from '../screens/auth/studentAdmission';
 import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/StudentAdmissionProcedureScreen';
 import TrackApplicationScreen from '../screens/auth/studentAdmission/trackTheApplication/TrackApplicationScreen';
 import SchoolSearchScreen from '../screens/auth/schoolCode/SchoolSearchScreen';
 import { SchoolType } from '../lib/api/schoolApi';
-import ChooseActionScreen from '../screens/auth/schoolLogin/ChooseActionScreen';
 import OTPScreen from '../screens/auth/studentAdmission/registrationForAdmission/OTPScreen';
 import ApplicationStatusScreen from '../screens/auth/studentAdmission/trackTheApplication/ApplicationStatusScreen';
 import AdmitCardScreen from '../screens/auth/studentAdmission/AdmitCardScreen';
 import ExamResultScreen from '../screens/auth/studentAdmission/ExamResultScreen';
 import BusStoppageScreen from '../screens/auth/studentAdmission/BusStoppageScreen';
 import AdmissionDetailsScreen from '../screens/auth/studentAdmission/registrationForAdmission/AdmissionDetailsScreen';
-import CheckOTPScreen from '../screens/auth/schoolLogin/CheckOTP';
-import NumberValidationScreen from '../screens/auth/schoolLogin/NumberValidation';
+import NumberValidationScreen from '../screens/auth/schoolLogin/NumberValidationScreen';
+import VerifyOTPScreen from '../screens/auth/schoolLogin/VerifyOTPScreen';
+import UserFoundScreen from '../screens/auth/schoolLogin/UserFoundScreen';
 
 type NextPage =
   | 'StudentAdmission'
@@ -92,16 +90,11 @@ export type AuthStackParamList = {
   NumberValidation:{
     schoolCode: string;
   }
-  ChooseAction: {
-    schoolCode: string
-  };
-  Login: {
+  UserFound:{
+    role: string;
     schoolCode: string;
-  };
-  Register: {
-    schoolCode: string;
-  };
-  CheckOTP:{
+  }
+  VerifyOTP:{
     schoolCode: string;
   }
 
@@ -158,10 +151,8 @@ export default function AuthStack() {
 
       {/* School Login */}
       <Stack.Screen name="NumberValidation" component={NumberValidationScreen} />
-      <Stack.Screen name="ChooseAction" component={ChooseActionScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="CheckOTP" component={CheckOTPScreen} />
+      <Stack.Screen name="UserFound" component={UserFoundScreen} />
+      <Stack.Screen name="VerifyOTP" component={VerifyOTPScreen} />
 
 
       {/* Job Opening */}

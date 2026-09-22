@@ -24,6 +24,9 @@ import AdmissionDetailsScreen from '../screens/auth/studentAdmission/registratio
 import NumberValidationScreen from '../screens/auth/schoolLogin/NumberValidationScreen';
 import VerifyOTPScreen from '../screens/auth/schoolLogin/VerifyOTPScreen';
 import UserFoundScreen from '../screens/auth/schoolLogin/UserFoundScreen';
+import PreviousAdmissionsScreen from '../screens/auth/studentAdmission/registrationForAdmission/PreviousAdmissionsScreen';
+import FeeScreen from '../screens/fee/FeeScreen';
+import FeeDetailsScreen from '../screens/fee/FeeDetailsScreen';
 
 type NextPage =
   | 'StudentAdmission'
@@ -55,6 +58,15 @@ export type AuthStackParamList = {
     schoolCode: string;
   };
   // Registration for admission
+  PreviousAdmissions: {
+    schoolCode: string;
+  };
+  Fee:{
+    student: any;
+  };
+  FeeDetails:{
+    student: any;
+  }
   OTP:{
     schoolCode: string;
   }
@@ -135,6 +147,9 @@ export default function AuthStack() {
 
       <Stack.Screen name="StudentAdmissionProcedure" component={StudentAdmissionProcedureScreen} />
 
+      <Stack.Screen name="PreviousAdmissions" component={PreviousAdmissionsScreen} />
+      <Stack.Screen name="Fee" component={FeeScreen} />
+      <Stack.Screen name="FeeDetails" component={FeeDetailsScreen} />
       <Stack.Screen name="OTP" component={OTPScreen} />
       <Stack.Screen name="StudentAdmissionForm" component={StudentAdmissionFormScreen} />
       <Stack.Screen name="AdmissionDetails" component={AdmissionDetailsScreen} />

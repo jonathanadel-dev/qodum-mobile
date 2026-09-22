@@ -1,4 +1,3 @@
-// screens/AdmissionDetails/AdmissionDetailsScreen.tsx
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';

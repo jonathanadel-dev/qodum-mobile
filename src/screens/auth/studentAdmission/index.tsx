@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     Animated,
     Image,
@@ -16,11 +16,12 @@ import Button from '../../../components/Button';
 import Slider from '../../../components/Slider';
 import { colors, radius, spacing, typography } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
+import { getMyAdmissionNumbers } from '../../../lib/localDB';
 
 
 // Types
 type Props = NativeStackScreenProps<AuthStackParamList, 'StudentAdmission'>;
-type Route = keyof Pick <AuthStackParamList, 'StudentAdmissionProcedure' | 'OTP' | 'TrackApplication' | 'AdmitCard' | 'ExamResult' | 'BusStoppage'>;
+type Route = keyof Pick <AuthStackParamList, 'StudentAdmissionProcedure' | 'OTP' | 'TrackApplication' | 'AdmitCard' | 'ExamResult' | 'BusStoppage' | 'PreviousAdmissions'>;
 type AdmissionOption = {
     id: string;
     title: string;
@@ -36,49 +37,51 @@ const school = {
     email: 'wecare@gmail.com',
 };
 
-const ADMISSION_OPTIONS: AdmissionOption[] = [
-    {
-        id: 'procedure',
-        title: 'Admission Procedure',
-        icon: require('../../../assets/images/studentAdmission/admission-procedure.png'),
-        route: 'StudentAdmissionProcedure',
-    },
-    {
-        id: 'form',
-        title: 'Registration for Admission',
-        icon: require('../../../assets/images/studentAdmission/registration-for-admission.png'),
-        route: 'OTP',
-    },
-    {
-        id: 'track',
-        title: 'Track The Application',
-        icon: require('../../../assets/images/studentAdmission/track-application.png'),
-        route: 'TrackApplication',
-    },
-    {
-        id: 'admit',
-        title: 'Download Admit Card',
-        icon: require('../../../assets/images/studentAdmission/download-card.png'),
-        route: 'AdmitCard',
-    },
-    {
-        id: 'result',
-        title: 'Result',
-        icon: require('../../../assets/images/studentAdmission/result.png'),
-        route: 'ExamResult'
-    },
-    {
-        id: 'bus',
-        title: 'Bus Stoppage',
-        icon: require('../../../assets/images/studentAdmission/bus-stoppage.png'),
-        route: 'BusStoppage'
-    },
-];
-
 
 // Student admission
 export default function StudentAdmissionScreen({ navigation, route }: Props) {
     const { schoolCode } = route.params;
+
+    let [formRoute, setFormRoute] = useState<Route>('OTP');
+
+    const ADMISSION_OPTIONS: AdmissionOption[] = [
+        {
+            id: 'procedure',
+            title: 'Admission Procedure',
+            icon: require('../../../assets/images/studentAdmission/admission-procedure.png'),
+            route: 'StudentAdmissionProcedure',
+        },
+        {
+            id: 'form',
+            title: 'Registration for Admission',
+            icon: require('../../../assets/images/studentAdmission/registration-for-admission.png'),
+            route: formRoute,
+        },
+        {
+            id: 'track',
+            title: 'Track The Application',
+            icon: require('../../../assets/images/studentAdmission/track-application.png'),
+            route: 'TrackApplication',
+        },
+        {
+            id: 'admit',
+            title: 'Download Admit Card',
+            icon: require('../../../assets/images/studentAdmission/download-card.png'),
+            route: 'AdmitCard',
+        },
+        {
+            id: 'result',
+            title: 'Result',
+            icon: require('../../../assets/images/studentAdmission/result.png'),
+            route: 'ExamResult'
+        },
+        {
+            id: 'bus',
+            title: 'Bus Stoppage',
+            icon: require('../../../assets/images/studentAdmission/bus-stoppage.png'),
+            route: 'BusStoppage'
+        },
+    ];
 
     const cardAnimations = useRef(
         ADMISSION_OPTIONS.map(() => ({
@@ -117,6 +120,18 @@ export default function StudentAdmissionScreen({ navigation, route }: Props) {
         if (!targetRoute) return;
         navigation.navigate(targetRoute, { schoolCode });
     };
+
+    useEffect(() => {
+        const getFormRoute = async () => {
+            const previousAdmissions = await getMyAdmissionNumbers();
+            if (previousAdmissions.length > 0) {
+                setFormRoute('PreviousAdmissions');
+            } else {
+                setFormRoute('OTP');
+            }
+        }
+        getFormRoute();
+    }, [route])
 
     return (
         <View style={styles.root}>

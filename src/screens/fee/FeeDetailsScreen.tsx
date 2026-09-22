@@ -2,9 +2,9 @@ import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import Header from '../../../components/Header';
-import Card from '../../../components/Card';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import Header from '../../components/Header';
+import Card from '../../components/Card';
+import { colors, radius, spacing, typography } from '../../styles/theme';
 
 function SummaryRow({ label, value, bold = false }: { label: string; value: string; bold?: boolean }) {
     return (

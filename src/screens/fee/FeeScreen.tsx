@@ -12,11 +12,11 @@ import {
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import Header from '../../../components/Header';
-import Card from '../../../components/Card';
-import Button from '../../../components/Button';
-import Dropdown, { DropdownOption } from '../../../components/Dropdown';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import Header from '../../components/Header';
+import Card from '../../components/Card';
+import Button from '../../components/Button';
+import Dropdown, { DropdownOption } from '../../components/Dropdown';
+import { colors, radius, spacing, typography } from '../../styles/theme';
 
 type Tab = 'pay' | 'receipt';
 

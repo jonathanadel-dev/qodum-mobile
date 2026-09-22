@@ -29,6 +29,7 @@ import Header from '../../../../components/Header';
 import FloatingModal from '../../../../components/FloatingModal';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors, spacing } from '../../../../styles/theme';
+import { addMyAdmissionNumber, saveStudentRecord } from '../../../../lib/localDB';
 
 
 // Type
@@ -125,11 +126,21 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
             // TODO: real admission ID should come from the backend response
             const generatedId = `ADM${Math.floor(100000 + Math.random() * 900000)}`;
 
+            await saveStudentRecord({
+                ...data,
+                admissionNo: generatedId,
+                schoolCode,
+                feePaid: false,
+            });
+            await addMyAdmissionNumber(generatedId);
+
             setSubmittedData(data);
             setAdmissionId(generatedId);
             setSuccessVisible(true);
-        } catch {
-            toast.error('Something went wrong. Please try again.');
+        } catch(err:any) {
+            console.log('Admission submit error:', err);
+            toast.error(`DEBUG: ${err?.message || String(err)}`);
+            // toast.error('Something went wrong. Please try again.');
         }
     };
     const onInvalid = () => {

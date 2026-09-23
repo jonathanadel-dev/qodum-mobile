@@ -5,6 +5,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors, metrics } from '../../styles/theme';
 import { JobType } from '../../lib/api/jobApi';
 import Card from '../Card';
+import AppText from '../AppText';
 
 
 // Props
@@ -22,9 +23,9 @@ export default function JobCard({ job, onPress, isDesc = false }: JobCardProps) 
     return (
         <Card onPress={onPress} style={styles.card}>
             <View style={styles.topRow}>
-                <Text style={styles.title} numberOfLines={2}>
+                <AppText variant="h2" style={styles.title} numberOfLines={2}>
                     {job.title}
-                </Text>
+                </AppText>
 
                 <View style={styles.logoBadge}>
                     <Image
@@ -35,32 +36,32 @@ export default function JobCard({ job, onPress, isDesc = false }: JobCardProps) 
                 </View>
             </View>
 
-            <Text style={styles.subtitle}>{job.classRange}</Text>
+            <AppText style={styles.subtitle}>{job.classRange}</AppText>
 
             <View style={styles.metaRow}>
                 <Ionicons name="briefcase-outline" size={15} color={colors.textSecondary} />
-                <Text style={styles.metaText}>
+                <AppText style={styles.metaText}>
                     {job.experience} | {job.employmentType}
-                </Text>
+                </AppText>
             </View>
 
             {!isDesc && (
                 <View style={styles.metaRow}>
                     <Ionicons name="document-text-outline" size={15} color={colors.textSecondary} />
-                    <Text style={styles.metaText} numberOfLines={1}>
+                    <AppText style={styles.metaText} numberOfLines={1}>
                         {job.description}
-                    </Text>
+                    </AppText>
                 </View>
             )}
 
             <View style={styles.divider} />
 
-            <Text style={styles.footerText}>
+            <AppText style={styles.footerText}>
                 Posted: {job.postedDaysAgo} Day{job.postedDaysAgo !== 1 ? 's' : ''} ago
                 {'  |  '}
-                <Text style={styles.footerStrong}>Openings: </Text>
-                <Text style={styles.footerStrong}>{job.openings}</Text>
-            </Text>
+                <AppText style={styles.footerStrong}>Openings: </AppText>
+                <AppText style={styles.footerStrong}>{job.openings}</AppText>
+            </AppText>
         </Card>
     );
 }

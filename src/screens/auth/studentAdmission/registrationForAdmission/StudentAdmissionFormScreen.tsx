@@ -29,6 +29,7 @@ import FloatingModal from '../../../../components/FloatingModal';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors, metrics } from '../../../../styles/theme';
 import { addMyAdmissionNumber, saveStudentRecord } from '../../../../lib/localDB';
+import AppText from '../../../../components/AppText';
 
 
 // Type
@@ -165,11 +166,11 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
                     <View style={styles.header}>
 
                         <View style={styles.headerText}>
-                            <Text style={styles.eyebrow}>STUDENT ADMISSION</Text>
-                            <Text style={styles.title}>Admission Application</Text>
-                            <Text style={styles.subtitle}>
+                            <AppText style={styles.eyebrow}>STUDENT ADMISSION</AppText>
+                            <AppText style={styles.title}>Admission Application</AppText>
+                            <AppText style={styles.subtitle}>
                                 Tell us about yourself and your educational background.
-                            </Text>
+                            </AppText>
                         </View>
                     </View>
 
@@ -189,24 +190,24 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
                                         <Image source={{ uri: image }} style={styles.photoImage} />
                                     ) : (
                                         <>
-                                            <Text style={styles.photoIcon}>+</Text>
-                                            <Text style={styles.photoText}>Add photo</Text>
+                                            <AppText style={styles.photoIcon}>+</AppText>
+                                            <AppText style={styles.photoText}>Add photo</AppText>
                                         </>
                                     )}
                                 </Pressable>
 
                                 {image && (
                                     <Pressable style={styles.removePhotoButton} onPress={removeImage}>
-                                        <Text style={styles.removePhotoText}>Remove</Text>
+                                        <AppText style={styles.removePhotoText}>Remove</AppText>
                                     </Pressable>
                                 )}
                             </View>
 
                             <View style={styles.photoDescription}>
-                                <Text style={styles.photoTitle}>Profile photo</Text>
-                                <Text style={styles.photoHint}>Choose a clear photo of the student.</Text>
+                                <AppText style={styles.photoTitle}>Profile photo</AppText>
+                                <AppText style={styles.photoHint}>Choose a clear photo of the student.</AppText>
                                 {errors.image && (
-                                    <Text style={styles.errorText}>{errors.image.message}</Text>
+                                    <AppText style={styles.errorText}>{errors.image.message}</AppText>
                                 )}
                             </View>
                         </View>
@@ -218,7 +219,7 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
                         <FormDateField control={control} name="date_of_birth" label="Date of birth" maximumDate={new Date()} />
 
                         <View style={styles.inputGroup}>
-                            <Text style={styles.label}>Gender</Text>
+                            <AppText style={styles.label}>Gender</AppText>
                             <Controller
                                 control={control}
                                 name="gender"
@@ -231,9 +232,9 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
                                                 onPress={() => onChange(gender)}
                                             >
                                                 <View style={[styles.radio, value === gender && styles.radioActive]} />
-                                                <Text style={[styles.genderText, value === gender && styles.genderTextActive]}>
+                                                <AppText style={[styles.genderText, value === gender && styles.genderTextActive]}>
                                                     {gender}
-                                                </Text>
+                                                </AppText>
                                             </Pressable>
                                         ))}
                                     </View>
@@ -290,9 +291,9 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
                     </FormSection>
 
                     <View style={styles.submitSection}>
-                        <Text style={styles.submitHint}>
+                        <AppText style={styles.submitHint}>
                             Please make sure all information is accurate before submitting.
-                        </Text>
+                        </AppText>
                         <Button
                             loading={isSubmitting}
                             onPress={handleSubmit(onSubmit, onInvalid)}
@@ -306,11 +307,11 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
             <FloatingModal visible={successVisible} onClose={() => setSuccessVisible(false)}>
                 <View style={successStyles.header}>
                     <Ionicons name="checkmark-circle" size={56} color={colors.success} />
-                    <Text style={successStyles.title}>Registration Successful!</Text>
-                    <Text style={successStyles.subtitle}>
+                    <AppText style={successStyles.title}>Registration Successful!</AppText>
+                    <AppText style={successStyles.subtitle}>
                         Your admission form has been submitted successfully.
-                    </Text>
-                    <Text style={successStyles.admissionId}>Admission ID: {admissionId}</Text>
+                    </AppText>
+                    <AppText style={successStyles.admissionId}>Admission ID: {admissionId}</AppText>
                 </View>
 
                 <Button type="gradient" label="OK" onPress={handleSuccessOk} style={successStyles.okButton} />

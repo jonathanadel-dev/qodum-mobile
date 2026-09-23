@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
     View,
-    Text,
     Image,
     StyleSheet
 } from 'react-native';
@@ -84,7 +83,12 @@ export default function ContinueAsScreen({ navigation }: Props) {
     return (
         <BackgroundScreen navigation={navigation}>
             <View style={styles.content}>
-                <Text style={styles.title}>Continue as:</Text>
+                <AppText
+                    variant='h1'
+                    style={styles.title}
+                >
+                    Continue as:
+                </AppText>
 
                 <View style={styles.list}>
                     {OPTIONS.map((option, index) => {
@@ -140,7 +144,7 @@ function StatusDot({ selected }: { selected: boolean }) {
     if (selected) {
         return (
             <View style={styles.checkCircle}>
-                <Text style={styles.checkMark}>✓</Text>
+                <AppText style={styles.checkMark}>✓</AppText>
             </View>
         );
     }
@@ -154,66 +158,42 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
     },
-
     title: {
-        // ...typography.title,
         fontSize: 22,
-        color: colors.text,
         marginTop: metrics.xxxl,
         marginBottom: metrics.xl,
     },
-
     list: {
         gap: metrics.lg,
     },
-
     animatedCard: {
         width: '100%',
     },
-
     cardContent: {
         flexDirection: 'row',
         alignItems: 'center',
     },
-
     iconCircle: {
         width: 76,
         height: 76,
         borderRadius: metrics.round,
-        backgroundColor: '#e0e0e0',
+        backgroundColor: colors.grayBackground,
         alignItems: 'center',
         justifyContent: 'center',
         marginRight: metrics.lg,
     },
-
     icon: {
         width: 52,
         height: 52,
     },
-
     textBlock: {
         flex: 1,
     },
-
     titleRow: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
     },
-
-    optionTitle: {
-        // ...typography.title,
-        fontSize: 17,
-        color: colors.text,
-        letterSpacing: 0.3,
-    },
-
-    description: {
-        // ...typography.description,
-        // fontFamily: fonts.semiBold,
-        maxWidth: 210,
-    },
-
     checkCircle: {
         width: 26,
         height: 26,
@@ -222,13 +202,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
     checkMark: {
         color: colors.white,
         fontSize: 14,
         fontWeight: '700',
     },
-
     radioCircle: {
         width: 24,
         height: 24,
@@ -236,7 +214,6 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
         borderColor: colors.border,
     },
-
     fabWrapper: {
         marginTop: metrics.xxxl,
         alignItems: 'center',

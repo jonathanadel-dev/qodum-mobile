@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { colors, metrics } from '../../../styles/theme';
 import Button from '../../../components/Button';
+import AppText from '../../../components/AppText';
 
 
 // Job applied screen
@@ -125,13 +126,13 @@ export default function JobAppliedScreen ({navigation}: any) {
                             },
                         ]}
                     >
-                        <Text
+                        <AppText
                             style={
                                 styles.checkmark
                             }
                         >
                             ✓
-                        </Text>
+                        </AppText>
                     </Animated.View>
                 </View>
 
@@ -151,21 +152,21 @@ export default function JobAppliedScreen ({navigation}: any) {
                     ]}
                 >
 
-                    <Text style={styles.eyebrow}>
+                    <AppText style={styles.eyebrow}>
                         APPLICATION SUBMITTED
-                    </Text>
+                    </AppText>
 
-                    <Text style={styles.title}>
+                    <AppText style={styles.title}>
                         Your application is
                         on its way.
-                    </Text>
+                    </AppText>
 
-                    <Text style={styles.description}>
+                    <AppText style={styles.description}>
                         Your job application has been
                         submitted successfully. The school
                         will review your application and
                         contact you if you are selected.
-                    </Text>
+                    </AppText>
 
 
                     {/* Information card */}
@@ -173,19 +174,19 @@ export default function JobAppliedScreen ({navigation}: any) {
                         <View
                             style={styles.infoIcon}
                         >
-                            <Text style={styles.infoIconText}>
+                            <AppText style={styles.infoIconText}>
                                 i
-                            </Text>
+                            </AppText>
                         </View>
 
                         <View
                             style={styles.infoContent}
                         >
-                            <Text style={styles.infoTitle}>
+                            <AppText style={styles.infoTitle}>
                                 What happens next?
-                            </Text>
+                            </AppText>
 
-                            <Text style={styles.infoDescription}>
+                            <AppText style={styles.infoDescription}>
                                 Your application will
                                 be reviewed by the
                                 school. If your
@@ -193,7 +194,7 @@ export default function JobAppliedScreen ({navigation}: any) {
                                 their requirements,
                                 the school may contact
                                 you for the next step.
-                            </Text>
+                            </AppText>
                         </View>
                     </View>
                 </Animated.View>

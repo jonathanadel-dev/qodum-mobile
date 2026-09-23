@@ -16,6 +16,7 @@ import Card from '../../../components/Card';
 import Button from '../../../components/Button';
 import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
+import AppText from '../../../components/AppText';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'UserFound'>;
 
@@ -62,41 +63,41 @@ export default function UserFoundScreen({ navigation, route }: Props) {
                     <Ionicons name="checkmark-circle" size={84} color={colors.success} />
                 </View>
 
-                <Text style={styles.title}>{isStudent ? 'Student Found' : 'Teacher Found'}</Text>
-                <Text style={styles.subtitle}>Please confirm the details below</Text>
+                <AppText style={styles.title}>{isStudent ? 'Student Found' : 'Teacher Found'}</AppText>
+                <AppText style={styles.subtitle}>Please confirm the details below</AppText>
 
                 <Card contentStyle={styles.userCardContent}>
                     <Image source={{ uri: user.photo }} style={styles.avatar} />
 
                     <View style={styles.userTextBlock}>
-                        <Text style={styles.userName}>{user.name}</Text>
+                        <AppText style={styles.userName}>{user.name}</AppText>
 
                         {/* {isStudent ? (
                             <>
-                                <Text style={styles.detailLine}>Admission No. {user.admissionNo}</Text>
-                                <Text style={styles.detailLine}>Class {user.className}</Text>
-                                <Text style={styles.detailLine}>Session {user.session}</Text>
+                                <AppText style={styles.detailLine}>Admission No. {user.admissionNo}</AppText>
+                                <AppText style={styles.detailLine}>Class {user.className}</AppText>
+                                <AppText style={styles.detailLine}>Session {user.session}</AppText>
                             </>
                         ) : (
                             <>
-                                <Text style={styles.detailLine}>Employee ID {user.employeeId}</Text>
-                                <Text style={styles.detailLine}>{user.department}</Text>
-                                <Text style={styles.detailLine}>Session {user.session}</Text>
+                                <AppText style={styles.detailLine}>Employee ID {user.employeeId}</AppText>
+                                <AppText style={styles.detailLine}>{user.department}</AppText>
+                                <AppText style={styles.detailLine}>Session {user.session}</AppText>
                             </>
                         )} */}
                         <>
-                            <Text style={styles.detailLine}>Admission No. {user.admissionNo}</Text>
-                            <Text style={styles.detailLine}>Class {user.className}</Text>
-                            <Text style={styles.detailLine}>Session {user.session}</Text>
+                            <AppText style={styles.detailLine}>Admission No. {user.admissionNo}</AppText>
+                            <AppText style={styles.detailLine}>Class {user.className}</AppText>
+                            <AppText style={styles.detailLine}>Session {user.session}</AppText>
                         </>
                     </View>
                 </Card>
 
                 <View style={styles.otpNoticeRow}>
                     <Ionicons name="call" size={20} color={colors.success} />
-                    <Text style={styles.otpNoticeText}>
-                        OTP will be sent to <Text style={styles.otpNoticePhone}>{maskedPhone}</Text>
-                    </Text>
+                    <AppText style={styles.otpNoticeText}>
+                        OTP will be sent to <AppText style={styles.otpNoticePhone}>{maskedPhone}</AppText>
+                    </AppText>
                 </View>
 
                 <Button

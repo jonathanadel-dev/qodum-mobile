@@ -20,6 +20,7 @@ import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { fetchJobById, JobType } from '../../../lib/api/jobApi';
 import toast from '../../../lib/toast';
 import JobCard from '../../../components/jobOpening/JobCard';
+import AppText from '../../../components/AppText';
 
 
 // Props
@@ -134,22 +135,22 @@ export default function JobDescriptionScreen({ navigation, route }: Props) {
 
                 {paragraphs.length > 0 && (
                     <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Job Description</Text>
+                        <AppText style={styles.sectionTitle}>Job Description</AppText>
                         {paragraphs.map((line, index) => (
-                            <Text key={index} style={styles.description}>
+                            <AppText key={index} style={styles.description}>
                                 {line}
-                            </Text>
+                            </AppText>
                         ))}
                     </View>
                 )}
 
                 {bullets.length > 0 && (
                     <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Key Responsibilities</Text>
+                        <AppText style={styles.sectionTitle}>Key Responsibilities</AppText>
                         {bullets.map((item, index) => (
                             <View key={index} style={styles.bulletRow}>
-                                <Text style={styles.bulletDot}>•</Text>
-                                <Text style={styles.bulletText}>{item}</Text>
+                                <AppText style={styles.bulletDot}>•</AppText>
+                                <AppText style={styles.bulletText}>{item}</AppText>
                             </View>
                         ))}
                     </View>

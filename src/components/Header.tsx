@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StatusBar, StyleSheet, View } from "react-native";
 import { colors, metrics } from "../styles/theme";
 import LinearGradient from 'react-native-linear-gradient';
+import AppText from './AppText';
 
 
 // Header
@@ -17,7 +18,7 @@ export default function Header({ navigation, title, isStack = false, image }: an
             >
                 {!isStack ? (
                     <Pressable onPress={() => navigation.goBack()}>
-                        <Text style={styles.backArrow}>‹</Text>
+                        <AppText style={styles.backArrow}>‹</AppText>
                     </Pressable>
                 ) : (
                     <View />
@@ -27,20 +28,28 @@ export default function Header({ navigation, title, isStack = false, image }: an
                     <View style={styles.titleImageRow}>
                         <Image source={image} style={styles.avatar} />
                         {title ? (
-                            <Text style={[styles.title, styles.titleWithImage]} numberOfLines={1}>
+                            <AppText
+                                variant='h2'
+                                numberOfLines={1}
+                                style={[styles.title, styles.titleWithImage]}
+                            >
                                 {title}
-                            </Text>
+                            </AppText>
                         ) : null}
                     </View>
                 ) : (
                     title ? (
-                        <Text style={styles.title} numberOfLines={1}>
+                        <AppText
+                            variant='h2'
+                            style={styles.title}
+                            numberOfLines={1}
+                        >
                             {title}
-                        </Text>
+                        </AppText>
                     ) : null
                 )}
 
-                {!image && <Text />}
+                {!image && <AppText />}
             </LinearGradient>
         </>
 
@@ -69,10 +78,8 @@ const styles = StyleSheet.create({
         color: colors.white,
     },
     title: {
-        // ...typography.title,
         marginTop: metrics.lg,
         color: colors.white,
-        marginBottom: 0,
     },
     titleImageRow: {
         flexDirection: 'row',

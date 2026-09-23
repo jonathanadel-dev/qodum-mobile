@@ -14,6 +14,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '../../../components/Header';
 import Card from '../../../components/Card';
 import { colors, metrics } from '../../../styles/theme';
+import AppText from '../../../components/AppText';
 
 
 // Type
@@ -164,15 +165,15 @@ export default function NotificationScreen({ navigation }: NativeStackScreenProp
         )}
 
         <Pressable style={styles.tabButton} onPress={() => handleTabPress('notice')}>
-          <Text style={[styles.tabText, activeTab === 'notice' && styles.tabTextActive]}>
+          <AppText style={[styles.tabText, activeTab === 'notice' && styles.tabTextActive]}>
             Notice
-          </Text>
+          </AppText>
         </Pressable>
 
         <Pressable style={styles.tabButton} onPress={() => handleTabPress('circulars')}>
-          <Text style={[styles.tabText, activeTab === 'circulars' && styles.tabTextActive]}>
+          <AppText style={[styles.tabText, activeTab === 'circulars' && styles.tabTextActive]}>
             Circulars
-          </Text>
+          </AppText>
         </Pressable>
       </View>
 
@@ -190,10 +191,10 @@ export default function NotificationScreen({ navigation }: NativeStackScreenProp
               <Image source={item.icon} style={styles.itemIcon} resizeMode="contain" />
 
               <View style={styles.itemTextBlock}>
-                <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={styles.itemDescription} numberOfLines={1}>
+                <AppText style={styles.itemTitle}>{item.title}</AppText>
+                <AppText style={styles.itemDescription} numberOfLines={1}>
                     {item.description}
-                </Text>
+                </AppText>
               </View>
 
               <View style={styles.chevronCircle}>
@@ -205,16 +206,16 @@ export default function NotificationScreen({ navigation }: NativeStackScreenProp
 
             <View style={styles.itemMetaRow}>
                 <View style={styles.itemMetaCol}>
-                    <Text style={styles.itemMetaLabel}>Date</Text>
-                    <Text style={styles.itemMetaValue}>{item.date}</Text>
+                    <AppText style={styles.itemMetaLabel}>Date</AppText>
+                    <AppText style={styles.itemMetaValue}>{item.date}</AppText>
                 </View>
                 <View style={styles.itemMetaCol}>
-                    <Text style={styles.itemMetaLabel}>Time</Text>
-                    <Text style={styles.itemMetaValue}>{item.time}</Text>
+                    <AppText style={styles.itemMetaLabel}>Time</AppText>
+                    <AppText style={styles.itemMetaValue}>{item.time}</AppText>
                 </View>
                 <View style={styles.itemMetaCol}>
-                    <Text style={styles.itemMetaLabel}>Type</Text>
-                    <Text style={styles.itemMetaValue}>{item.type}</Text>
+                    <AppText style={styles.itemMetaLabel}>Type</AppText>
+                    <AppText style={styles.itemMetaValue}>{item.type}</AppText>
                 </View>
             </View>
           </Card>

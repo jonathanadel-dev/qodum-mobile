@@ -18,6 +18,7 @@ import { colors, metrics } from '../../../../styles/theme';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
 import toast from '../../../../lib/toast';
 import Button from '../../../../components/Button';
+import AppText from '../../../../components/AppText';
 
 
 // Type
@@ -117,7 +118,7 @@ export default function OTPScreen({ navigation, route }: Props) {
                         resizeMode="contain"
                     />
 
-                    <Text style={styles.label}>Enter Your Mobile No.</Text>
+                    <AppText style={styles.label}>Enter Your Mobile No.</AppText>
 
                     <View style={styles.phoneFieldWrapper}>
                         <FormInput
@@ -129,7 +130,7 @@ export default function OTPScreen({ navigation, route }: Props) {
                             style={styles.phoneInputOverride}
                         />
 
-                        <Text style={styles.countryCodeOverlay}>+91 | </Text>
+                        <AppText style={styles.countryCodeOverlay}>+91 | </AppText>
 
                         {isPhoneComplete && (
                             <Ionicons
@@ -142,12 +143,12 @@ export default function OTPScreen({ navigation, route }: Props) {
                     </View>
 
                     <Pressable style={styles.getOtpButton} onPress={handleGetOtp}>
-                        <Text style={styles.getOtpText}>Get OTP</Text>
+                        <AppText style={styles.getOtpText}>Get OTP</AppText>
                     </Pressable>
                 </View>
 
                 <View style={styles.footer}>
-                    <Text style={styles.footerText}>Powered By</Text>
+                    <AppText style={styles.footerText}>Powered By</AppText>
                     <Image
                         source={require('../../../../assets/images/logo.png')}
                         style={styles.footerLogo}
@@ -162,10 +163,10 @@ export default function OTPScreen({ navigation, route }: Props) {
                 onClose={handleCloseModal}
                 dismissOnBackdropPress
             >
-                <Text style={styles.modalTitle}>OTP Authentication</Text>
-                <Text style={styles.modalSubtitle}>
+                <AppText style={styles.modalTitle}>OTP Authentication</AppText>
+                <AppText style={styles.modalSubtitle}>
                     An authentication code has been sent to {maskedPhone}
-                </Text>
+                </AppText>
 
                 <View style={styles.otpWrapper}>
                     <CodeInput
@@ -178,13 +179,13 @@ export default function OTPScreen({ navigation, route }: Props) {
                 </View>
 
                 <View style={styles.resendRow}>
-                    <Text style={styles.resendPrompt}>Didn't receive code. </Text>
-                    <Text
+                    <AppText style={styles.resendPrompt}>Didn't receive code. </AppText>
+                    <AppText
                         style={[styles.resendLink, resendSeconds > 0 && styles.resendLinkDisabled]}
                         onPress={handleResend}
                     >
                         Resend {resendSeconds > 0 ? `( ${resendSeconds}s )` : ''}
-                    </Text>
+                    </AppText>
                 </View>
 
                 {isOtpComplete ? (

@@ -11,6 +11,7 @@ import { colors } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '../../../components/Header';
+import AppText from '../../../components/AppText';
 
 
 // Type
@@ -49,54 +50,54 @@ export default function ExamResultScreen({ navigation }: Props) {
                             resizeMode="contain"
                         />
                         <View style={styles.schoolTextContainer}>
-                            <Text style={styles.schoolName} numberOfLines={1}>
+                            <AppText style={styles.schoolName} numberOfLines={1}>
                                 {EXAM_RESULT.schoolName}
-                            </Text>
-                            <Text style={styles.schoolAddress}>
+                            </AppText>
+                            <AppText style={styles.schoolAddress}>
                                 {EXAM_RESULT.schoolAddress}
-                            </Text>
+                            </AppText>
                         </View>
                     </View>
 
                     <View style={styles.divider} />
 
                     <View style={styles.row}>
-                        <Text style={styles.label}>Student Name</Text>
-                        <Text style={styles.colon}>:</Text>
-                        <Text style={styles.value}>{EXAM_RESULT.studentName}</Text>
+                        <AppText style={styles.label}>Student Name</AppText>
+                        <AppText style={styles.colon}>:</AppText>
+                        <AppText style={styles.value}>{EXAM_RESULT.studentName}</AppText>
                     </View>
 
                     <View style={styles.row}>
-                        <Text style={styles.label}>Registration No</Text>
-                        <Text style={styles.colon}>:</Text>
-                        <Text style={styles.value}>{EXAM_RESULT.registrationNo}</Text>
+                        <AppText style={styles.label}>Registration No</AppText>
+                        <AppText style={styles.colon}>:</AppText>
+                        <AppText style={styles.value}>{EXAM_RESULT.registrationNo}</AppText>
                     </View>
 
                     <View style={styles.row}>
-                        <Text style={styles.label}>Class:</Text>
-                        <Text style={styles.colon}>:</Text>
-                        <Text style={styles.value}>{EXAM_RESULT.className}</Text>
+                        <AppText style={styles.label}>Class:</AppText>
+                        <AppText style={styles.colon}>:</AppText>
+                        <AppText style={styles.value}>{EXAM_RESULT.className}</AppText>
                     </View>
 
                     <View style={styles.divider} />
 
                     <View style={styles.row}>
-                        <Text style={styles.label}>Maximum Marks</Text>
-                        <Text style={styles.colon}>:</Text>
-                        <Text style={styles.value}>{EXAM_RESULT.maximumMarks}</Text>
+                        <AppText style={styles.label}>Maximum Marks</AppText>
+                        <AppText style={styles.colon}>:</AppText>
+                        <AppText style={styles.value}>{EXAM_RESULT.maximumMarks}</AppText>
                     </View>
 
                     <View style={styles.row}>
-                        <Text style={styles.label}>Marks Obtained</Text>
-                        <Text style={styles.colon}>:</Text>
-                        <Text style={styles.value}>{EXAM_RESULT.marksObtained}</Text>
+                        <AppText style={styles.label}>Marks Obtained</AppText>
+                        <AppText style={styles.colon}>:</AppText>
+                        <AppText style={styles.value}>{EXAM_RESULT.marksObtained}</AppText>
                     </View>
 
                     <View style={styles.divider} />
 
                     <View style={styles.statusRow}>
-                        <Text style={styles.label}>Result Status</Text>
-                        <Text style={styles.passText}>{EXAM_RESULT.resultStatus}</Text>
+                        <AppText style={styles.label}>Result Status</AppText>
+                        <AppText style={styles.passText}>{EXAM_RESULT.resultStatus}</AppText>
                     </View>
                 </View>
             </ScrollView>

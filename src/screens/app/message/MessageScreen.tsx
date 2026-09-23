@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../../components/Header';
 import { colors, metrics } from '../../../styles/theme';
+import AppText from '../../../components/AppText';
 
 const AVATAR = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80';
 
@@ -47,17 +48,17 @@ export default function MessageScreen({ navigation }: NativeStackScreenProps<any
                         <Image source={{ uri: AVATAR }} style={styles.avatar} />
 
                         <View style={styles.rowTextBlock}>
-                            <Text style={styles.rowName}>{item.name}</Text>
-                            <Text style={styles.rowMessage} numberOfLines={1}>
+                            <AppText style={styles.rowName}>{item.name}</AppText>
+                            <AppText style={styles.rowMessage} numberOfLines={1}>
                                 {item.lastMessage}
-                            </Text>
+                            </AppText>
                         </View>
 
                         <View style={styles.rowMeta}>
                             <View style={styles.unreadBadge}>
-                                <Text style={styles.unreadBadgeText}>{item.unread}</Text>
+                                <AppText style={styles.unreadBadgeText}>{item.unread}</AppText>
                             </View>
-                            <Text style={styles.rowTime}>{item.time}</Text>
+                            <AppText style={styles.rowTime}>{item.time}</AppText>
                         </View>
                     </Pressable>
                 )}

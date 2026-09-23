@@ -3,6 +3,7 @@ import { Image, Pressable, StatusBar, StyleSheet, Text, View } from 'react-nativ
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors, metrics } from '../../styles/theme';
+import AppText from '../AppText';
 
 
 // Type
@@ -29,9 +30,9 @@ export default function HomeHeader({ name, grade, role, avatar, onLogoutPress }:
                 <Image source={avatar} style={styles.avatar} />
 
                 <View style={styles.textBlock}>
-                    <Text style={styles.name}>Hi {name}</Text>
-                    <Text style={styles.subtitle}>{grade}</Text>
-                    <Text style={styles.subtitle}>{role}</Text>
+                    <AppText style={styles.name}>Hi {name}</AppText>
+                    <AppText style={styles.subtitle}>{grade}</AppText>
+                    <AppText style={styles.subtitle}>{role}</AppText>
                 </View>
 
                 <Pressable onPress={onLogoutPress} hitSlop={10}>

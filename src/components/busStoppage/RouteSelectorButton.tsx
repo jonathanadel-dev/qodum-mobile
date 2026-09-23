@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors, metrics } from '../../styles/theme';
+import AppText from '../AppText';
 
 type Props = {
     routeName: string;
@@ -22,9 +23,9 @@ export default function RouteSelectorButton({ routeName, onPress }: Props) {
                     color={colors.primary}
                 />
                 
-                <Text style={styles.routeName} numberOfLines={1}>
+                <AppText style={styles.routeName} numberOfLines={1}>
                     {routeName}
-                </Text>
+                </AppText>
                 
                 <Ionicons 
                     name="chevron-down" 

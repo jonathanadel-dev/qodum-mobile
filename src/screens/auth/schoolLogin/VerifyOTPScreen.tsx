@@ -17,6 +17,7 @@ import CodeInput from '../../../components/form/CodeInput';
 import toast from '../../../lib/toast';
 import { useAuth } from '../../../context/AuthContext';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import AppText from '../../../components/AppText';
 
 
 // Type
@@ -93,10 +94,10 @@ export default function VerifyOTPScreen({ navigation, route }: Props) {
                     resizeMode="contain"
                 />
 
-                <Text style={styles.modalTitle}>OTP Authentication</Text>
-                <Text style={styles.modalSubtitle}>
+                <AppText style={styles.modalTitle}>OTP Authentication</AppText>
+                <AppText style={styles.modalSubtitle}>
                     An authentication code has been sent to {maskedPhone}
-                </Text>
+                </AppText>
 
                 <View style={styles.otpWrapper}>
                     <CodeInput
@@ -109,13 +110,13 @@ export default function VerifyOTPScreen({ navigation, route }: Props) {
                 </View>
 
                 <View style={styles.resendRow}>
-                    <Text style={styles.resendPrompt}>Didn't receive code. </Text>
-                    <Text
+                    <AppText style={styles.resendPrompt}>Didn't receive code. </AppText>
+                    <AppText
                         style={[styles.resendLink, resendSeconds > 0 && styles.resendLinkDisabled]}
                         onPress={handleResend}
                     >
                         Resend {resendSeconds > 0 ? `( ${resendSeconds}s )` : ''}
-                    </Text>
+                    </AppText>
                 </View>
 
                 {isOtpComplete ? (

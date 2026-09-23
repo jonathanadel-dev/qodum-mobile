@@ -3,17 +3,18 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../components/Header';
+import AppText from '../../components/AppText';
 import Card from '../../components/Card';
 import { colors, metrics } from '../../styles/theme';
 
 function SummaryRow({ label, value, bold = false }: { label: string; value: string; bold?: boolean }) {
     return (
         <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>{label}</Text>
-            <Text style={styles.summaryColon}>:</Text>
-            <Text style={[styles.summaryValue, bold && styles.summaryValueBold]} numberOfLines={2}>
+            <AppText style={styles.summaryLabel}>{label}</AppText>
+            <AppText style={styles.summaryColon}>:</AppText>
+            <AppText style={[styles.summaryValue, bold && styles.summaryValueBold]} numberOfLines={2}>
                 {value}
-            </Text>
+            </AppText>
         </View>
     );
 }
@@ -56,39 +57,39 @@ export default function FeeDetailsScreen({ navigation, route }: NativeStackScree
                         />
 
                         <View style={styles.studentTextBlock}>
-                            <Text style={styles.studentName}>{student.name}</Text>
-                            <Text style={styles.studentAdmission}>Admission No. {student.admissionNo}</Text>
+                            <AppText style={styles.studentName}>{student.name}</AppText>
+                            <AppText style={styles.studentAdmission}>Admission No. {student.admissionNo}</AppText>
                         </View>
 
                         <View style={styles.classPill}>
-                            <Text style={styles.classPillText}>Class {student.className}</Text>
+                            <AppText style={styles.classPillText}>Class {student.className}</AppText>
                         </View>
                     </View>
 
                     <View style={styles.headerMetaRow}>
-                        <Text style={styles.headerMetaText}>
-                            <Text style={styles.headerMetaLabel}>Pay Date: </Text>
+                        <AppText style={styles.headerMetaText}>
+                            <AppText style={styles.headerMetaLabel}>Pay Date: </AppText>
                             {receipt.date}
-                        </Text>
-                        <Text style={styles.headerMetaText}>
-                            <Text style={styles.headerMetaLabel}>Paid Amt: </Text>
+                        </AppText>
+                        <AppText style={styles.headerMetaText}>
+                            <AppText style={styles.headerMetaLabel}>Paid Amt: </AppText>
                             {receipt.paidAmount}
-                        </Text>
+                        </AppText>
                     </View>
 
                     <View style={styles.headerMetaRow}>
-                        <Text style={styles.headerMetaText}>
-                            <Text style={styles.headerMetaLabel}>Receipt No: </Text>
+                        <AppText style={styles.headerMetaText}>
+                            <AppText style={styles.headerMetaLabel}>Receipt No: </AppText>
                             {receipt.receiptNo}
-                        </Text>
-                        <Text style={styles.headerMetaText}>
-                            <Text style={styles.headerMetaLabel}>Payment Mode: </Text>
+                        </AppText>
+                        <AppText style={styles.headerMetaText}>
+                            <AppText style={styles.headerMetaLabel}>Payment Mode: </AppText>
                             {receipt.paymentMode}
-                        </Text>
+                        </AppText>
                     </View>
                 </Card>
 
-                <Text style={styles.sectionTitle}>Fee Summary</Text>
+                <AppText style={styles.sectionTitle}>Fee Summary</AppText>
                 <Card contentStyle={styles.summaryCardContent}>
                     <SummaryRow label="Receipt No" value={receipt.receiptNo} />
                     <SummaryRow label="Amount Paid" value={receipt.paidAmount} />
@@ -99,7 +100,7 @@ export default function FeeDetailsScreen({ navigation, route }: NativeStackScree
                     <SummaryRow label="Transaction ID" value={receipt.transactionId} />
                 </Card>
 
-                <Text style={styles.sectionTitle}>Amount Summary</Text>
+                <AppText style={styles.sectionTitle}>Amount Summary</AppText>
                 <Card contentStyle={styles.summaryCardContent}>
                     <SummaryRow label="Tuition Fee" value={receipt.breakdown.tuitionFee} />
                     <SummaryRow label="Lab Fee" value={receipt.breakdown.labFee} />

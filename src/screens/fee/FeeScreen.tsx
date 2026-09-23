@@ -17,6 +17,7 @@ import Card from '../../components/Card';
 import Button from '../../components/Button';
 import Dropdown, { DropdownOption } from '../../components/Dropdown';
 import { colors, metrics } from '../../styles/theme';
+import AppText from '../../components/AppText';
 
 type Tab = 'pay' | 'receipt';
 
@@ -187,13 +188,13 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
               )}
 
               <Pressable style={styles.tabButton} onPress={() => handleTabPress('pay')}>
-                  <Text style={[styles.tabText, activeTab === 'pay' && styles.tabTextActive]}>Pay</Text>
+                  <AppText style={[styles.tabText, activeTab === 'pay' && styles.tabTextActive]}>Pay</AppText>
               </Pressable>
 
               <Pressable style={styles.tabButton} onPress={() => handleTabPress('receipt')}>
-                  <Text style={[styles.tabText, activeTab === 'receipt' && styles.tabTextActive]}>
+                  <AppText style={[styles.tabText, activeTab === 'receipt' && styles.tabTextActive]}>
                       Receipt
-                  </Text>
+                  </AppText>
               </Pressable>
           </View>
 
@@ -203,16 +204,16 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
                       <Image source={{ uri: STUDENT_PHOTO }} style={styles.studentPhoto} />
 
                       <View style={styles.studentTextBlock}>
-                          <Text style={styles.studentName}>{STUDENT.name}</Text>
-                          <Text style={styles.studentAdmission}>Admission No. {STUDENT.admissionNo}</Text>
+                          <AppText style={styles.studentName}>{STUDENT.name}</AppText>
+                          <AppText style={styles.studentAdmission}>Admission No. {STUDENT.admissionNo}</AppText>
                       </View>
 
                       <View style={styles.classPill}>
-                          <Text style={styles.classPillText}>Class {STUDENT.className}</Text>
+                          <AppText style={styles.classPillText}>Class {STUDENT.className}</AppText>
                       </View>
                   </Card>
 
-                  <Text style={styles.fieldLabel}>Mobile</Text>
+                  <AppText style={styles.fieldLabel}>Mobile</AppText>
                   <View style={styles.textField}>
                       <Ionicons name="call-outline" size={18} color={colors.textSecondary} style={styles.textFieldIcon} />
                       <TextInput
@@ -223,7 +224,7 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
                       />
                   </View>
 
-                  <Text style={styles.fieldLabel}>Email</Text>
+                  <AppText style={styles.fieldLabel}>Email</AppText>
                   <View style={styles.textField}>
                       <Ionicons name="mail-outline" size={18} color={colors.textSecondary} style={styles.textFieldIcon} />
                       <TextInput
@@ -235,7 +236,7 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
                       />
                   </View>
 
-                  <Text style={styles.fieldLabel}>Fees Type</Text>
+                  <AppText style={styles.fieldLabel}>Fees Type</AppText>
                   <Dropdown
                       options={FEE_TYPE_OPTIONS}
                       value={feeType}
@@ -244,7 +245,7 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
                       icon="create-outline"
                   />
 
-                  <Text style={styles.fieldLabel}>Installment</Text>
+                  <AppText style={styles.fieldLabel}>Installment</AppText>
                   <Dropdown
                       options={INSTALLMENT_OPTIONS}
                       value={installment}
@@ -270,7 +271,7 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
               </ScrollView>
           ) : (
               <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                  <Text style={styles.fieldLabel}>Select Year</Text>
+                  <AppText style={styles.fieldLabel}>Select Year</AppText>
                   <Dropdown
                       options={YEAR_OPTIONS}
                       value={year}
@@ -283,23 +284,23 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
                       {RECEIPTS.map((receipt) => (
                           <Card key={receipt.id} contentStyle={styles.receiptCardContent}>
                               <View style={styles.receiptTopRow}>
-                                  <Text style={styles.receiptDate}>{receipt.date}</Text>
-                                  <Text style={styles.receiptClass}>Class: {receipt.className}</Text>
+                                  <AppText style={styles.receiptDate}>{receipt.date}</AppText>
+                                  <AppText style={styles.receiptClass}>Class: {receipt.className}</AppText>
                               </View>
 
                               <View style={styles.receiptDivider} />
 
                               <View style={styles.receiptRow}>
-                                  <Text style={styles.receiptLabel}>Receipt No: <Text style={styles.receiptValue}>{receipt.receiptNo}</Text></Text>
-                                  <Text style={styles.receiptLabel}>Payment Mode: <Text style={styles.receiptValue}>{receipt.paymentMode}</Text></Text>
+                                  <AppText style={styles.receiptLabel}>Receipt No: <AppText style={styles.receiptValue}>{receipt.receiptNo}</AppText></AppText>
+                                  <AppText style={styles.receiptLabel}>Payment Mode: <AppText style={styles.receiptValue}>{receipt.paymentMode}</AppText></AppText>
                               </View>
 
-                              <Text style={styles.receiptLabel}>
-                                  Paid Amount: <Text style={styles.receiptValue}>{receipt.paidAmount}</Text>
-                              </Text>
-                              <Text style={styles.receiptLabel}>
-                                  Installment: <Text style={styles.receiptValue}>{receipt.installment}</Text>
-                              </Text>
+                              <AppText style={styles.receiptLabel}>
+                                  Paid Amount: <AppText style={styles.receiptValue}>{receipt.paidAmount}</AppText>
+                              </AppText>
+                              <AppText style={styles.receiptLabel}>
+                                  Installment: <AppText style={styles.receiptValue}>{receipt.installment}</AppText>
+                              </AppText>
 
                               <View style={styles.receiptActions}>
                                     <Button

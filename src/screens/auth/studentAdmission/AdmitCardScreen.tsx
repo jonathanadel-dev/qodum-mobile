@@ -21,6 +21,7 @@ import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import toast from '../../../lib/toast';
+import AppText from '../../../components/AppText';
 
 
 // Type
@@ -215,24 +216,24 @@ export default function AdmitCardScreen({ navigation, route }: Props) {
 
                 <View style={styles.examInfo}>
                     <View style={styles.examItem}>
-                        <Text style={styles.examLabel}>Exam Date</Text>
-                        <Text style={styles.examValue}>25/03/2026</Text>
+                        <AppText variant='text'>ExamDate: </AppText>
+                        <AppText variant='desc'>25/03/2026</AppText>
                     </View>
 
                     <View style={styles.examItem}>
-                        <Text style={styles.examLabel}>Duration</Text>
-                        <Text style={styles.examValue}>3 Hours</Text>
+                        <AppText variant='text'>Duration: </AppText>
+                        <AppText variant='desc'>3 Hours</AppText>
                     </View>
                 </View>
 
                 <View style={styles.instructions}>
-                    <Text style={styles.instructionsTitle}>Important Instructions:</Text>
+                    <AppText variant='h2' style={styles.instructionsTitle}>Important Instructions:</AppText>
 
                     <View style={styles.instructionList}>
                         {INSTRUCTIONS.map((instruction, index) => (
                             <View key={index} style={styles.instruction}>
-                                <Text style={styles.bullet}>•</Text>
-                                <Text style={styles.instructionText}>{instruction}</Text>
+                                <AppText style={styles.bullet}>•</AppText>
+                                <AppText variant='desc' style={styles.instructionText}>{instruction}</AppText>
                             </View>
                         ))}
                     </View>
@@ -263,9 +264,9 @@ export default function AdmitCardScreen({ navigation, route }: Props) {
                 </View>
 
                 <View style={styles.footer}>
-                    <Text style={styles.footerLabel}>SCHOOL CODE</Text>
+                    <AppText style={styles.footerLabel}>SCHOOL CODE</AppText>
                     <View style={styles.footerDot} />
-                    <Text style={styles.footerCode}>{schoolCode || '------'}</Text>
+                    <AppText style={styles.footerCode}>{schoolCode || '------'}</AppText>
                 </View>
             </ScrollView>
 
@@ -276,23 +277,23 @@ export default function AdmitCardScreen({ navigation, route }: Props) {
             >
                 <View style={styles.successHeaderRow}>
                     <Ionicons name="checkmark-circle" size={24} color={colors.success} />
-                    <Text style={styles.successTitle}>Download Successful</Text>
+                    <AppText style={styles.successTitle}>Download Successful</AppText>
                 </View>
 
                 {successParts && (
                     <>
-                        <Text style={styles.successBody}>Saved in: {successParts.dir}</Text>
-                        <Text style={styles.successFileName}>{successParts.name}</Text>
+                        <AppText style={styles.successBody}>Saved in: {successParts.dir}</AppText>
+                        <AppText style={styles.successFileName}>{successParts.name}</AppText>
                     </>
                 )}
 
                 <View style={styles.successActions}>
-                    <Text style={styles.successAction} onPress={() => setSuccessPath(null)}>
+                    <AppText style={styles.successAction} onPress={() => setSuccessPath(null)}>
                         Ok
-                    </Text>
-                    <Text style={[styles.successAction, styles.successActionPrimary]} onPress={handleOpenFile}>
+                    </AppText>
+                    <AppText style={[styles.successAction, styles.successActionPrimary]} onPress={handleOpenFile}>
                         Open
-                    </Text>
+                    </AppText>
                 </View>
             </FloatingModal>
         </View>
@@ -321,19 +322,17 @@ const styles = StyleSheet.create({
         marginBottom: metrics.xl,
     },
     examItem: { flexDirection: 'row', alignItems: 'center' },
-    examLabel: { fontSize: 14, color: colors.text, marginRight: 4 },
-    examValue: { fontSize: 14, color: colors.text },
+    examLabel: { fontSize: 14, marginRight: 4 },
+    examValue: { fontSize: 14 },
     instructions: { marginBottom: metrics.xxl },
     instructionsTitle: {
-        fontSize: 16,
         lineHeight: 21,
-        color: colors.text,
         marginBottom: metrics.md,
     },
     instructionList: { gap: metrics.sm },
     instruction: { flexDirection: 'row', alignItems: 'flex-start' },
-    bullet: { width: 15, fontSize: 15, lineHeight: 21, color: colors.text },
-    instructionText: { flex: 1, fontSize: 14, lineHeight: 21, color: colors.text },
+    bullet: { width: 15, lineHeight: 21, color: colors.text },
+    instructionText: { flex: 1, lineHeight: 21, color: colors.text },
     actions: { flexDirection: 'row', gap: metrics.md },
     actionButton: { flex: 1 },
     shareButton: {

@@ -16,7 +16,7 @@ type Props = TextProps & {
 // Styles
 const VARIANT_STYLES = StyleSheet.create({
   h1: {
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: 'Quicksand-Bold',
     color: colors.text,
   },

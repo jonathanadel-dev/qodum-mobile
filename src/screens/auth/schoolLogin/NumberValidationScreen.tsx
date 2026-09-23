@@ -14,6 +14,7 @@ import FormInput from '../../../components/form/input/FormInput';
 import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import toast from '../../../lib/toast';
+import AppText from '../../../components/AppText';
 
 
 // Type
@@ -54,7 +55,7 @@ export default function NumberValidationScreen({ navigation, route }: Props) {
                         resizeMode="contain"
                     />
 
-                    <Text style={styles.label}>Enter Your Adm No. / Employee ID</Text>
+                    <AppText style={styles.label}>Enter Your Adm No. / Employee ID</AppText>
 
                     <View style={styles.inputWrapper}>
                         <FormInput
@@ -66,12 +67,12 @@ export default function NumberValidationScreen({ navigation, route }: Props) {
                     </View>
 
                     <Pressable style={styles.searchButton} onPress={handleSearch}>
-                        <Text style={styles.searchText}>Search</Text>
+                        <AppText style={styles.searchText}>Search</AppText>
                     </Pressable>
                 </View>
 
                 <View style={styles.footer}>
-                    <Text style={styles.footerText}>Powered By</Text>
+                    <AppText style={styles.footerText}>Powered By</AppText>
                     <Image
                         source={require('../../../assets/images/logo.png')}
                         style={styles.footerLogo}

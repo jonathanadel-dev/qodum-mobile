@@ -16,6 +16,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import BackgroundScreen from '../../../components/BackgroundScreen';
 import RouteSelectorButton from '../../../components/busStoppage/RouteSelectorButton';
 import RoutesModal, { ROUTES, RouteType } from '../../../components/busStoppage/RoutesModal';
+import AppText from '../../../components/AppText';
 
 
 // Type
@@ -141,9 +142,9 @@ export default function BusStoppageScreen({ navigation }: Props) {
                                                 end={{ x: 1, y: 0.5 }}
                                                 style={styles.stopButton}
                                             >
-                                                <Text style={styles.stopTextReached} numberOfLines={1} ellipsizeMode="tail">
+                                                <AppText style={styles.stopTextReached} numberOfLines={1} ellipsizeMode="tail">
                                                     {stop}
-                                                </Text>
+                                                </AppText>
                                             </LinearGradient>
                                         ) : (
                                             <LinearGradient
@@ -152,9 +153,9 @@ export default function BusStoppageScreen({ navigation }: Props) {
                                                 end={{ x: 1, y: 0.5 }}
                                                 style={styles.stopButton}
                                             >
-                                                <Text style={styles.stopText} numberOfLines={1} ellipsizeMode="tail">
+                                                <AppText style={styles.stopText} numberOfLines={1} ellipsizeMode="tail">
                                                     {stop}
-                                                </Text>
+                                                </AppText>
                                             </LinearGradient>
                                         )}
                                     </View>

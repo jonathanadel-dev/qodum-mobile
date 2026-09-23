@@ -15,6 +15,7 @@ import HomeHeader from '../../../components/home/HomeHeader';
 import { colors, metrics } from '../../../styles/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import { useAuth } from '../../../context/AuthContext';
+import AppText from '../../../components/AppText';
 
 // image paths corrected
 const WARD_AVATAR = { uri: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80' };
@@ -166,8 +167,8 @@ function UpdateCard({ icon, title, count, onDetailsPress }: { icon: any; title: 
                 </View>
 
                 <View style={styles.titleCountRow}>
-                    <Text style={styles.updateTitle}>{title}</Text>
-                    <Text style={styles.updateCount}>{count}</Text>
+                    <AppText style={styles.updateTitle}>{title}</AppText>
+                    <AppText style={styles.updateCount}>{count}</AppText>
                 </View>
             </View>
 
@@ -177,7 +178,7 @@ function UpdateCard({ icon, title, count, onDetailsPress }: { icon: any; title: 
                 end={{ x: 1, y: 0 }}
                 style={styles.detailsButton}
             >
-                <Text style={styles.detailsButtonText}>Details</Text>
+                <AppText style={styles.detailsButtonText}>Details</AppText>
             </LinearGradient>
         </PressableScale>
     );
@@ -193,8 +194,8 @@ function AcademicCard({ icon, title, count, onDetailsPress }: { icon: any; title
             <PressableScale onPress={onDetailsPress} style={styles.academicCard}>
                 <View style={styles.academicCardBody}>
                     <View style={styles.titleCountRow}>
-                        <Text style={styles.updateTitle}>{title}</Text>
-                        <Text style={styles.updateCount}>{count}</Text>
+                        <AppText style={styles.updateTitle}>{title}</AppText>
+                        <AppText style={styles.updateCount}>{count}</AppText>
                     </View>
                 </View>
 
@@ -204,7 +205,7 @@ function AcademicCard({ icon, title, count, onDetailsPress }: { icon: any; title
                     end={{ x: 1, y: 0 }}
                     style={styles.detailsButton}
                 >
-                    <Text style={styles.detailsButtonText}>Details</Text>
+                    <AppText style={styles.detailsButtonText}>Details</AppText>
                 </LinearGradient>
             </PressableScale>
         </View>
@@ -219,14 +220,14 @@ function CommunicationCard({ icon, title, count, badge, onPress }: { icon: any; 
                     <Image source={icon} style={styles.updateIcon} resizeMode="contain" />
                     {badge > 0 && (
                         <View style={styles.commBadge}>
-                            <Text style={styles.commBadgeText}>{badge}</Text>
+                            <AppText style={styles.commBadgeText}>{badge}</AppText>
                         </View>
                     )}
                 </View>
 
                 <View style={styles.titleCountRow}>
-                    <Text style={styles.updateTitle}>{title}</Text>
-                    <Text style={styles.updateCount}>{count}</Text>
+                    <AppText style={styles.updateTitle}>{title}</AppText>
+                    <AppText style={styles.updateCount}>{count}</AppText>
                 </View>
             </View>
         </PressableScale>
@@ -268,14 +269,14 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                 <View style={styles.progressCard}>
                     <View style={styles.progressColumn}>
                         <View style={styles.progressRow}>
-                            <Text style={styles.progressLabel}>Attendance</Text>
-                            <Text style={styles.progressValue}>85</Text>
+                            <AppText style={styles.progressLabel}>Attendance</AppText>
+                            <AppText style={styles.progressValue}>85</AppText>
                         </View>
                         <AnimatedProgressBar value={85} />
 
                         <View style={[styles.progressRow, { marginTop: metrics.lg }]}>
-                            <Text style={styles.progressLabel}>Fee</Text>
-                            <Text style={styles.progressValue}>70</Text>
+                            <AppText style={styles.progressLabel}>Fee</AppText>
+                            <AppText style={styles.progressValue}>70</AppText>
                         </View>
                         <AnimatedProgressBar value={70} />
                     </View>
@@ -283,7 +284,7 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                     <Image source={TODO_ILLUSTRATION} style={styles.progressIllustration} resizeMode="contain" />
                 </View>
 
-                <Text style={styles.sectionTitle}>School Updates</Text>
+                <AppText style={styles.sectionTitle}>School Updates</AppText>
                 <View style={styles.threeColRow}>
                     {SCHOOL_UPDATES.map((item) => (
                         <UpdateCard
@@ -296,7 +297,7 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                     ))}
                 </View>
 
-                <Text style={styles.sectionTitle}>Academics</Text>
+                <AppText style={styles.sectionTitle}>Academics</AppText>
                 <View style={styles.threeColRow}>
                     {ACADEMICS.map((item) => (
                         <AcademicCard
@@ -309,7 +310,7 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                     ))}
                 </View>
 
-                <Text style={styles.sectionTitle}>Communication</Text>
+                <AppText style={styles.sectionTitle}>Communication</AppText>
                 <View style={styles.twoColRow}>
                     {COMMUNICATION.map((item) => (
                         <CommunicationCard
@@ -323,14 +324,14 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                     ))}
                 </View>
 
-                <Text style={styles.sectionTitle}>Edisapp Today</Text>
+                <AppText style={styles.sectionTitle}>Edisapp Today</AppText>
                 <View style={styles.fiveColRow}>
                     {EDISAPP_TODAY.map((item) => (
                         <PressableScale key={item.id} onPress={() => {}} style={styles.edisappItem}>
                             <View style={styles.edisappIconFrame}>
                                 <Image source={item.icon} style={styles.edisappIcon} resizeMode="contain" />
                             </View>
-                            <Text style={styles.edisappTitle}>{item.title}</Text>
+                            <AppText style={styles.edisappTitle}>{item.title}</AppText>
                         </PressableScale>
                     ))}
                 </View>

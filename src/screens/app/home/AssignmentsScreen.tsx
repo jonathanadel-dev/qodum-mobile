@@ -1,9 +1,10 @@
 import { Text, View } from "react-native";
+import AppText from "../../../components/AppText";
 
 export default function AssignmentsScreen() {
     return (
         <View>
-            <Text>Assignments</Text>
+            <AppText>Assignments</AppText>
         </View>
     )
 }

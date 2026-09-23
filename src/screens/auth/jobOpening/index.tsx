@@ -15,6 +15,7 @@ import { colors, metrics } from '../../../styles/theme';
 import { JobType, fetchJobOpenings } from '../../../lib/api/jobApi';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import JobCard from '../../../components/jobOpening/JobCard';
+import AppText from '../../../components/AppText';
 
 
 // Props
@@ -61,7 +62,7 @@ export default function JobOpeningScreen({ navigation, route }: Props) {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.scrollContent}
             >
-                <Text style={styles.heading}>Vacancies</Text>
+                <AppText variant="h1" style={styles.heading}>Vacancies</AppText>
 
                 {loading ? (
                     <View style={styles.centerState}>
@@ -69,18 +70,18 @@ export default function JobOpeningScreen({ navigation, route }: Props) {
                     </View>
                 ) : error ? (
                     <View style={styles.centerState}>
-                        <Text style={styles.stateTitle}>Something went wrong</Text>
-                        <Text style={styles.stateDescription}>{error}</Text>
+                        <AppText variant="h3" style={styles.stateTitle}>Something went wrong</AppText>
+                        <AppText variant="desc" style={styles.stateDescription}>{error}</AppText>
                         <Pressable style={styles.retryButton} onPress={loadJobs}>
-                            <Text style={styles.retryButtonText}>Try again</Text>
+                            <AppText variant="h3" style={styles.retryButtonText}>Try again</AppText>
                         </Pressable>
                     </View>
                 ) : jobs.length === 0 ? (
                     <View style={styles.centerState}>
-                        <Text style={styles.stateTitle}>No job openings</Text>
-                        <Text style={styles.stateDescription}>
+                        <AppText variant="h3" style={styles.stateTitle}>No job openings</AppText>
+                        <AppText variant="desc" style={styles.stateDescription}>
                             There are currently no available positions at this school.
-                        </Text>
+                        </AppText>
                     </View>
                 ) : (
                     <View style={styles.jobsSection}>

@@ -14,6 +14,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import Card from '../../../components/Card';
 import CustomModal from '../../../components/CustomModal';
 import { colors, metrics } from '../../../styles/theme';
+import AppText from '../../../components/AppText';
 
 // Hardcoded per request
 const PROFILE = {
@@ -52,10 +53,10 @@ const WARDS = [
 
 function DetailPair({ label, value }: { label: string; value: string }) {
     return (
-        <Text style={styles.detailLine}>
-            <Text style={styles.detailLabel}>{label}: </Text>
-            <Text style={styles.detailValue}>{value}</Text>
-        </Text>
+        <AppText style={styles.detailLine}>
+            <AppText style={styles.detailLabel}>{label}: </AppText>
+            <AppText style={styles.detailValue}>{value}</AppText>
+        </AppText>
     );
 }
 
@@ -84,32 +85,32 @@ export default function ProfileScreen() {
                 </View>
 
                 <View style={styles.infoBlock}>
-                    <Text style={styles.name}>{PROFILE.name}</Text>
+                    <AppText style={styles.name}>{PROFILE.name}</AppText>
 
                     <View style={styles.metaRow}>
                         <Ionicons name="person" size={14} color={colors.textSecondary} />
-                        <Text style={styles.metaText}>{PROFILE.role}</Text>
+                        <AppText style={styles.metaText}>{PROFILE.role}</AppText>
 
                         <View style={styles.handlePill}>
-                            <Text style={[styles.handleText, {fontSize: 12}]}>{PROFILE.handle}</Text>
+                            <AppText style={[styles.handleText, {fontSize: 12}]}>{PROFILE.handle}</AppText>
                         </View>
                     </View>
 
                     <View style={styles.metaRow}>
                         <Ionicons name="location" size={14} color={colors.textSecondary} />
-                        <Text style={styles.metaText}>{PROFILE.location}</Text>
+                        <AppText style={styles.metaText}>{PROFILE.location}</AppText>
                     </View>
 
                     <View style={styles.metaRow}>
                         <Ionicons name="call" size={14} color={colors.textSecondary} />
-                        <Text style={styles.metaText}>{PROFILE.phone}</Text>
+                        <AppText style={styles.metaText}>{PROFILE.phone}</AppText>
                     </View>
 
                     <View style={styles.divider} />
 
                     <Card contentStyle={styles.wardCardContent}>
                         <View style={styles.wardHeader}>
-                            <Text style={styles.wardHeaderText}>Ward's Details</Text>
+                            <AppText style={styles.wardHeaderText}>Ward's Details</AppText>
                         </View>
 
                         <View style={styles.wardBody}>
@@ -157,8 +158,8 @@ export default function ProfileScreen() {
                         <View style={styles.wardRow}>
                             <Image source={{ uri: PROFILE.avatar }} style={styles.wardRowAvatar} />
                             <View>
-                                <Text style={styles.wardRowName}>{item.name}</Text>
-                                <Text style={styles.wardRowClass}>Class: {item.className}</Text>
+                                <AppText style={styles.wardRowName}>{item.name}</AppText>
+                                <AppText style={styles.wardRowClass}>Class: {item.className}</AppText>
                             </View>
                         </View>
                     )}
@@ -167,7 +168,7 @@ export default function ProfileScreen() {
                             <View style={styles.addWardIcon}>
                                 <Ionicons name="add" size={20} color={colors.text} />
                             </View>
-                            <Text style={styles.addWardText}>Add another ward</Text>
+                            <AppText style={styles.addWardText}>Add another ward</AppText>
                         </Pressable>
                     }
                 />

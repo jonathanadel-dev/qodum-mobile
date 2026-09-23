@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
     ActivityIndicator,
     Animated,
@@ -6,7 +6,6 @@ import {
     Image,
     Pressable,
     StyleSheet,
-    Text,
     TextInput,
     View,
 } from 'react-native';
@@ -16,6 +15,8 @@ import type { AuthStackParamList } from '../../../navigation/AuthStack';
 import Header from '../../../components/Header';
 import { colors, metrics } from '../../../styles/theme';
 import { searchSchools, SchoolType } from '../../../lib/api/schoolApi';
+import AppText from '../../../components/AppText';
+import { useStaggeredFadeInUp } from '../../../hooks/animations/useStaggeredFadeInUp';
 
 
 // Type
@@ -24,7 +25,7 @@ type Props = NativeStackScreenProps<AuthStackParamList, 'SchoolSearch'>;
 
 // School search screen
 export default function SchoolSearchScreen({ navigation, route }: Props) {
-    
+
     // State
     const { onSelect } = route.params;
     const [query, setQuery] = useState('');
@@ -32,8 +33,6 @@ export default function SchoolSearchScreen({ navigation, route }: Props) {
     const [loading, setLoading] = useState(true);
     const [loadError, setLoadError] = useState(false);
 
-
-    // Fetch school
     useEffect(() => {
         let cancelled = false;
 
@@ -55,8 +54,6 @@ export default function SchoolSearchScreen({ navigation, route }: Props) {
         };
     }, []);
 
-
-    // School results
     const results = useMemo(() => {
         const q = query.trim().toLowerCase();
         if (!q) return allSchools;
@@ -67,8 +64,6 @@ export default function SchoolSearchScreen({ navigation, route }: Props) {
         );
     }, [query, allSchools]);
 
-
-    // Handling select
     const handleSelect = (school: SchoolType) => {
         onSelect(school);
         navigation.goBack();
@@ -80,7 +75,7 @@ export default function SchoolSearchScreen({ navigation, route }: Props) {
 
             <View style={styles.body}>
                 <View style={styles.searchBar}>
-                    <Text style={styles.searchIcon}>🔍</Text>
+                    <AppText style={styles.searchIcon}>🔍</AppText>
                     <TextInput
                         value={query}
                         onChangeText={setQuery}
@@ -96,15 +91,15 @@ export default function SchoolSearchScreen({ navigation, route }: Props) {
                     </View>
                 ) : loadError ? (
                     <View style={styles.centerState}>
-                        <Text style={styles.stateText}>
+                        <AppText style={styles.stateText}>
                             Couldn't load schools. Pull down to try again.
-                        </Text>
+                        </AppText>
                     </View>
                 ) : results.length === 0 ? (
                     <View style={styles.centerState}>
-                        <Text style={styles.stateText}>
+                        <AppText style={styles.stateText}>
                             No schools found. Try a different name.
-                        </Text>
+                        </AppText>
                     </View>
                 ) : (
                     <FlatList
@@ -126,32 +121,10 @@ export default function SchoolSearchScreen({ navigation, route }: Props) {
 
 // School row
 function SchoolRow({ school, index, onPress }: { school: SchoolType; index: number; onPress: () => void; }) {
-
-    // Animation
-    const anim = useRef(new Animated.Value(0)).current;
-    useEffect(() => {
-        Animated.timing(anim, {
-            toValue: 1,
-            duration: 320,
-            delay: Math.min(index, 8) * 50,
-            useNativeDriver: true,
-        }).start();
-    }, []);
+    const entranceStyle = useStaggeredFadeInUp({ index });
 
     return (
-        <Animated.View
-            style={{
-                opacity: anim,
-                transform: [
-                    {
-                        translateY: anim.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [12, 0],
-                        }),
-                    },
-                ],
-            }}
-        >
+        <Animated.View style={entranceStyle}>
             <Pressable style={styles.row} onPress={onPress}>
                 <Image
                     source={require('../../../assets/images/app-icon-master.png')}
@@ -159,8 +132,8 @@ function SchoolRow({ school, index, onPress }: { school: SchoolType; index: numb
                     resizeMode="cover"
                 />
                 <View style={styles.rowText}>
-                    <Text style={styles.rowName}>{school.name}</Text>
-                    <Text style={styles.rowCode}>School Code: {school.code}</Text>
+                    <AppText variant='h3' style={styles.rowName}>{school.name}</AppText>
+                    <AppText variant='desc'>School Code: {school.code}</AppText>
                 </View>
             </Pressable>
         </Animated.View>
@@ -170,14 +143,21 @@ function SchoolRow({ school, index, onPress }: { school: SchoolType; index: numb
 
 // Styles
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.white },
-    body: { flex: 1, paddingHorizontal: metrics.xxl, paddingTop: metrics.xl },
+    container: {
+        flex: 1,
+        backgroundColor: colors.white
+    },
+    body: {
+        flex: 1,
+        paddingHorizontal: metrics.xxl,
+        paddingTop: metrics.xl
+    },
     searchBar: {
         flexDirection: 'row',
         alignItems: 'center',
         height: 46,
         borderRadius: metrics.md,
-        backgroundColor: '#EFEFEF',
+        backgroundColor: colors.grayBackground,
         paddingHorizontal: metrics.lg,
         marginBottom: metrics.xl,
     },
@@ -200,5 +180,4 @@ const styles = StyleSheet.create({
     },
     rowText: { flex: 1 },
     rowName: { fontSize: 16, marginBottom: 2 },
-    rowCode: {  },
 });

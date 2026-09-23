@@ -4,9 +4,7 @@ import {
     Keyboard,
     KeyboardAvoidingView,
     Platform,
-    Pressable,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -17,6 +15,7 @@ import BackgroundScreen from '../../../components/BackgroundScreen';
 import Button from '../../../components/Button';
 import { colors, metrics } from '../../../styles/theme';
 import { SchoolType, verifySchoolCode } from '../../../lib/api/schoolApi';
+import AppText from '../../../components/AppText';
 
 
 // Types
@@ -107,7 +106,12 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             >
                 <View style={styles.content}>
-                    <Text style={styles.title}>Enter School Code</Text>
+                    <AppText
+                        variant='h1'
+                        style={styles.title}
+                    >
+                        Enter School Code
+                    </AppText>
 
                     <CodeInput
                         length={CODE_LENGTH}
@@ -119,11 +123,9 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
 
 
                     <Button
-                        label='Reset'
-                        icon='↻'
+                        label='↻ Reset'
                         onPress={handleReset}
                         type='plain'
-                        textStyle={{ color: colors.primary }}
                     />
 
 
@@ -135,7 +137,6 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
                             })
                         }
                         type='plain'
-                        textStyle={{ color: colors.primary }}
                     />
 
                     <View style={styles.submitWrapper}>
@@ -148,7 +149,9 @@ export default function SchoolCodeScreen({ navigation, route }: Props) {
                 </View>
 
                 <View style={styles.footer}>
-                    <Text style={styles.footerText}>Powered By</Text>
+                    <AppText variant='text'>
+                        Powered By
+                    </AppText>
                     <Image
                         source={require('../../../assets/images/logo.png')}
                         style={styles.footerLogo}
@@ -171,8 +174,6 @@ const styles = StyleSheet.create({
         paddingTop: metrics.xxxl * 2,
     },
     title: {
-        // ...typography.title,
-        fontSize: 22,
         marginBottom: metrics.xxl,
     },
     submitWrapper: {
@@ -181,11 +182,6 @@ const styles = StyleSheet.create({
     footer: {
         alignItems: 'center',
         paddingBottom: metrics.xl,
-    },
-    footerText: {
-        fontSize: 13,
-        color: colors.textSecondary,
-        marginBottom: metrics.xs,
     },
     footerLogo: {
         width: 90,

@@ -7,6 +7,7 @@ import {
     View,
 } from 'react-native';
 import { colors } from '../../../styles/theme';
+import AppText from '../../AppText';
 
 
 type FormInputProps = TextInputProps & {
@@ -35,9 +36,9 @@ const FormInput = forwardRef<TextInput, FormInputProps>(
         return (
             <View style={styles.inputGroup}>
                 {label ? (
-                    <Text style={styles.label}>
+                    <AppText style={styles.label}>
                         {label}
-                    </Text>
+                    </AppText>
                 ) : null}
 
                 <TextInput
@@ -64,9 +65,9 @@ const FormInput = forwardRef<TextInput, FormInputProps>(
                 />
 
                 {error && (
-                    <Text style={styles.errorText}>
+                    <AppText style={styles.errorText}>
                         {error}
-                    </Text>
+                    </AppText>
                 )}
             </View>
         );

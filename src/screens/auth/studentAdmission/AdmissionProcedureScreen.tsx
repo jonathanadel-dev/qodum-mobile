@@ -1,17 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import {
     Animated,
     ScrollView,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from '@react-native-vector-icons/ionicons';
 
 import Header from '../../../components/Header';
+import AppText from '../../../components/AppText';
 import { colors, metrics } from '../../../styles/theme';
+import { useStaggeredFadeInGroup } from '../../../hooks/animations/useStaggeredFadeInGroup';
 
+
+// Types
 type Props = {
     navigation: any;
     route: {
@@ -20,7 +23,6 @@ type Props = {
         };
     };
 };
-
 type Step = {
     id: string;
     label: string;
@@ -29,7 +31,8 @@ type Step = {
     icon: React.ComponentProps<typeof Ionicons>['name'];
 };
 
-// Hardcoded per request — swap for real data whenever it's ready.
+
+// Steps
 const STEPS: Step[] = [
     {
         id: '1',
@@ -73,24 +76,12 @@ const STEPS: Step[] = [
     },
 ];
 
+
+// Admission procedure
 export default function AdmissionProcedureScreen({ navigation, route }: Props) {
     const { schoolCode } = route.params || {};
 
-    // One Animated.Value per step, staggered fade + slide-up on mount.
-    const stepAnims = useRef(STEPS.map(() => new Animated.Value(0))).current;
-
-    useEffect(() => {
-        Animated.stagger(
-            120,
-            stepAnims.map((anim) =>
-                Animated.timing(anim, {
-                    toValue: 1,
-                    duration: 420,
-                    useNativeDriver: true,
-                }),
-            ),
-        ).start();
-    }, []);
+    const stepStyles = useStaggeredFadeInGroup(STEPS.length);
 
     return (
         <View style={styles.container}>
@@ -101,26 +92,12 @@ export default function AdmissionProcedureScreen({ navigation, route }: Props) {
                 contentContainerStyle={styles.scrollContent}
             >
                 {STEPS.map((step, index) => {
-                    const anim = stepAnims[index];
                     const isLast = index === STEPS.length - 1;
 
                     return (
                         <Animated.View
                             key={step.id}
-                            style={[
-                                styles.row,
-                                {
-                                    opacity: anim,
-                                    transform: [
-                                        {
-                                            translateY: anim.interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [18, 0],
-                                            }),
-                                        },
-                                    ],
-                                },
-                            ]}
+                            style={[styles.row, stepStyles[index]]}
                         >
                             <View style={styles.timelineColumn}>
                                 <LinearGradient
@@ -136,9 +113,9 @@ export default function AdmissionProcedureScreen({ navigation, route }: Props) {
                             </View>
 
                             <View style={styles.content}>
-                                <Text style={styles.stepLabel}>{step.label}</Text>
-                                <Text style={styles.stepTitle}>{step.title}</Text>
-                                <Text style={styles.stepDescription}>{step.description}</Text>
+                                <AppText variant="text" style={styles.stepLabel}>{step.label}</AppText>
+                                <AppText variant="h2" style={styles.stepTitle}>{step.title}</AppText>
+                                <AppText variant="desc" style={styles.stepDescription}>{step.description}</AppText>
                             </View>
                         </Animated.View>
                     );
@@ -148,6 +125,8 @@ export default function AdmissionProcedureScreen({ navigation, route }: Props) {
     );
 }
 
+
+// Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -186,19 +165,13 @@ const styles = StyleSheet.create({
         paddingBottom: metrics.xxl,
     },
     stepLabel: {
-        fontSize: 13,
-        fontWeight: '700',
         color: colors.primary,
         marginBottom: metrics.xs,
     },
     stepTitle: {
-        // ...typography.title,
-        fontSize: 19,
         marginBottom: metrics.sm,
     },
     stepDescription: {
-        fontSize: 14,
         lineHeight: 21,
-        color: colors.textSecondary,
     },
 });

@@ -7,6 +7,7 @@ import Header from '../../../components/Header';
 import Card from '../../../components/Card';
 import Button from '../../../components/Button';
 import { colors, metrics } from '../../../styles/theme';
+import AppText from '../../../components/AppText';
 
 export default function NotificationDetailsScreen({ navigation, route }: NativeStackScreenProps<any>) {
     const { notification } = route.params as {
@@ -37,29 +38,29 @@ export default function NotificationDetailsScreen({ navigation, route }: NativeS
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.scrollContent}
             >
-                <Text style={styles.title}>{notification.title}</Text>
-                <Text style={styles.description}>{notification.description}</Text>
+                <AppText style={styles.title}>{notification.title}</AppText>
+                <AppText style={styles.description}>{notification.description}</AppText>
 
                 <View style={styles.badgeRow}>
                     <View style={styles.badge}>
                         <Ionicons name="calendar-outline" size={15} color={colors.primary} />
-                        <Text style={styles.badgeText} numberOfLines={1}>
+                        <AppText style={styles.badgeText} numberOfLines={1}>
                             {notification.date}
-                        </Text>
+                        </AppText>
                     </View>
 
                     <View style={styles.badge}>
                         <Ionicons name="time-outline" size={15} color={colors.primary} />
-                        <Text style={styles.badgeText}>{notification.time}</Text>
+                        <AppText style={styles.badgeText}>{notification.time}</AppText>
                     </View>
 
                     <View style={styles.badge}>
                         <Ionicons name="pricetag-outline" size={15} color={colors.primary} />
-                        <Text style={styles.badgeText}>{notification.category}</Text>
+                        <AppText style={styles.badgeText}>{notification.category}</AppText>
                     </View>
                 </View>
 
-                <Text style={styles.sectionTitle}>Attachments</Text>
+                <AppText style={styles.sectionTitle}>Attachments</AppText>
 
                 {notification.attachmentName ? (
                     <Card onPress={handleAttachmentPress} contentStyle={styles.attachmentContent}>
@@ -67,9 +68,9 @@ export default function NotificationDetailsScreen({ navigation, route }: NativeS
                             <Ionicons name="document-text" size={18} color={colors.white} />
                         </View>
 
-                        <Text style={styles.attachmentName} numberOfLines={1}>
+                        <AppText style={styles.attachmentName} numberOfLines={1}>
                             {notification.attachmentName}
-                        </Text>
+                        </AppText>
 
                         <Button
                             type="arrowRight"
@@ -84,7 +85,7 @@ export default function NotificationDetailsScreen({ navigation, route }: NativeS
                             style={styles.emptyAttachmentsImage}
                             resizeMode="contain"
                         />
-                        <Text style={styles.emptyAttachmentsText}>No attachments available</Text>
+                        <AppText style={styles.emptyAttachmentsText}>No attachments available</AppText>
                     </View>
                 )}
             </ScrollView>

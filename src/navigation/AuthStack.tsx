@@ -10,7 +10,7 @@ import JobDescriptionScreen from '../screens/auth/jobOpening/JobDescriptionScree
 import JobFormScreen from '../screens/auth/jobOpening/JobFormScreen';
 import JobAppliedScreen from '../screens/auth/jobOpening/JobAppliedScreen';
 import StudentAdmissionScreen from '../screens/auth/studentAdmission';
-import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/StudentAdmissionProcedureScreen';
+import StudentAdmissionProcedureScreen from '../screens/auth/studentAdmission/AdmissionProcedureScreen';
 import TrackApplicationScreen from '../screens/auth/studentAdmission/trackTheApplication/TrackApplicationScreen';
 import SchoolSearchScreen from '../screens/auth/schoolCode/SchoolSearchScreen';
 import { SchoolType } from '../lib/api/schoolApi';

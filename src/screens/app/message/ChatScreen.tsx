@@ -15,6 +15,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../../components/Header';
 import { colors, metrics } from '../../../styles/theme';
+import AppText from '../../../components/AppText';
 
 type Message = {
     id: string;
@@ -170,7 +171,7 @@ export default function ChatScreen({
                                     : styles.bubbleReceived,
                             ]}
                         >
-                            <Text
+                            <AppText
                                 style={
                                     item.fromMe
                                         ? styles.bubbleTextSent
@@ -178,7 +179,7 @@ export default function ChatScreen({
                                 }
                             >
                                 {item.text}
-                            </Text>
+                            </AppText>
                         </View>
                     )}
                 />

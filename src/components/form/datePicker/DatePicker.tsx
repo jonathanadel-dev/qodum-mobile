@@ -9,6 +9,7 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { colors, metrics } from '../../../styles/theme';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import AppText from '../../AppText';
 
 
 type DatePickerProps = {
@@ -59,9 +60,9 @@ export default function DatePicker ({
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>
+            <AppText style={styles.label}>
                 {label}
-            </Text>
+            </AppText>
 
             <Pressable
                 onPress={() => setVisible(true)}
@@ -71,24 +72,24 @@ export default function DatePicker ({
                     error && styles.inputError,
                 ]}
             >
-                <Text
+                <AppText
                     style={[
                         styles.value,
                         !value && styles.placeholder,
                     ]}
                 >
                     {formattedDate}
-                </Text>
+                </AppText>
 
-                <Text style={styles.icon}>
+                <AppText style={styles.icon}>
                     <Ionicons name='calendar-outline' size={16}/>
-                </Text>
+                </AppText>
             </Pressable>
 
             {error && (
-                <Text style={styles.error}>
+                <AppText style={styles.error}>
                     {error}
-                </Text>
+                </AppText>
             )}
 
             {visible && (

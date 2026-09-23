@@ -16,6 +16,7 @@ import {
     colors,
     metrics,
 } from '../styles/theme';
+import AppText from './AppText';
 
 
 // Types
@@ -176,17 +177,17 @@ const Snackbar = forwardRef<SnackbarRef>((_, ref) => {
                         { backgroundColor: accentColor },
                     ]}
                 >
-                    <Text style={styles.icon}>
+                    <AppText style={styles.icon}>
                         {icon}
-                    </Text>
+                    </AppText>
                 </View>
 
-                <Text
+                <AppText
                     style={styles.message}
                     numberOfLines={3}
                 >
                     {message}
-                </Text>
+                </AppText>
 
                 <Pressable
                     onPress={hide}
@@ -196,14 +197,14 @@ const Snackbar = forwardRef<SnackbarRef>((_, ref) => {
                         pressed && styles.pressed,
                     ]}
                 >
-                    <Text
+                    <AppText
                         style={[
                             styles.close,
                             { color: accentColor },
                         ]}
                     >
                         ×
-                    </Text>
+                    </AppText>
                 </Pressable>
             </View>
         </Animated.View>

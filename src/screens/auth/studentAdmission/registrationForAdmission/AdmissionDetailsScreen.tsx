@@ -6,14 +6,15 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import Header from '../../../../components/Header';
 import { colors, metrics } from '../../../../styles/theme';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
+import AppText from '../../../../components/AppText';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'AdmissionDetails'>;
 
 function DetailRow({ label, value }: { label: string; value?: string }) {
     return (
         <View style={styles.row}>
-            <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value}>{value || '-'}</Text>
+            <AppText variant="h2" style={styles.label}>{label}</AppText>
+            <AppText variant="desc" style={styles.value}>{value || '-'}</AppText>
         </View>
     );
 }

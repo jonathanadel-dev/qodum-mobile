@@ -11,6 +11,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 
 import { colors, metrics } from '../../styles/theme';
 import CustomModal, { CustomModalRef } from '../CustomModal';
+import AppText from '../AppText';
 
 // Route type with stops
 export type RouteType = {
@@ -104,10 +105,10 @@ export default function RoutesModal({
             onOpen={handleOpen}
         >
             <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>Select Route</Text>
-                <Text style={styles.routeCount}>
+                <AppText style={styles.modalTitle}>Select Route</AppText>
+                <AppText style={styles.routeCount}>
                     {routes.length} routes
-                </Text>
+                </AppText>
             </View>
 
             <View style={styles.searchContainer}>
@@ -153,21 +154,21 @@ export default function RoutesModal({
                             </View>
                             
                             <View style={styles.routeInfo}>
-                                <Text style={[
+                                <AppText style={[
                                     styles.routeName,
                                     isSelected && styles.routeNameSelected,
                                 ]}>
                                     {route.name}
-                                </Text>
+                                </AppText>
                                 <View style={styles.stopsContainer}>
                                     <Ionicons
                                         name="location"
                                         size={14}
                                         color={colors.textSecondary}
                                     />
-                                    <Text style={styles.stopsText}>
+                                    <AppText style={styles.stopsText}>
                                         {route.stops.length} stops
-                                    </Text>
+                                    </AppText>
                                 </View>
                             </View>
 

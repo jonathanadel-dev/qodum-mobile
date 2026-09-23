@@ -9,6 +9,7 @@ import Card from '../../../../components/Card';
 import Button from '../../../../components/Button';
 import { colors, metrics } from '../../../../styles/theme';
 import { getMyAdmittedStudents, StudentRecord } from '../../../../lib/localDB';
+import AppText from '../../../../components/AppText';
 
 export default function PreviousAdmissionsScreen({ navigation, route }: NativeStackScreenProps<any>) {
     const { schoolCode } = route.params as { schoolCode: string };
@@ -69,9 +70,9 @@ export default function PreviousAdmissionsScreen({ navigation, route }: NativeSt
                             )}
 
                             <View style={styles.studentTextBlock}>
-                                <Text style={styles.studentName}>Name: <Text style={styles.studentValue}>{fullName}</Text></Text>
-                                <Text style={styles.studentName}>Applied For: <Text style={styles.studentValue}>{student.class_name}</Text></Text>
-                                <Text style={styles.studentName}>Admission No.: <Text style={styles.studentValue}>{student.admissionNo}</Text></Text>
+                                <AppText style={styles.studentName}>Name: <AppText style={styles.studentValue}>{fullName}</AppText></AppText>
+                                <AppText style={styles.studentName}>Applied For: <AppText style={styles.studentValue}>{student.class_name}</AppText></AppText>
+                                <AppText style={styles.studentName}>Admission No.: <AppText style={styles.studentValue}>{student.admissionNo}</AppText></AppText>
 
                                 <Button
                                     type="plain"

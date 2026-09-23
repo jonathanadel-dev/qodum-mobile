@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors, metrics } from '../styles/theme';
+import AppText from './AppText';
 
 export type DropdownOption = {
     label: string;
@@ -65,9 +66,9 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
                 {icon && (
                     <Ionicons name={icon} size={18} color={colors.textSecondary} style={styles.fieldIcon} />
                 )}
-                <Text style={[styles.fieldText, !selectedOption && styles.placeholderText]} numberOfLines={1}>
+                <AppText style={[styles.fieldText, !selectedOption && styles.placeholderText]} numberOfLines={1}>
                     {selectedOption ? selectedOption.label : placeholder}
-                </Text>
+                </AppText>
                 <Ionicons
                     name={isOpen ? 'chevron-up' : 'chevron-down'}
                     size={18}
@@ -106,9 +107,9 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
                                     style={[styles.option, isSelected && styles.optionSelected]}
                                     onPress={() => handleSelect(option.value)}
                                 >
-                                    <Text style={[styles.optionText, isSelected && styles.optionTextSelected]}>
+                                    <AppText style={[styles.optionText, isSelected && styles.optionTextSelected]}>
                                         {option.label}
-                                    </Text>
+                                    </AppText>
                                     {isSelected && <Ionicons name="checkmark" size={16} color={colors.primary} />}
                                 </Pressable>
                             );

@@ -6,6 +6,7 @@ import {
     View,
 } from 'react-native';
 import { colors, metrics } from '../../styles/theme';
+import AppText from '../AppText';
 
 
 // Type
@@ -27,13 +28,11 @@ export default function CodeInput ({ length = 6, value, onChangeText, error, aut
     const boxes = Array.from({ length }, (_, index) => value[index] ?? '');
 
     const sanitize = (text: string) => text.replace(/[^0-9]/g, '');
-
     const focusBox = (index: number) => {
         if (index >= 0 && index < length) {
             inputRefs.current[index]?.focus();
         }
     };
-
     const handleChangeText = (index: number, text: string) => {
         const cleaned = sanitize(text);
 
@@ -63,7 +62,6 @@ export default function CodeInput ({ length = 6, value, onChangeText, error, aut
             focusBox(index + 1);
         }
     };
-
     const handleKeyPress = (index: number, event: any) => {
         if (event.nativeEvent.key !== 'Backspace' || boxes[index]) {
             return;
@@ -104,7 +102,7 @@ export default function CodeInput ({ length = 6, value, onChangeText, error, aut
                 ))}
             </View>
 
-            {error && <Text style={styles.errorText}>{error}</Text>}
+            {!!error && <AppText variant='text' style={styles.errorText}>{error}</AppText>}
         </View>
     );
 };
@@ -117,7 +115,6 @@ const styles = StyleSheet.create({
         gap: 4,
         justifyContent: 'space-between',
     },
-
     box: {
         width: 48,
         height: 48,
@@ -127,23 +124,19 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         textAlign: 'center',
         fontSize: 21,
-        fontWeight: '700',
         color: colors.text,
         padding: 0,
     },
-
     boxFilled: {
         borderColor: colors.borderFocused,
         backgroundColor: colors.iconBackground,
     },
-
     boxError: {
         borderColor: colors.danger,
         backgroundColor: colors.dangerBackground,
     },
-
     errorText: {
-        // ...typography.error,
+        color: colors.danger,
         marginTop: metrics.sm,
     },
 });

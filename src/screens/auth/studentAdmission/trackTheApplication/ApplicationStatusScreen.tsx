@@ -10,6 +10,7 @@ import {
 import Header from '../../../../components/Header';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import AppText from '../../../../components/AppText';
 
 
 // Type
@@ -93,9 +94,9 @@ export default function ApplicationStatusScreen({ navigation, route }: Props) {
                                         ]}
                                     />
 
-                                    <Text style={styles.statusLabel}>
+                                    <AppText style={styles.statusLabel}>
                                         {step.label}
-                                    </Text>
+                                    </AppText>
                                 </View>
                             );
                         })}
@@ -122,16 +123,16 @@ export default function ApplicationStatusScreen({ navigation, route }: Props) {
 
                 {/* Message */}
                 <View style={styles.message}>
-                    <Text style={styles.title}>
+                    <AppText style={styles.title}>
                         Application Submitted
-                    </Text>
+                    </AppText>
 
-                    <Text style={styles.description}>
+                    <AppText style={styles.description}>
                         Your admission form has been successfully
                         submitted. Our team will review your
                         application shortly. Please keep checking the
                         application status for updates.
-                    </Text>
+                    </AppText>
                 </View>
             </ScrollView>
         </View>

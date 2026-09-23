@@ -127,12 +127,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     whiteText: {
+        fontSize: 15,
         color: colors.text,
     },
     plainText: {
+        fontSize: 15,
         color: colors.primary,
     },
     gradientText: {
+        fontSize: 15,
         color: colors.white,
     },
     arrowContainer: {

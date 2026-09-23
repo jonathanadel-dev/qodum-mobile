@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, radius, spacing, typography } from './theme';
+import { colors, metrics } from './theme';
 
 
 // Form styles
@@ -23,7 +23,6 @@ export const formStyles = StyleSheet.create({
         paddingHorizontal: 2,
     },
     eyebrow: {
-        ...typography.label,
         fontSize: 11,
         letterSpacing: 2,
         color: colors.primary,
@@ -147,7 +146,7 @@ export const formStyles = StyleSheet.create({
         marginBottom: metrics.lg,
     },
     label: {
-        ...typography.label,
+       
     },
     row: {
         flexDirection: 'row',
@@ -196,7 +195,7 @@ export const formStyles = StyleSheet.create({
         color: colors.primary,
     },
     errorText: {
-        ...typography.error,
+        color: colors.danger,
     },
     submitSection: {
         marginTop: 7,

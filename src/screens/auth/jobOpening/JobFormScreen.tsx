@@ -24,6 +24,7 @@ import { JobType } from '../../../lib/api/jobApi';
 import { fetchJobById, jobApply } from '../../../lib/api/jobApi';
 import { colors, metrics } from '../../../styles/theme';
 import Button from '../../../components/Button';
+import AppText from '../../../components/AppText';
 
 
 // Job application form screen
@@ -135,11 +136,11 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
 
                     <View style={styles.header}>
                         <View style={styles.headerText}>
-                            <Text style={styles.eyebrow}>JOB APPLICATION</Text>
-                            <Text style={styles.title}>{job.title}</Text>
-                            <Text style={styles.subtitle}>
+                            <AppText style={styles.eyebrow}>JOB APPLICATION</AppText>
+                            <AppText style={styles.title}>{job.title}</AppText>
+                            <AppText style={styles.subtitle}>
                                 Fill in your details to apply for this position.
-                            </Text>
+                            </AppText>
                         </View>
                     </View>
 
@@ -156,7 +157,7 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
                         <FormDateField control={control} name="date_of_birth" label="Date of birth" maximumDate={new Date()} />
 
                         <View style={styles.inputGroup}>
-                            <Text style={styles.label}>Gender</Text>
+                            <AppText style={styles.label}>Gender</AppText>
                             <Controller
                                 control={control}
                                 name="gender"
@@ -169,9 +170,9 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
                                                 onPress={() => onChange(gender)}
                                             >
                                                 <View style={[styles.radio, value === gender && styles.radioActive]} />
-                                                <Text style={[styles.genderText, value === gender && styles.genderTextActive]}>
+                                                <AppText style={[styles.genderText, value === gender && styles.genderTextActive]}>
                                                     {gender}
-                                                </Text>
+                                                </AppText>
                                             </Pressable>
                                         ))}
                                     </View>
@@ -197,9 +198,9 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
                     </FormSection>
 
                     <View style={styles.submitSection}>
-                        <Text style={styles.submitHint}>
+                        <AppText style={styles.submitHint}>
                             Please make sure all information is accurate before submitting.
-                        </Text>
+                        </AppText>
                         <Button
                             loading={isSubmitting}
                             onPress={handleSubmit(onSubmit, onInvalid)}

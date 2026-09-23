@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Card from '../Card';
 import { colors, metrics } from '../../styles/theme';
+import AppText from '../AppText';
 
 
 type FormSectionProps = {
@@ -24,12 +25,12 @@ export default function FormSection ({ number, title, description, children, sty
         <Card style={[styles.card, style]} contentStyle={styles.content}>
             <View style={styles.sectionHeader}>
                 <View style={styles.sectionNumber}>
-                    <Text style={styles.sectionNumberText}>{number}</Text>
+                    <AppText style={styles.sectionNumberText}>{number}</AppText>
                 </View>
 
                 <View style={styles.sectionHeading}>
-                    <Text style={styles.sectionTitle}>{title}</Text>
-                    <Text style={styles.sectionDescription}>{description}</Text>
+                    <AppText style={styles.sectionTitle}>{title}</AppText>
+                    <AppText style={styles.sectionDescription}>{description}</AppText>
                 </View>
             </View>
 

@@ -6,6 +6,7 @@ import {
     View,
 } from 'react-native';
 import { colors, metrics } from '../../styles/theme';
+import AppText from '../AppText';
 
 
 // Types
@@ -52,19 +53,20 @@ export default function AdmitCard({
                 />
 
                 <View style={styles.schoolInfo}>
-                    <Text
+                    <AppText
+                        variant="h3"
                         style={styles.schoolName}
                         numberOfLines={1}
                     >
                         {schoolName}
-                    </Text>
+                    </AppText>
 
-                    <Text
+                    <AppText
                         style={styles.schoolAddress}
                         numberOfLines={2}
                     >
                         {schoolAddress}
-                    </Text>
+                    </AppText>
                 </View>
 
             </View>
@@ -77,43 +79,45 @@ export default function AdmitCard({
 
                     {/* Admission number */}
                     <View style={styles.detail}>
-                        <Text style={styles.detailLabel}>
+                        <AppText variant="h3" style={styles.detailLabel}>
                             Admission No
-                        </Text>
+                        </AppText>
 
-                        <Text style={styles.detailValue}>
+                        <AppText variant="desc" style={styles.detailValue}>
                             {admissionNumber}
-                        </Text>
+                        </AppText>
                     </View>
 
 
                     {/* Student name */}
                     <View style={styles.detail}>
-                        <Text style={styles.detailLabel}>
+                        <AppText variant="h3" style={styles.detailLabel}>
                             Student Name
-                        </Text>
+                        </AppText>
 
-                        <Text
+                        <AppText
+                            variant="desc"
                             style={styles.detailValue}
                             numberOfLines={1}
                         >
                             {studentName}
-                        </Text>
+                        </AppText>
                     </View>
 
 
                     {/* Father's name */}
                     <View style={styles.detail}>
-                        <Text style={styles.detailLabel}>
+                        <AppText variant="h3" style={styles.detailLabel}>
                             Father's Name
-                        </Text>
+                        </AppText>
 
-                        <Text
+                        <AppText
+                            variant="desc"
                             style={styles.detailValue}
                             numberOfLines={1}
                         >
                             {fatherName}
-                        </Text>
+                        </AppText>
                     </View>
 
 
@@ -121,23 +125,23 @@ export default function AdmitCard({
                     <View style={styles.row}>
 
                         <View style={styles.inlineField}>
-                            <Text style={styles.inlineLabel}>
+                            <AppText variant="h3" style={styles.inlineLabel}>
                                 Class:
-                            </Text>
+                            </AppText>
 
-                            <Text style={styles.inlineValue}>
+                            <AppText variant="desc" style={styles.inlineValue}>
                                 {className}
-                            </Text>
+                            </AppText>
                         </View>
 
                         <View style={styles.inlineField}>
-                            <Text style={styles.inlineLabel}>
+                            <AppText variant="h3" style={styles.inlineLabel}>
                                 Session:
-                            </Text>
+                            </AppText>
 
-                            <Text style={styles.inlineValue}>
+                            <AppText variant="desc" style={styles.inlineValue}>
                                 {session}
-                            </Text>
+                            </AppText>
                         </View>
 
                     </View>
@@ -147,23 +151,23 @@ export default function AdmitCard({
                     <View style={styles.row}>
 
                         <View style={styles.inlineField}>
-                            <Text style={styles.inlineLabel}>
+                            <AppText variant="h3" style={styles.inlineLabel}>
                                 DOB:
-                            </Text>
+                            </AppText>
 
-                            <Text style={styles.inlineValue}>
+                            <AppText variant="desc" style={styles.inlineValue}>
                                 {dateOfBirth}
-                            </Text>
+                            </AppText>
                         </View>
 
                         <View style={styles.inlineField}>
-                            <Text style={styles.inlineLabel}>
+                            <AppText variant="h3" style={styles.inlineLabel}>
                                 Gender:
-                            </Text>
+                            </AppText>
 
-                            <Text style={styles.inlineValue}>
+                            <AppText variant="desc" style={styles.inlineValue}>
                                 {gender}
-                            </Text>
+                            </AppText>
                         </View>
 
                     </View>

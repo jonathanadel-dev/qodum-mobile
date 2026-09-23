@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Pressable, StatusBar, StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { colors, radius, spacing, typography } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 
 
 // Type
@@ -35,7 +35,7 @@ export default function HomeHeader({ name, grade, role, avatar, onLogoutPress }:
                 </View>
 
                 <Pressable onPress={onLogoutPress} hitSlop={10}>
-                    <Ionicons name="log-out-outline" size={26} color={colors.background} />
+                    <Ionicons name="log-out-outline" size={26} color={colors.white} />
                 </Pressable>
             </LinearGradient>
         </>
@@ -48,27 +48,27 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: spacing.xl,
+        paddingHorizontal: metrics.xl,
         paddingTop: 50,
-        paddingBottom: spacing.lg,
-        borderBottomLeftRadius: radius.xxl,
-        borderBottomRightRadius: radius.xxl,
+        paddingBottom: metrics.lg,
+        borderBottomLeftRadius: metrics.xxl,
+        borderBottomRightRadius: metrics.xxl,
     },
     avatar: {
         width: 58,
         height: 58,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         borderWidth: 2,
-        borderColor: colors.background,
-        marginRight: spacing.md,
+        borderColor: colors.white,
+        marginRight: metrics.md,
     },
     textBlock: {
         flex: 1,
     },
     name: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 19,
-        color: colors.background,
+        color: colors.white,
         marginBottom: 2,
     },
     subtitle: {

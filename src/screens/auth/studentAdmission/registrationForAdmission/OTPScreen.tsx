@@ -14,7 +14,7 @@ import BackgroundScreen from '../../../../components/BackgroundScreen';
 import FloatingModal, { FloatingModalRef } from '../../../../components/FloatingModal';
 import FormInput from '../../../../components/form/input/FormInput';
 import CodeInput from '../../../../components/form/CodeInput';
-import { colors, radius, spacing, typography } from '../../../../styles/theme';
+import { colors, metrics } from '../../../../styles/theme';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
 import toast from '../../../../lib/toast';
 import Button from '../../../../components/Button';
@@ -226,17 +226,17 @@ const styles = StyleSheet.create({
     seal: {
         width: 150,
         height: 150,
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     label: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 18,
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     phoneFieldWrapper: {
         width: '100%',
         position: 'relative',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     phoneInputOverride: {
         paddingLeft: 54,
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     getOtpButton: {
         width: '70%',
         height: 50,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         borderWidth: 1.5,
         borderColor: colors.primary,
         alignItems: 'center',
@@ -277,12 +277,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: spacing.sm,
-        paddingBottom: spacing.xl,
+        gap: metrics.sm,
+        paddingBottom: metrics.xl,
     },
     footerText: {
         fontSize: 13,
-        color: colors.inactive,
+        color: colors.textSecondary,
     },
     footerLogo: {
         width: 90,
@@ -291,24 +291,24 @@ const styles = StyleSheet.create({
 
     // Modal content
     modalTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 20,
         textAlign: 'center',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     modalSubtitle: {
-        ...typography.description,
+        // ...typography.description,
         textAlign: 'center',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     otpWrapper: {
         paddingHorizontal: 20,
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     resendRow: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     resendPrompt: {
         fontSize: 13,
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     continueButton: {
         width: '100%',
         height: 52,
-        borderRadius: radius.sm,
+        borderRadius: metrics.sm,
         borderWidth: 1.5,
         borderColor: colors.primary,
         alignItems: 'center',
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
         opacity: 0.7,
     },
     verifyButtonText: {
-        color: colors.background,
+        color: colors.white,
         fontSize: 16,
         fontWeight: '700',
     },

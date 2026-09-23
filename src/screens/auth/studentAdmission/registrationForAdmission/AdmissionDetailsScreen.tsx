@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Ionicons from '@react-native-vector-icons/ionicons';
 
 import Header from '../../../../components/Header';
-import { colors, radius, spacing, typography } from '../../../../styles/theme';
+import { colors, metrics } from '../../../../styles/theme';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'AdmissionDetails'>;
@@ -80,25 +80,25 @@ export default function AdmissionDetailsScreen({ navigation, route }: Props) {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
+    container: { flex: 1, backgroundColor: colors.white },
     scrollContent: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.xxl,
-        paddingBottom: spacing.xxxl,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.xxl,
+        paddingBottom: metrics.xxxl,
     },
     avatarWrapper: {
         alignItems: 'center',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     avatarImage: {
         width: 110,
         height: 110,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
     },
     avatarPlaceholder: {
         width: 110,
         height: 110,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.iconBackground,
         alignItems: 'center',
         justifyContent: 'center',
@@ -106,26 +106,26 @@ const styles = StyleSheet.create({
     card: {
         borderWidth: 1,
         borderColor: colors.border,
-        borderRadius: radius.lg,
-        padding: spacing.xl,
+        borderRadius: metrics.lg,
+        padding: metrics.xl,
     },
     row: {
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     twoColRow: {
         flexDirection: 'row',
-        gap: spacing.lg,
+        gap: metrics.lg,
     },
     halfCol: {
         flex: 1,
     },
     label: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 15,
         marginBottom: 2,
     },
     value: {
-        ...typography.description,
+        // ...typography.description,
         fontSize: 14,
     },
 });

@@ -16,7 +16,7 @@ import Header from '../../components/Header';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import Dropdown, { DropdownOption } from '../../components/Dropdown';
-import { colors, radius, spacing, typography } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 
 type Tab = 'pay' | 'receipt';
 
@@ -305,14 +305,14 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
                                     <Button
                                         type="gradient"
                                         label="View"
-                                        icon={<Ionicons name="eye-outline" size={16} color={colors.background} />}
+                                        icon={<Ionicons name="eye-outline" size={16} color={colors.white} />}
                                         onPress={() => handleViewReceipt(receipt)}
                                         style={styles.receiptActionButton}
                                     />
                                     <Button
                                         type="gradient"
                                         label="Download"
-                                        icon={<Ionicons name="arrow-down-outline" size={16} color={colors.background} />}
+                                        icon={<Ionicons name="arrow-down-outline" size={16} color={colors.white} />}
                                         onPress={() => handleDownloadReceiptRow(receipt)}
                                         style={styles.receiptActionButton}
                                     />
@@ -329,15 +329,15 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
 
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background, paddingBottom: spacing.xxxl },
+    container: { flex: 1, backgroundColor: colors.white, paddingBottom: metrics.xxxl },
     tabsContainer: {
         flexDirection: 'row',
         position: 'relative',
-        backgroundColor: colors.inputBackground,
-        borderRadius: radius.round,
-        marginHorizontal: spacing.xl,
-        marginTop: spacing.xl,
-        marginBottom: spacing.lg,
+        backgroundColor: colors.grayBackground,
+        borderRadius: metrics.round,
+        marginHorizontal: metrics.xl,
+        marginTop: metrics.xl,
+        marginBottom: metrics.lg,
         height: 52,
         overflow: 'hidden',
     },
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
         left: 4,
         bottom: 4,
         backgroundColor: colors.primary,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
     },
     tabButton: {
         flex: 1,
@@ -356,17 +356,16 @@ const styles = StyleSheet.create({
     },
     tabText: {
         fontSize: 15,
-        fontWeight: '600',
         color: colors.textSecondary,
     },
     tabTextActive: {
-        color: colors.background,
+        color: colors.white,
         fontWeight: '700',
     },
     scrollContent: {
-        paddingHorizontal: spacing.xl,
-        paddingBottom: spacing.xxxl,
-        gap: spacing.md,
+        paddingHorizontal: metrics.xl,
+        paddingBottom: metrics.xxxl,
+        gap: metrics.md,
     },
     studentCardContent: {
         flexDirection: 'row',
@@ -375,25 +374,25 @@ const styles = StyleSheet.create({
     studentPhoto: {
         width: 46,
         height: 46,
-        borderRadius: radius.md,
-        marginRight: spacing.md,
+        borderRadius: metrics.md,
+        marginRight: metrics.md,
     },
     studentTextBlock: {
         flex: 1,
     },
     studentName: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 16,
         marginBottom: 2,
     },
     studentAdmission: {
-        ...typography.description,
+        // ...typography.description,
     },
     classPill: {
-        backgroundColor: colors.inputBackground,
-        borderRadius: radius.round,
-        paddingHorizontal: spacing.md,
-        paddingVertical: spacing.xs,
+        backgroundColor: colors.grayBackground,
+        borderRadius: metrics.round,
+        paddingHorizontal: metrics.md,
+        paddingVertical: metrics.xs,
     },
     classPillText: {
         fontSize: 13,
@@ -404,18 +403,18 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '700',
         color: colors.text,
-        marginTop: spacing.sm,
+        marginTop: metrics.sm,
     },
     textField: {
         flexDirection: 'row',
         alignItems: 'center',
         height: 52,
-        borderRadius: radius.md,
-        backgroundColor: colors.inputBackground,
-        paddingHorizontal: spacing.lg,
+        borderRadius: metrics.md,
+        backgroundColor: colors.grayBackground,
+        paddingHorizontal: metrics.lg,
     },
     textFieldIcon: {
-        marginRight: spacing.sm,
+        marginRight: metrics.sm,
     },
     textFieldInput: {
         flex: 1,
@@ -426,30 +425,30 @@ const styles = StyleSheet.create({
     payNowButton: {
         width: '100%',
         height: 54,
-        marginTop: spacing.lg,
+        marginTop: metrics.lg,
     },
     downloadReceiptButton: {
         width: '100%',
         height: 54,
         borderWidth: 1.5,
         borderColor: colors.primary,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
     },
     downloadReceiptText: {
         color: colors.primary,
     },
     receiptList: {
-        gap: spacing.lg,
-        marginTop: spacing.md,
+        gap: metrics.lg,
+        marginTop: metrics.md,
     },
     receiptCardContent: {
-        gap: spacing.xs,
+        gap: metrics.xs,
     },
     receiptTopRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     receiptDate: {
         fontSize: 15,
@@ -463,12 +462,12 @@ const styles = StyleSheet.create({
     receiptDivider: {
         height: 1,
         backgroundColor: colors.border,
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     receiptRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     receiptLabel: {
         fontSize: 13,
@@ -481,13 +480,13 @@ const styles = StyleSheet.create({
     },
 receiptActions: {
     flexDirection: 'row',
-    gap: spacing.sm,
-    marginTop: spacing.md,
+    gap: metrics.sm,
+    marginTop: metrics.md,
 },
 
 receiptActionButton: {
     flex: 1,
     height: 44,
-    borderRadius: radius.md,
+    borderRadius: metrics.md,
 },
 });

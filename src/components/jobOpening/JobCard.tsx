@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 
-import { colors, radius, spacing, typography } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 import { JobType } from '../../lib/api/jobApi';
 import Card from '../Card';
 
@@ -69,7 +69,7 @@ export default function JobCard({ job, onPress, isDesc = false }: JobCardProps) 
 // Styles
 const styles = StyleSheet.create({
     card: {
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     topRow: {
         flexDirection: 'row',
@@ -77,15 +77,15 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     title: {
-        ...typography.title,
+        // ...typography.title,
         flex: 1,
         marginBottom: 0,
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
     logoBadge: {
         width: 46,
         height: 46,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         borderWidth: 1,
         borderColor: colors.border,
         alignItems: 'center',
@@ -97,25 +97,25 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     subtitle: {
-        ...typography.description,
+        // ...typography.description,
         marginTop: 0,
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     metaRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: spacing.sm,
-        gap: spacing.sm,
+        marginBottom: metrics.sm,
+        gap: metrics.sm,
     },
     metaText: {
-        ...typography.description,
+        // ...typography.description,
         flex: 1,
     },
     divider: {
         height: 1,
         backgroundColor: colors.border,
-        marginTop: spacing.xs,
-        marginBottom: spacing.md,
+        marginTop: metrics.xs,
+        marginBottom: metrics.md,
     },
     footerText: {
         fontSize: 13,

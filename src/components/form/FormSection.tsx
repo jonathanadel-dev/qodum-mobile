@@ -6,12 +6,7 @@ import {
     ViewStyle,
 } from 'react-native';
 import Card from '../Card';
-import {
-    colors,
-    radius,
-    spacing,
-    typography
-} from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 
 
 type FormSectionProps = {
@@ -49,7 +44,7 @@ export default function FormSection ({ number, title, description, children, sty
 // Styles
 const styles = StyleSheet.create({
     card: {
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
 
     content: {
@@ -68,11 +63,11 @@ const styles = StyleSheet.create({
     sectionNumber: {
         width: 40,
         height: 40,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         backgroundColor: colors.iconBackground,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
 
     sectionNumberText: {
@@ -92,13 +87,12 @@ const styles = StyleSheet.create({
     },
 
     sectionDescription: {
-        ...typography.description,
         marginTop: 2,
     },
 
     sectionDivider: {
         height: 1,
         backgroundColor: '#EDF2F5',
-        marginVertical: spacing.xl,
+        marginVertical: metrics.xl,
     }
 });

@@ -15,8 +15,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
-import Card from '../../../components/Card';
-import { colors, fonts, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { fetchJobById, JobType } from '../../../lib/api/jobApi';
 import toast from '../../../lib/toast';
@@ -177,7 +176,7 @@ export default function JobDescriptionScreen({ navigation, route }: Props) {
                     ]}
                     textStyle={{
                         color: colors.primary,
-                        fontFamily: fonts.bold,
+                        // fontFamily: fonts.bold,
                     }}
                 />
             </View>
@@ -190,38 +189,38 @@ export default function JobDescriptionScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
     },
     centerFill: {
         alignItems: 'center',
         justifyContent: 'center',
     },
     scrollContent: {
-        paddingHorizontal: spacing.xxl,
-        paddingTop: spacing.xl,
+        paddingHorizontal: metrics.xxl,
+        paddingTop: metrics.xl,
     },
     section: {
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     sectionTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 19,
-        marginBottom: spacing.md,
+        marginBottom: metrics.md,
     },
     description: {
         fontSize: 15,
         lineHeight: 24,
         color: colors.textSecondary,
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     bulletRow: {
         flexDirection: 'row',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     bulletDot: {
         fontSize: 15,
         color: colors.textSecondary,
-        marginRight: spacing.sm,
+        marginRight: metrics.sm,
         lineHeight: 23,
     },
     bulletText: {
@@ -240,11 +239,11 @@ const styles = StyleSheet.create({
         bottom: 0,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: spacing.md,
-        paddingHorizontal: spacing.xxl,
-        paddingTop: spacing.md,
-        paddingBottom: spacing.xl,
-        backgroundColor: colors.background,
+        gap: metrics.md,
+        paddingHorizontal: metrics.xxl,
+        paddingTop: metrics.md,
+        paddingBottom: metrics.xl,
+        backgroundColor: colors.white,
         borderTopWidth: 1,
         borderTopColor: colors.border,
     },
@@ -253,6 +252,6 @@ const styles = StyleSheet.create({
     },
     applyButton: {
         height: 52,
-        borderRadius: radius.lg,
+        borderRadius: metrics.lg,
     }
 });

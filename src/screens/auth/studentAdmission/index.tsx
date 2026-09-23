@@ -14,7 +14,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Button from '../../../components/Button';
 import Slider from '../../../components/Slider';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { getMyAdmissionNumbers } from '../../../lib/localDB';
 
@@ -235,14 +235,14 @@ const styles = StyleSheet.create({
     },
     heroWrapper: {
         position: 'relative',
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.xxxl,
-        paddingBottom: spacing.lg,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.xxxl,
+        paddingBottom: metrics.lg,
     },
     backButtonWrapper: {
         position: 'absolute',
-        top: spacing.xxxl + 16,
-        left: spacing.xl + 16,
+        top: metrics.xxxl + 16,
+        left: metrics.xl + 16,
         zIndex: 2,
     },
     backButton: {
@@ -252,18 +252,18 @@ const styles = StyleSheet.create({
     panel: {
         flex: 1,
         marginTop: 0,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.xxl,
-        paddingBottom: spacing.xxxl,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.xxl,
+        paddingBottom: metrics.xxxl,
     },
     sectionTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 24,
         textAlign: 'center',
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     grid: {
         flexDirection: 'row',
@@ -275,21 +275,21 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         height:120,
         borderColor: colors.border,
-        borderRadius: radius.lg,
-        paddingVertical: spacing.md,
-        paddingHorizontal: spacing.xs,
+        borderRadius: metrics.lg,
+        paddingVertical: metrics.md,
+        paddingHorizontal: metrics.xs,
         alignItems: 'center',
-        marginBottom: spacing.md,
+        marginBottom: metrics.md,
     },
     tileIconFrame: {
         width: 52,
         height: 52,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         borderWidth: 1,
         borderColor: colors.border,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
         overflow: 'hidden',
     },
     tileIcon: {
@@ -305,17 +305,17 @@ const styles = StyleSheet.create({
     },
     footer: {
         alignItems: 'center',
-        marginTop: spacing.xl,
+        marginTop: metrics.xl,
     },
     footerLogo: {
         width: 90,
         height: 60,
-        marginBottom: spacing.md,
+        marginBottom: metrics.md,
     },
     footerSchoolName: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 18,
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     footerLine: {
         fontSize: 13,

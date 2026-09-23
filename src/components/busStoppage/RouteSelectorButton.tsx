@@ -1,8 +1,7 @@
-// components/RouteSelectorButton.tsx
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { colors, radius, spacing, fonts } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 
 type Props = {
     routeName: string;
@@ -40,10 +39,10 @@ export default function RouteSelectorButton({ routeName, onPress }: Props) {
 const styles = StyleSheet.create({
     container: {
         height: 60,
-        backgroundColor: colors.background,
-        borderRadius: radius.md,
-        paddingHorizontal: spacing.lg,
-        paddingVertical: spacing.md,
+        backgroundColor: colors.white,
+        borderRadius: metrics.md,
+        paddingHorizontal: metrics.lg,
+        paddingVertical: metrics.md,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -58,13 +57,12 @@ const styles = StyleSheet.create({
     content: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: spacing.md,
+        gap: metrics.md,
         flex: 1
     },
     routeName: {
         flex: 1,
         fontSize: 15,
-        fontFamily: fonts.medium,
         color: colors.text,
     },
 });

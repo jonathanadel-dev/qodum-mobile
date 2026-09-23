@@ -13,7 +13,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../../components/Header';
 import Card from '../../../components/Card';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 
 
 // Type
@@ -229,17 +229,17 @@ export default function NotificationScreen({ navigation }: NativeStackScreenProp
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.background,
-      paddingBottom: spacing.xxxl
+      backgroundColor: colors.white,
+      paddingBottom: metrics.xxxl
     },
     tabsContainer: {
         flexDirection: 'row',
         position: 'relative',
         backgroundColor: colors.iconBackground,
-        borderRadius: radius.round,
-        marginHorizontal: spacing.xl,
-        marginTop: spacing.xl,
-        marginBottom: spacing.lg,
+        borderRadius: metrics.round,
+        marginHorizontal: metrics.xl,
+        marginTop: metrics.xl,
+        marginBottom: metrics.lg,
         height: 52,
         overflow: 'hidden',
     },
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
         left: 4,
         bottom: 4,
         backgroundColor: colors.primary,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
     },
     tabButton: {
         flex: 1,
@@ -262,13 +262,13 @@ const styles = StyleSheet.create({
         color: colors.textSecondary,
     },
     tabTextActive: {
-        color: colors.background,
+        color: colors.white,
         fontWeight: '700',
     },
     list: {
-        paddingHorizontal: spacing.xl,
-        paddingBottom: spacing.xxxl,
-        gap: spacing.lg,
+        paddingHorizontal: metrics.xl,
+        paddingBottom: metrics.xxxl,
+        gap: metrics.lg,
     },
     itemCard: {
         marginBottom: 0,
@@ -280,25 +280,25 @@ const styles = StyleSheet.create({
     itemIcon: {
         width: 48,
         height: 48,
-        borderRadius: radius.md,
-        marginRight: spacing.md,
+        borderRadius: metrics.md,
+        marginRight: metrics.md,
     },
     itemTextBlock: {
         flex: 1,
-        marginRight: spacing.sm,
+        marginRight: metrics.sm,
     },
     itemTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 16,
         marginBottom: 2,
     },
     itemDescription: {
-        ...typography.description,
+        // ...typography.description,
     },
     chevronCircle: {
         width: 32,
         height: 32,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.iconBackground,
         alignItems: 'center',
         justifyContent: 'center',
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     itemDivider: {
         height: 1,
         backgroundColor: colors.border,
-        marginVertical: spacing.md,
+        marginVertical: metrics.md,
     },
     itemMetaRow: {
         flexDirection: 'row',

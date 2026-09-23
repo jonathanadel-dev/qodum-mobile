@@ -2,14 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import {
     Animated,
     Easing,
-    Pressable,
     StatusBar,
     StyleSheet,
     Text,
     View,
 } from 'react-native';
-import { colors, radius } from '../../../styles/theme';
-import SubmitButton from '../../../components/Button';
+import { colors, metrics } from '../../../styles/theme';
 import Button from '../../../components/Button';
 
 
@@ -210,7 +208,7 @@ export default function JobAppliedScreen ({navigation}: any) {
                     loadingLabel="Back to home"
                     onPress={() => navigation.replace('Welcome')}
                     type='gradient'
-                    style={{height: 54, borderRadius: radius.lg}}
+                    style={{height: 54, borderRadius: metrics.lg}}
                 />
             </View>
         </View>

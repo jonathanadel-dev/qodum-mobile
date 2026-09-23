@@ -15,7 +15,7 @@ import type { AuthStackParamList } from '../../../navigation/AuthStack';
 import CodeInput from '../../../components/form/CodeInput';
 import BackgroundScreen from '../../../components/BackgroundScreen';
 import Button from '../../../components/Button';
-import { colors, spacing, typography, radius } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { SchoolType, verifySchoolCode } from '../../../lib/api/schoolApi';
 
 
@@ -167,25 +167,25 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         alignItems: 'center',
-        gap: spacing.md,
-        paddingTop: spacing.xxxl * 2,
+        gap: metrics.md,
+        paddingTop: metrics.xxxl * 2,
     },
     title: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 22,
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     submitWrapper: {
-        marginTop: spacing.xxxl,
+        marginTop: metrics.xxxl,
     },
     footer: {
         alignItems: 'center',
-        paddingBottom: spacing.xl,
+        paddingBottom: metrics.xl,
     },
     footerText: {
         fontSize: 13,
-        color: colors.inactive,
-        marginBottom: spacing.xs,
+        color: colors.textSecondary,
+        marginBottom: metrics.xs,
     },
     footerLogo: {
         width: 90,

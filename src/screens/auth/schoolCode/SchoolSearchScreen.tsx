@@ -14,7 +14,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AuthStackParamList } from '../../../navigation/AuthStack';
 
 import Header from '../../../components/Header';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { searchSchools, SchoolType } from '../../../lib/api/schoolApi';
 
 
@@ -170,35 +170,35 @@ function SchoolRow({ school, index, onPress }: { school: SchoolType; index: numb
 
 // Styles
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
-    body: { flex: 1, paddingHorizontal: spacing.xxl, paddingTop: spacing.xl },
+    container: { flex: 1, backgroundColor: colors.white },
+    body: { flex: 1, paddingHorizontal: metrics.xxl, paddingTop: metrics.xl },
     searchBar: {
         flexDirection: 'row',
         alignItems: 'center',
         height: 46,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         backgroundColor: '#EFEFEF',
-        paddingHorizontal: spacing.lg,
-        marginBottom: spacing.xl,
+        paddingHorizontal: metrics.lg,
+        marginBottom: metrics.xl,
     },
-    searchIcon: { fontSize: 16, marginRight: spacing.sm },
+    searchIcon: { fontSize: 16, marginRight: metrics.sm },
     searchInput: { flex: 1, fontSize: 15, color: colors.text },
-    centerState: { paddingTop: spacing.xxxl, alignItems: 'center' },
-    stateText: { ...typography.description, textAlign: 'center' },
+    centerState: { paddingTop: metrics.xxxl, alignItems: 'center' },
+    stateText: { textAlign: 'center' },
     divider: { height: 1, backgroundColor: colors.border },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: spacing.sm,
+        paddingVertical: metrics.sm,
     },
     rowLogo: {
         width: 36,
         height: 36,
-        borderRadius: radius.round,
-        marginRight: spacing.lg,
+        borderRadius: metrics.round,
+        marginRight: metrics.lg,
         backgroundColor: colors.iconBackground,
     },
     rowText: { flex: 1 },
-    rowName: { ...typography.title, fontSize: 16, marginBottom: 2 },
-    rowCode: { ...typography.description },
+    rowName: { fontSize: 16, marginBottom: 2 },
+    rowCode: {  },
 });

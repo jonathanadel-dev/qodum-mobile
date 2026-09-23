@@ -27,7 +27,7 @@ export const formStyles = StyleSheet.create({
         fontSize: 11,
         letterSpacing: 2,
         color: colors.primary,
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     title: {
         fontSize: 30,
@@ -39,11 +39,11 @@ export const formStyles = StyleSheet.create({
         fontSize: 15,
         lineHeight: 23,
         color: colors.textSecondary,
-        marginTop: spacing.sm,
+        marginTop: metrics.sm,
         maxWidth: 340,
     },
     sectionCard: {
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     sectionHeader: {
         flexDirection: 'row',
@@ -52,11 +52,11 @@ export const formStyles = StyleSheet.create({
     sectionNumber: {
         width: 40,
         height: 40,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         backgroundColor: colors.iconBackground,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
     sectionNumberText: {
         fontSize: 12,
@@ -79,12 +79,12 @@ export const formStyles = StyleSheet.create({
     sectionDivider: {
         height: 1,
         backgroundColor: '#EDF2F5',
-        marginVertical: spacing.xl,
+        marginVertical: metrics.xl,
     },
     photoSection: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     photo: {
         width: 86,
@@ -144,7 +144,7 @@ export const formStyles = StyleSheet.create({
         color: '#D95362',
     },
     inputGroup: {
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     label: {
         ...typography.label,

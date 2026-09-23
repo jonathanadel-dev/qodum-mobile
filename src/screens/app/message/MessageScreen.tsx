@@ -3,7 +3,7 @@ import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../../components/Header';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 
 const AVATAR = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80';
 
@@ -67,33 +67,33 @@ export default function MessageScreen({ navigation }: NativeStackScreenProps<any
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background, paddingBottom: spacing.xxxl },
+    container: { flex: 1, backgroundColor: colors.white, paddingBottom: metrics.xxxl },
     list: {
-        paddingHorizontal: spacing.xl,
-        paddingBottom: spacing.xxxl,
+        paddingHorizontal: metrics.xl,
+        paddingBottom: metrics.xxxl,
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: spacing.lg,
+        paddingVertical: metrics.lg,
     },
     avatar: {
         width: 52,
         height: 52,
-        borderRadius: radius.round,
-        marginRight: spacing.md,
+        borderRadius: metrics.round,
+        marginRight: metrics.md,
     },
     rowTextBlock: {
         flex: 1,
-        marginRight: spacing.sm,
+        marginRight: metrics.sm,
     },
     rowName: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 16,
         marginBottom: 2,
     },
     rowMessage: {
-        ...typography.description,
+        // ...typography.description,
     },
     rowMeta: {
         alignItems: 'flex-end',
@@ -101,17 +101,17 @@ const styles = StyleSheet.create({
     unreadBadge: {
         minWidth: 22,
         height: 22,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 6,
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     unreadBadgeText: {
         fontSize: 12,
         fontWeight: '700',
-        color: colors.background,
+        color: colors.white,
     },
     rowTime: {
         fontSize: 12,

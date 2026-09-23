@@ -7,7 +7,7 @@ import {
     View,
 } from 'react-native';
 
-import { colors, fonts, spacing } from '../../../styles/theme';
+import { colors } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '../../../components/Header';
@@ -138,13 +138,13 @@ const styles = StyleSheet.create({
     },
     schoolName: {
         fontSize: 18,
-        fontFamily: fonts.bold,
+        // fontFamily: fonts.bold,
         color: colors.primary,
         marginBottom: 4,
     },
     schoolAddress: {
         fontSize: 12,
-        fontFamily: fonts.semiBold,
+        // fontFamily: fonts.semiBold,
         color: colors.text,
         lineHeight: 16,
         textAlign: 'center',
@@ -161,19 +161,19 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
-        fontFamily: fonts.bold,
+        // fontFamily: fonts.bold,
         color: colors.text,
         width: 130,
     },
     colon: {
         fontSize: 14,
-        fontFamily: fonts.bold,
+        // fontFamily: fonts.bold,
         color: colors.text,
         marginRight: 8,
     },
     value: {
         fontSize: 14,
-        fontFamily: fonts.regular,
+        // fontFamily: fonts.regular,
         color: colors.text,
         flex: 1,
     },
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     },
     passText: {
         fontSize: 14,
-        fontFamily: fonts.bold,
+        // fontFamily: fonts.bold,
         color: '#28C76F',
     },
 });

@@ -6,7 +6,7 @@ import React, {
     useRef,
 } from "react";
 import { Animated, Dimensions, Easing, Keyboard, Modal, Pressable, StyleSheet, View, PanResponder } from "react-native";
-import { colors, radius, spacing } from "../styles/theme";
+import { colors, metrics } from "../styles/theme";
 
 
 // Types
@@ -166,13 +166,13 @@ const styles = StyleSheet.create({
     },
     bottomSheet: {
         height: SHEET_HEIGHT,
-        backgroundColor: colors.background,
-        borderTopLeftRadius: radius.xl,
-        borderTopRightRadius: radius.xl,
+        backgroundColor: colors.white,
+        borderTopLeftRadius: metrics.xl,
+        borderTopRightRadius: metrics.xl,
         borderTopWidth: 1,
         borderTopColor: colors.border,
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.md,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.md,
         overflow: 'hidden',
         shadowColor: '#000000',
         shadowOffset: { width: 0, height: -4 },
@@ -183,12 +183,12 @@ const styles = StyleSheet.create({
     handleContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: spacing.md,
+        paddingBottom: metrics.md,
     },
     sheetHandle: {
         width: 42,
         height: 5,
-        borderRadius: radius.sm,
+        borderRadius: metrics.sm,
         backgroundColor: colors.border,
     }
 });

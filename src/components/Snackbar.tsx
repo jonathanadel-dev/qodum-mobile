@@ -1,5 +1,3 @@
-// components/Snackbar.tsx
-
 import React, {
     forwardRef,
     useImperativeHandle,
@@ -16,27 +14,30 @@ import {
 
 import {
     colors,
-    radius,
-    spacing,
+    metrics,
 } from '../styles/theme';
 
+
+// Types
 export type SnackbarType =
     | 'success'
     | 'error'
     | 'warning'
     | 'info';
-
 export type SnackbarPayload = {
     message: string;
     type?: SnackbarType;
     duration?: number;
 };
-
 export type SnackbarRef = {
     show: (payload: SnackbarPayload) => void;
 };
 
+
+// Snackbar
 const Snackbar = forwardRef<SnackbarRef>((_, ref) => {
+
+    // State
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState('');
     const [type, setType] = useState<SnackbarType>('info');
@@ -106,6 +107,8 @@ const Snackbar = forwardRef<SnackbarRef>((_, ref) => {
         return null;
     }
 
+
+    // Icon
     const icon = {
         success: '✓',
         error: '!',
@@ -113,6 +116,40 @@ const Snackbar = forwardRef<SnackbarRef>((_, ref) => {
         info: 'i',
     }[type];
 
+
+    // Colors
+    const getTypeColor = (type: SnackbarType) => {
+        switch (type) {
+            case 'success':
+                return colors.success;
+
+            case 'error':
+                return colors.danger;
+
+            case 'warning':
+                return colors.warning;
+
+            case 'info':
+            default:
+                return colors.primary;
+        }
+    };
+    const getTypeBackground = (type: SnackbarType) => {
+        switch (type) {
+            case 'success':
+                return colors.successBackground;
+
+            case 'error':
+                return colors.dangerBackground;
+
+            case 'warning':
+                return colors.warningBackground;
+
+            case 'info':
+            default:
+                return colors.primaryBackground;
+        }
+    };
     const accentColor = getTypeColor(type);
     const backgroundColor = getTypeBackground(type);
 
@@ -173,60 +210,23 @@ const Snackbar = forwardRef<SnackbarRef>((_, ref) => {
     );
 });
 
-Snackbar.displayName = 'Snackbar';
 
-const getTypeColor = (type: SnackbarType) => {
-    switch (type) {
-        case 'success':
-            return colors.success;
-
-        case 'error':
-            return colors.danger;
-
-        case 'warning':
-            return colors.warning;
-
-        case 'info':
-        default:
-            return colors.primary;
-    }
-};
-
-const getTypeBackground = (type: SnackbarType) => {
-    switch (type) {
-        case 'success':
-            return colors.successBackground;
-
-        case 'error':
-            return colors.dangerBackground;
-
-        case 'warning':
-            return colors.warningBackground;
-
-        case 'info':
-        default:
-            return colors.infoBackground;
-    }
-};
-
+// Styles
 const styles = StyleSheet.create({
     wrapper: {
         position: 'absolute',
-        left: spacing.lg,
-        right: spacing.lg,
-        bottom: spacing.xl,
+        left: metrics.lg,
+        right: metrics.lg,
+        bottom: metrics.xl,
         zIndex: 9999,
     },
-
     snackbar: {
         minHeight: 64,
-        borderRadius: radius.lg,
-        paddingVertical: spacing.md,
-        paddingHorizontal: spacing.md,
-
+        borderRadius: metrics.lg,
+        paddingVertical: metrics.md,
+        paddingHorizontal: metrics.md,
         flexDirection: 'row',
         alignItems: 'center',
-
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -236,44 +236,37 @@ const styles = StyleSheet.create({
         shadowRadius: 12,
         elevation: 8,
     },
-
     iconContainer: {
         width: 32,
         height: 32,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
-
     icon: {
-        color: '#FFFFFF',
+        color: colors.white,
         fontSize: 17,
-        fontWeight: '700',
     },
-
     message: {
         flex: 1,
         color: colors.text,
         fontSize: 14,
         lineHeight: 20,
-        fontWeight: '500',
     },
-
     closeButton: {
-        marginLeft: spacing.sm,
-        padding: spacing.xs,
+        marginLeft: metrics.sm,
+        padding: metrics.xs,
     },
-
     close: {
         fontSize: 25,
         lineHeight: 25,
-        fontWeight: '400',
     },
-
     pressed: {
         opacity: 0.5,
     },
 });
 
+
+Snackbar.displayName = 'Snackbar';
 export default Snackbar;

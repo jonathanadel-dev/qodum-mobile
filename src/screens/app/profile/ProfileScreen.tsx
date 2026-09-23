@@ -13,7 +13,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 
 import Card from '../../../components/Card';
 import CustomModal from '../../../components/CustomModal';
-import { colors, fonts, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 
 // Hardcoded per request
 const PROFILE = {
@@ -91,7 +91,7 @@ export default function ProfileScreen() {
                         <Text style={styles.metaText}>{PROFILE.role}</Text>
 
                         <View style={styles.handlePill}>
-                            <Text style={[styles.handleText, {fontSize: 12, fontFamily: fonts.semiBold}]}>{PROFILE.handle}</Text>
+                            <Text style={[styles.handleText, {fontSize: 12}]}>{PROFILE.handle}</Text>
                         </View>
                     </View>
 
@@ -177,7 +177,7 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
+    container: { flex: 1, backgroundColor: colors.white },
     scrollContent: { paddingBottom: 100 },
 
     heroWrapper: {
@@ -193,53 +193,53 @@ const styles = StyleSheet.create({
     },
     infoButton: {
         position: 'absolute',
-        top: spacing.xxxl,
-        right: spacing.lg,
+        top: metrics.xxxl,
+        right: metrics.lg,
         width: 24,
         height: 24,
-        borderRadius: radius.round,
-        backgroundColor: colors.background,
+        borderRadius: metrics.round,
+        backgroundColor: colors.white,
         alignItems: 'center',
         justifyContent: 'center',
     },
     avatar: {
         position: 'absolute',
         bottom: -40,
-        right: spacing.xl,
+        right: metrics.xl,
         width: 76,
         height: 76,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         borderWidth: 3,
-        borderColor: colors.background,
+        borderColor: colors.white,
     },
 
     infoBlock: {
-        paddingHorizontal: spacing.xl,
+        paddingHorizontal: metrics.xl,
         paddingTop: 20,
     },
     name: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 18,
-        fontFamily: fonts.bold,
-        marginBottom: spacing.md,
+        // fontFamily: fonts.bold,
+        marginBottom: metrics.md,
     },
     metaRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: spacing.sm,
-        marginBottom: spacing.xs,
+        gap: metrics.sm,
+        marginBottom: metrics.xs,
     },
     metaText: {
         fontSize: 13,
-        fontFamily: fonts.semiBold,
+        // fontFamily: fonts.semiBold,
         color: colors.textSecondary,
     },
     handlePill: {
-        backgroundColor: colors.infoBackground,
-        borderRadius: radius.round,
-        paddingHorizontal: spacing.md,
+        backgroundColor: colors.primaryBackground,
+        borderRadius: metrics.round,
+        paddingHorizontal: metrics.md,
         paddingVertical: 2,
-        marginLeft: spacing.xs,
+        marginLeft: metrics.xs,
     },
     handleText: {
         fontSize: 13,
@@ -248,37 +248,37 @@ const styles = StyleSheet.create({
     divider: {
         height: 1,
         backgroundColor: colors.border,
-        marginVertical: spacing.lg,
+        marginVertical: metrics.lg,
     },
 
     wardCardContent: {
         padding: 0,
     },
     wardHeader: {
-        backgroundColor: colors.infoBackground,
-        borderTopLeftRadius: radius.lg,
-        borderTopRightRadius: radius.lg,
-        paddingVertical: spacing.xs,
+        backgroundColor: colors.primaryBackground,
+        borderTopLeftRadius: metrics.lg,
+        borderTopRightRadius: metrics.lg,
+        paddingVertical: metrics.xs,
         alignItems: 'center',
     },
     wardHeaderText: {
         fontSize: 15,
-        fontFamily: fonts.semiBold,
+        // fontFamily: fonts.semiBold,
         color: colors.primary,
     },
     wardBody: {
-        padding: spacing.sm,
+        padding: metrics.sm,
     },
     wardTopRow: {
         flexDirection: 'row',
         alignItems: 'flex-start',
-        marginBottom: spacing.md,
-        gap: spacing.lg,
+        marginBottom: metrics.md,
+        gap: metrics.lg,
     },
     wardPhoto: {
         width: 56,
         height: 56,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         borderWidth: 2,
         borderColor: colors.borderFocused,
     },
@@ -292,11 +292,11 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     detailLine: {
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     detailLabel: {
         fontSize: 13,
-        fontFamily: fonts.semiBold,
+        // fontFamily: fonts.semiBold,
         color: colors.text,
     },
     detailValue: {
@@ -308,13 +308,13 @@ const styles = StyleSheet.create({
     wardRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: spacing.md,
-        paddingVertical: spacing.sm,
+        gap: metrics.md,
+        paddingVertical: metrics.sm,
     },
     wardRowAvatar: {
         width: 46,
         height: 46,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
     },
     wardRowName: {
         fontSize: 16,
@@ -333,13 +333,13 @@ const styles = StyleSheet.create({
     addWardRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: spacing.md,
-        paddingVertical: spacing.xl,
+        gap: metrics.md,
+        paddingVertical: metrics.xl,
     },
     addWardIcon: {
         width: 36,
         height: 36,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.iconBackground,
         alignItems: 'center',
         justifyContent: 'center',

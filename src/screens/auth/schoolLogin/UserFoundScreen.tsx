@@ -14,7 +14,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Card from '../../../components/Card';
 import Button from '../../../components/Button';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'UserFound'>;
@@ -113,30 +113,30 @@ export default function UserFoundScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
     },
     backButton: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.md,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.md,
     },
     scrollContent: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.xl,
-        paddingBottom: spacing.xxxl,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.xl,
+        paddingBottom: metrics.xxxl,
         alignItems: 'center',
     },
     successIconWrapper: {
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     title: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 22,
         color: colors.primary,
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     subtitle: {
-        ...typography.description,
-        marginBottom: spacing.xxl,
+        // ...typography.description,
+        marginBottom: metrics.xxl,
     },
     userCardContent: {
         flexDirection: 'row',
@@ -146,16 +146,16 @@ const styles = StyleSheet.create({
     avatar: {
         width: 56,
         height: 56,
-        borderRadius: radius.round,
-        marginRight: spacing.lg,
+        borderRadius: metrics.round,
+        marginRight: metrics.lg,
     },
     userTextBlock: {
         flex: 1,
     },
     userName: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 17,
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     detailLine: {
         fontSize: 14,
@@ -166,9 +166,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
-        gap: spacing.md,
-        marginTop: spacing.xl,
-        marginBottom: spacing.xxl,
+        gap: metrics.md,
+        marginTop: metrics.xl,
+        marginBottom: metrics.xxl,
     },
     otpNoticeText: {
         fontSize: 14,

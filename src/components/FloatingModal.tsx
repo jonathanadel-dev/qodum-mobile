@@ -13,7 +13,7 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-import { colors, radius, spacing } from '../styles/theme';
+import { colors, metrics } from '../styles/theme';
 
 
 // Types
@@ -147,12 +147,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: spacing.xl,
+        paddingHorizontal: metrics.xl,
     },
     card: {
         width: '100%',
-        backgroundColor: colors.background,
-        borderRadius: radius.xl,
-        padding: spacing.xxl,
+        backgroundColor: colors.white,
+        borderRadius: metrics.xl,
+        padding: metrics.xxl,
     },
 });

@@ -11,7 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Button from '../../../components/Button';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import CodeInput from '../../../components/form/CodeInput';
 import toast from '../../../lib/toast';
@@ -146,42 +146,42 @@ export default function VerifyOTPScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
     },
     content: {
         flex: 1,
-        paddingHorizontal: spacing.xxl,
-        paddingTop: spacing.xxxl * 2,
+        paddingHorizontal: metrics.xxl,
+        paddingTop: metrics.xxxl * 2,
     },
     backButton: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.md,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.md,
     },
     logo: {
         width: 220,
         height: 90,
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
         alignSelf: 'center',
     },
     modalTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 20,
         textAlign: 'center',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     modalSubtitle: {
-        ...typography.description,
+        // ...typography.description,
         textAlign: 'center',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     otpWrapper: {
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
         paddingHorizontal: 50
     },
     resendRow: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     resendPrompt: {
         fontSize: 13,
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     continueButton: {
         width: '100%',
         height: 52,
-        borderRadius: radius.sm,
+        borderRadius: metrics.sm,
         borderWidth: 1.5,
         borderColor: colors.primary,
         alignItems: 'center',
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     verifyButton: {
         width: '100%',
         height: 52,
-        borderRadius: radius.sm,
+        borderRadius: metrics.sm,
         alignItems: 'center',
         justifyContent: 'center',
     },

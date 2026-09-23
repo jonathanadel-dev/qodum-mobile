@@ -12,7 +12,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import HomeHeader from '../../../components/home/HomeHeader';
-import { colors, fonts, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import { useAuth } from '../../../context/AuthContext';
 
@@ -273,7 +273,7 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                         </View>
                         <AnimatedProgressBar value={85} />
 
-                        <View style={[styles.progressRow, { marginTop: spacing.lg }]}>
+                        <View style={[styles.progressRow, { marginTop: metrics.lg }]}>
                             <Text style={styles.progressLabel}>Fee</Text>
                             <Text style={styles.progressValue}>70</Text>
                         </View>
@@ -340,11 +340,11 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background, paddingBottom: spacing.xxxl * 2 },
+    container: { flex: 1, backgroundColor: colors.white, paddingBottom: metrics.xxxl * 2 },
     scrollContent: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.sm,
-        paddingBottom: spacing.xxxl,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.sm,
+        paddingBottom: metrics.xxxl,
     },
     titleCountRow: {
       flexDirection: 'row',
@@ -357,28 +357,28 @@ const styles = StyleSheet.create({
     wardsRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     wardAvatarWrapper: {
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
     wardAvatarImage: {
         width: 44,
         height: 44,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
     },
     wardBadge: {
         position: 'absolute',
         top: -2,
         right: -2,
-        backgroundColor: colors.background,
-        borderRadius: radius.round,
+        backgroundColor: colors.white,
+        borderRadius: metrics.round,
     },
     addWardWrapper: {},
     addWardCircle: {
         width: 58,
         height: 58,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.iconBackground,
         alignItems: 'center',
         justifyContent: 'center',
@@ -389,38 +389,38 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: colors.iconBackground,
-        borderRadius: radius.xl,
-        padding: spacing.xl,
-        marginBottom: spacing.xxl,
+        borderRadius: metrics.xl,
+        padding: metrics.xl,
+        marginBottom: metrics.xxl,
     },
     progressColumn: {
         flex: 1,
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
     progressRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     progressLabel: {
         fontSize: 15,
-        fontFamily: fonts.bold,
+        // fontFamily: fonts.bold,
         color: colors.text,
     },
     progressValue: {
         fontSize: 13,
-        fontFamily: fonts.semiBold,
+        // fontFamily: fonts.semiBold,
         color: colors.text,
     },
     progressTrack: {
         height: 8,
-        borderRadius: radius.round,
-        backgroundColor: colors.background,
+        borderRadius: metrics.round,
+        backgroundColor: colors.white,
         overflow: 'hidden',
     },
     progressFill: {
         height: '100%',
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.gradientEnd,
     },
     progressIllustration: {
@@ -429,36 +429,36 @@ const styles = StyleSheet.create({
     },
 
     sectionTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 20,
-        marginBottom: spacing.md,
+        marginBottom: metrics.md,
     },
 
     // School Updates / Academics shared grid
     threeColRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     updateCard: {
         width: '31%',
         borderWidth: 1,
         borderColor: colors.border,
-        borderRadius: radius.lg,
+        borderRadius: metrics.lg,
         overflow: 'hidden',
     },
     updateCardBody: {
-        padding: spacing.md,
+        padding: metrics.md,
         alignItems: 'flex-start',
     },
     updateIconFrame: {
         width: 44,
         height: 44,
-        borderRadius: radius.md,
-        backgroundColor: colors.iconFrameBackground,
+        borderRadius: metrics.md,
+        backgroundColor: colors.grayBackground,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
         overflow: 'hidden',
     },
     updateIcon: {
@@ -476,13 +476,13 @@ const styles = StyleSheet.create({
     },
     detailsButtonWrapper: {},
     detailsButton: {
-        paddingVertical: spacing.sm,
+        paddingVertical: metrics.sm,
         alignItems: 'center',
     },
     detailsButtonText: {
         fontSize: 13,
         fontWeight: '700',
-        color: colors.background,
+        color: colors.white,
     },
 
     // Academics — icon overlaps card top
@@ -494,8 +494,8 @@ const styles = StyleSheet.create({
     academicIconCircle: {
         width: 60,
         height: 60,
-        borderRadius: radius.round,
-        backgroundColor: colors.sectionBackground,
+        borderRadius: metrics.round,
+        backgroundColor: colors.grayBackground,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: -30,
@@ -510,20 +510,20 @@ const styles = StyleSheet.create({
         width: '100%',
         borderWidth: 1,
         borderColor: colors.border,
-        borderRadius: radius.lg,
+        borderRadius: metrics.lg,
         overflow: 'hidden',
         paddingTop: 34,
     },
     academicCardBody: {
         alignItems: 'center',
-        paddingBottom: spacing.md,
+        paddingBottom: metrics.md,
     },
 
     // Communication
     twoColRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     commCardWrapper: {
         width: '48%',
@@ -531,18 +531,18 @@ const styles = StyleSheet.create({
     commCard: {
         borderWidth: 1,
         borderColor: colors.border,
-        borderRadius: radius.lg,
-        padding: spacing.md,
+        borderRadius: metrics.lg,
+        padding: metrics.md,
         alignItems: 'flex-start',
     },
     commIconFrame: {
         width: 44,
         height: 44,
-        borderRadius: radius.md,
-        backgroundColor: colors.iconFrameBackground,
+        borderRadius: metrics.md,
+        backgroundColor: colors.grayBackground,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
         position: 'relative',
         overflow: 'visible',
     },
@@ -552,7 +552,7 @@ const styles = StyleSheet.create({
         right: -6,
         minWidth: 18,
         height: 18,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.danger,
         alignItems: 'center',
         justifyContent: 'center',
@@ -561,7 +561,7 @@ const styles = StyleSheet.create({
     commBadgeText: {
         fontSize: 10,
         fontWeight: '700',
-        color: colors.background,
+        color: colors.white,
     },
 
     // Edisapp Today
@@ -576,13 +576,13 @@ const styles = StyleSheet.create({
     edisappIconFrame: {
         width: 52,
         height: 52,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         borderWidth: 1,
         borderColor: colors.border,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: spacing.xs,
-        backgroundColor: colors.iconFrameBackground,
+        marginBottom: metrics.xs,
+        backgroundColor: colors.grayBackground,
         overflow: 'hidden',
     },
     edisappIcon: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
-import { colors, radius, spacing, typography } from "../styles/theme";
+import { colors, metrics } from "../styles/theme";
 import LinearGradient from 'react-native-linear-gradient';
 
 
@@ -58,34 +58,34 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 20,
         paddingTop: 20,
-        borderBottomLeftRadius: radius.xxl,
-        borderBottomRightRadius: radius.xxl,
+        borderBottomLeftRadius: metrics.xxl,
+        borderBottomRightRadius: metrics.xxl,
     },
     containerWithImage: {
         justifyContent: 'flex-start',
     },
     backArrow: {
         fontSize: 45,
-        color: colors.background,
+        color: colors.white,
     },
     title: {
-        ...typography.title,
-        marginTop: spacing.lg,
-        color: colors.background,
+        // ...typography.title,
+        marginTop: metrics.lg,
+        color: colors.white,
         marginBottom: 0,
     },
     titleImageRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: spacing.md,
+        marginLeft: metrics.md,
     },
     avatar: {
         width: 38,
         height: 38,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         borderWidth: 2,
-        borderColor: colors.background,
-        marginRight: spacing.md,
+        borderColor: colors.white,
+        marginRight: metrics.md,
     },
     titleWithImage: {
         marginTop: 0,

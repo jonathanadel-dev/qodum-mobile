@@ -1,4 +1,3 @@
-// navigation/app/index.tsx (AppTabs)
 import React from 'react';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

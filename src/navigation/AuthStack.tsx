@@ -5,7 +5,6 @@ import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import ContinueAsScreen from '../screens/auth/ContinueAsScreen';
 import StudentAdmissionFormScreen from '../screens/auth/studentAdmission/registrationForAdmission/StudentAdmissionFormScreen';
 import SchoolCodeScreen from '../screens/auth/schoolCode/SchoolCodeScreen';
-import SplashScreen from '../screens/SplashScreen';
 import JobOpeningScreen from '../screens/auth/jobOpening';
 import JobDescriptionScreen from '../screens/auth/jobOpening/JobDescriptionScreen';
 import JobFormScreen from '../screens/auth/jobOpening/JobFormScreen';
@@ -130,11 +129,10 @@ export default function AuthStack() {
 
   return (
     <Stack.Navigator
-      initialRouteName='Splash'
+      initialRouteName='Welcome'
       screenOptions={{ headerShown: false }}
     >
 
-      <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="ContinueAs" component={ContinueAsScreen} />
 

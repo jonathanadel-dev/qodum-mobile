@@ -5,7 +5,7 @@ import {
     TextInput,
     View,
 } from 'react-native';
-import { colors, radius, spacing, typography } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 
 
 // Type
@@ -121,10 +121,10 @@ const styles = StyleSheet.create({
     box: {
         width: 48,
         height: 48,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         borderWidth: 1.5,
         borderColor: colors.hash,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
         textAlign: 'center',
         fontSize: 21,
         fontWeight: '700',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     },
 
     errorText: {
-        ...typography.error,
-        marginTop: spacing.sm,
+        // ...typography.error,
+        marginTop: metrics.sm,
     },
 });

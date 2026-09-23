@@ -22,7 +22,7 @@ import { jobApplicationSchema, JobApplicationFormData } from '../../../lib/zodSc
 import { formStyles as styles } from '../../../styles/common';
 import { JobType } from '../../../lib/api/jobApi';
 import { fetchJobById, jobApply } from '../../../lib/api/jobApi';
-import { colors, radius } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import Button from '../../../components/Button';
 
 
@@ -206,7 +206,7 @@ export default function JobApplicationFormScreen({ navigation, route }: any) {
                             label="Submit application"
                             loadingLabel="Submitting..."
                             type='gradient'
-                            style={{height: 54, borderRadius: radius.lg}}
+                            style={{height: 54, borderRadius: metrics.lg}}
                         />
                     </View>
                 </ScrollView>

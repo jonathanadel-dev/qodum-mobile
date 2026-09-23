@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { colors, fonts, spacing } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import BackgroundScreen from '../../../components/BackgroundScreen';
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     routeSelectorContainer: {
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     scrollView: {
         flex: 1,
@@ -264,14 +264,14 @@ const styles = StyleSheet.create({
     },
     stopText: {
         fontSize: 13,
-        fontFamily: fonts.medium,
+        // fontFamily: fonts.medium,
         color: '#6B7280',
         textAlign: 'center',
     },
     stopTextReached: {
         fontSize: 13,
-        fontFamily: fonts.semiBold,
-        color: colors.background,
+        // fontFamily: fonts.semiBold,
+        color: colors.white,
         textAlign: 'center',
     },
     pinContainer: {

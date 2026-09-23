@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import Header from '../../../../components/Header';
-import { typography } from '../../../../styles/theme';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -153,21 +152,14 @@ const styles = StyleSheet.create({
     statusCard: {
         marginHorizontal: 20,
         marginTop: 20,
-
         height: 182,
-
         borderRadius: 14,
-
         backgroundColor: '#FFFFFF',
-
         borderWidth: 1,
         borderColor: '#E8E8E8',
-
         flexDirection: 'row',
-
         paddingLeft: 15,
         paddingRight: 8,
-
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -191,15 +183,11 @@ const styles = StyleSheet.create({
     },
     statusDot: {
         position: 'absolute',
-
         left: 0,
         top: 0,
-
         width: 14,
         height: 14,
-
         borderRadius: 7,
-
         backgroundColor: '#DCDCDC',
     },
     statusDotActive: {
@@ -207,13 +195,10 @@ const styles = StyleSheet.create({
     },
     connector: {
         position: 'absolute',
-
         left: 6,
         top: 14,
-
         width: 2,
         height: 39,
-
         backgroundColor: '#DFDFDF',
     },
     connectorActive: {
@@ -222,12 +207,9 @@ const styles = StyleSheet.create({
     statusLabel: {
         marginLeft: 30,
         marginTop: -2,
-
         fontSize: 15,
         lineHeight: 20,
-
         fontWeight: '600',
-
         color: '#111111',
     },
 
@@ -265,14 +247,12 @@ const styles = StyleSheet.create({
     /* Message */
     message: {
         paddingHorizontal: 22,
-
         alignItems: 'center',
-
         marginTop: 0,
     },
     title: {
         lineHeight: 28,
-        ...typography.title,
+        // ...typography.title,
         fontWeight: '600',
         color: '#111111',
         textAlign: 'center',
@@ -280,7 +260,7 @@ const styles = StyleSheet.create({
     },
     description: {
         marginTop: 10,
-        ...typography.description,
+        // ...typography.description,
         fontSize: 14,
         lineHeight: 21,
         color: '#707070',

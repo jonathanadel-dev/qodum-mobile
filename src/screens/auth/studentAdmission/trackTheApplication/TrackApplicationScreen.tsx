@@ -11,7 +11,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import BackgroundScreen from '../../../../components/BackgroundScreen';
 import FormInput from '../../../../components/form/input/FormInput';
-import { colors, radius, spacing, typography } from '../../../../styles/theme';
+import { colors, metrics } from '../../../../styles/theme';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
 import toast from '../../../../lib/toast';
 
@@ -97,16 +97,16 @@ const styles = StyleSheet.create({
     seal: {
         width: 150,
         height: 150,
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     label: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 18,
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     inputWrapper: {
         width: '100%',
-        marginBottom: spacing.xxl,
+        marginBottom: metrics.xxl,
     },
     input: {
         width: '100%',
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     searchButton: {
         width: '70%',
         height: 50,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         borderWidth: 1.5,
         borderColor: colors.primary,
         alignItems: 'center',
@@ -132,12 +132,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: spacing.sm,
-        paddingBottom: spacing.xl,
+        gap: metrics.sm,
+        paddingBottom: metrics.xl,
     },
     footerText: {
         fontSize: 13,
-        color: colors.inactive,
+        color: colors.textSecondary,
     },
     footerLogo: {
         width: 90,

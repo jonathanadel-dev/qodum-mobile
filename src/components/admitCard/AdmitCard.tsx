@@ -5,7 +5,7 @@ import {
     Text,
     View,
 } from 'react-native';
-import { colors, fonts, radius, spacing } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 
 
 // Types
@@ -192,11 +192,11 @@ const styles = StyleSheet.create({
     card: {
         width: '100%',
         backgroundColor: colors.admitCardBackground,
-        borderRadius: radius.sm,
+        borderRadius: metrics.sm,
         borderWidth: 1,
         borderColor: colors.border,
-        paddingHorizontal: spacing.md,
-        paddingVertical: spacing.sm,
+        paddingHorizontal: metrics.md,
+        paddingVertical: metrics.sm,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -213,12 +213,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         minHeight: 62,
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     schoolLogo: {
         width: 56,
         height: 56,
-        marginRight: spacing.sm,
+        marginRight: metrics.sm,
     },
     schoolInfo: {
         flex: 1,
@@ -229,7 +229,6 @@ const styles = StyleSheet.create({
         width: '100%',
         fontSize: 18,
         lineHeight: 22,
-        fontFamily: fonts.bold,
         color: colors.primary,
         textAlign: 'center',
         letterSpacing: -0.3,
@@ -238,7 +237,6 @@ const styles = StyleSheet.create({
         marginTop: 3,
         fontSize: 12.5,
         lineHeight: 17,
-        fontFamily: fonts.regular,
         color: colors.text,
         textAlign: 'center',
     },
@@ -258,13 +256,11 @@ const styles = StyleSheet.create({
     detailLabel: {
         fontSize: 15,
         lineHeight: 19,
-        fontFamily: fonts.bold,
         color: colors.text,
     },
     detailValue: {
         fontSize: 14,
         lineHeight: 18,
-        fontFamily: fonts.regular,
         color: colors.text,
     },
 
@@ -279,19 +275,17 @@ const styles = StyleSheet.create({
     inlineField: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
     inlineLabel: {
         fontSize: 14,
         lineHeight: 19,
-        fontFamily: fonts.bold,
         color: colors.text,
         marginRight: 4,
     },
     inlineValue: {
         fontSize: 14,
         lineHeight: 19,
-        fontFamily: fonts.regular,
         color: colors.text,
     },
 
@@ -303,7 +297,7 @@ const styles = StyleSheet.create({
         top: 0,
         width: 96,
         height: 100,
-        borderRadius: radius.lg,
+        borderRadius: metrics.lg,
         borderWidth: 4,
         borderColor: colors.primary
     },

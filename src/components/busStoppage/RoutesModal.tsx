@@ -1,4 +1,3 @@
-// components/busStoppage/RoutesModal.tsx
 import React from 'react';
 import {
     Pressable,
@@ -10,7 +9,7 @@ import {
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 
-import { colors, fonts, radius, spacing } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 import CustomModal, { CustomModalRef } from '../CustomModal';
 
 // Route type with stops
@@ -149,7 +148,7 @@ export default function RoutesModal({
                                 <Ionicons
                                     name="bus"
                                     size={24}
-                                    color={isSelected ? colors.background : colors.textSecondary}
+                                    color={isSelected ? colors.white : colors.textSecondary}
                                 />
                             </View>
                             
@@ -195,36 +194,33 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     modalTitle: {
         fontSize: 20,
-        fontFamily: fonts.bold,
         color: colors.text,
     },
     routeCount: {
         fontSize: 14,
-        fontFamily: fonts.regular,
         color: colors.textSecondary,
     },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#F8F9FA',
-        borderRadius: radius.lg,
+        borderRadius: metrics.lg,
         borderWidth: 1,
         borderColor: colors.border,
-        marginBottom: spacing.lg,
-        paddingHorizontal: spacing.md,
+        marginBottom: metrics.lg,
+        paddingHorizontal: metrics.md,
         height: 48,
     },
     searchIcon: {
-        marginRight: spacing.sm,
+        marginRight: metrics.sm,
     },
     searchInput: {
         flex: 1,
         fontSize: 15,
-        fontFamily: fonts.regular,
         color: colors.text,
         padding: 0,
     },
@@ -234,7 +230,7 @@ const styles = StyleSheet.create({
     routeItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: spacing.md,
+        paddingVertical: metrics.md,
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
     },
@@ -244,11 +240,11 @@ const styles = StyleSheet.create({
     busIconContainer: {
         width: 48,
         height: 48,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         backgroundColor: '#F0F0F0',
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
     busIconContainerSelected: {
         backgroundColor: colors.primary,
@@ -258,7 +254,6 @@ const styles = StyleSheet.create({
     },
     routeName: {
         fontSize: 16,
-        fontFamily: fonts.semiBold,
         color: colors.text,
         marginBottom: 4,
     },
@@ -272,10 +267,9 @@ const styles = StyleSheet.create({
     },
     stopsText: {
         fontSize: 13,
-        fontFamily: fonts.regular,
         color: colors.textSecondary,
     },
     checkmarkContainer: {
-        marginLeft: spacing.sm,
+        marginLeft: metrics.sm,
     },
 });

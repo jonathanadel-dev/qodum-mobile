@@ -6,7 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '../../../components/Header';
 import Card from '../../../components/Card';
 import Button from '../../../components/Button';
-import { colors, radius, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 
 export default function NotificationDetailsScreen({ navigation, route }: NativeStackScreenProps<any>) {
     const { notification } = route.params as {
@@ -64,7 +64,7 @@ export default function NotificationDetailsScreen({ navigation, route }: NativeS
                 {notification.attachmentName ? (
                     <Card onPress={handleAttachmentPress} contentStyle={styles.attachmentContent}>
                         <View style={styles.pdfIcon}>
-                            <Ionicons name="document-text" size={18} color={colors.background} />
+                            <Ionicons name="document-text" size={18} color={colors.white} />
                         </View>
 
                         <Text style={styles.attachmentName} numberOfLines={1}>
@@ -102,39 +102,39 @@ export default function NotificationDetailsScreen({ navigation, route }: NativeS
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
+    container: { flex: 1, backgroundColor: colors.white },
     scrollArea: {
         flex: 1,
     },
     scrollContent: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.xxl,
-        paddingBottom: spacing.xl,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.xxl,
+        paddingBottom: metrics.xl,
     },
     title: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 22,
-        marginBottom: spacing.md,
+        marginBottom: metrics.md,
     },
     description: {
-        ...typography.description,
+        // ...typography.description,
         fontSize: 15,
         lineHeight: 22,
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     badgeRow: {
         flexDirection: 'row',
-        gap: spacing.sm,
-        marginBottom: spacing.xxl,
+        gap: metrics.sm,
+        marginBottom: metrics.xxl,
     },
     badge: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: spacing.xs,
+        gap: metrics.xs,
         backgroundColor: colors.iconBackground,
-        borderRadius: radius.round,
-        paddingHorizontal: spacing.md,
-        paddingVertical: spacing.sm,
+        borderRadius: metrics.round,
+        paddingHorizontal: metrics.md,
+        paddingVertical: metrics.sm,
     },
     badgeText: {
         fontSize: 13,
@@ -142,23 +142,23 @@ const styles = StyleSheet.create({
         color: colors.text,
     },
     sectionTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 17,
-        marginBottom: spacing.md,
+        marginBottom: metrics.md,
     },
     attachmentContent: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: spacing.lg,
+        padding: metrics.lg,
     },
     pdfIcon: {
         width: 36,
         height: 36,
-        borderRadius: radius.md,
+        borderRadius: metrics.md,
         backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: spacing.md,
+        marginRight: metrics.md,
     },
     attachmentName: {
         flex: 1,
@@ -172,21 +172,21 @@ const styles = StyleSheet.create({
     },
     emptyAttachments: {
         alignItems: 'center',
-        paddingVertical: spacing.xxl,
+        paddingVertical: metrics.xxl,
     },
     emptyAttachmentsImage: {
         width: 200,
         height: 200,
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
     emptyAttachmentsText: {
         fontSize: 15,
         color: colors.textSecondary,
     },
     footer: {
-        paddingHorizontal: spacing.xl,
-        paddingBottom: spacing.xxxl,
-        paddingTop: spacing.md,
+        paddingHorizontal: metrics.xl,
+        paddingBottom: metrics.xxxl,
+        paddingTop: metrics.md,
     },
     downloadButton: {
         width: '100%',

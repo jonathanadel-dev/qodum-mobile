@@ -7,12 +7,7 @@ import {
     View,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {
-    colors,
-    radius,
-    spacing,
-    typography,
-} from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import Ionicons from '@react-native-vector-icons/ionicons';
 
 
@@ -118,19 +113,19 @@ export default function DatePicker ({
 // Styles
 const styles = StyleSheet.create({
     container: {
-        marginBottom: spacing.lg,
+        marginBottom: metrics.lg,
     },
 
     label: {
-        ...typography.label,
+        // ...typography.label,
     },
 
     input: {
         minHeight: 52,
         borderWidth: 1,
         borderColor: colors.border,
-        borderRadius: radius.md,
-        paddingHorizontal: spacing.lg,
+        borderRadius: metrics.md,
+        paddingHorizontal: metrics.lg,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -145,7 +140,7 @@ const styles = StyleSheet.create({
     },
 
     value: {
-        ...typography.input,
+        // ...typography.input,
     },
 
     placeholder: {
@@ -157,6 +152,6 @@ const styles = StyleSheet.create({
     },
 
     error: {
-        ...typography.error,
+        // ...typography.error,
     }
 });

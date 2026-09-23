@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../components/Header';
 import Card from '../../components/Card';
-import { colors, radius, spacing, typography } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 
 function SummaryRow({ label, value, bold = false }: { label: string; value: string; bold?: boolean }) {
     return (
@@ -113,15 +113,15 @@ export default function FeeDetailsScreen({ navigation, route }: NativeStackScree
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
+    container: { flex: 1, backgroundColor: colors.white },
     scrollContent: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.xl,
-        paddingBottom: spacing.xxxl,
-        gap: spacing.md,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.xl,
+        paddingBottom: metrics.xxxl,
+        gap: metrics.md,
     },
     headerCardContent: {
-        gap: spacing.md,
+        gap: metrics.md,
     },
     headerTopRow: {
         flexDirection: 'row',
@@ -130,25 +130,25 @@ const styles = StyleSheet.create({
     studentPhoto: {
         width: 46,
         height: 46,
-        borderRadius: radius.md,
-        marginRight: spacing.md,
+        borderRadius: metrics.md,
+        marginRight: metrics.md,
     },
     studentTextBlock: {
         flex: 1,
     },
     studentName: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 16,
         marginBottom: 2,
     },
     studentAdmission: {
-        ...typography.description,
+        // ...typography.description,
     },
     classPill: {
         backgroundColor: colors.iconBackground,
-        borderRadius: radius.round,
-        paddingHorizontal: spacing.md,
-        paddingVertical: spacing.xs,
+        borderRadius: metrics.round,
+        paddingHorizontal: metrics.md,
+        paddingVertical: metrics.xs,
     },
     classPillText: {
         fontSize: 13,
@@ -168,12 +168,12 @@ const styles = StyleSheet.create({
         color: colors.text,
     },
     sectionTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 19,
-        marginTop: spacing.sm,
+        marginTop: metrics.sm,
     },
     summaryCardContent: {
-        gap: spacing.lg,
+        gap: metrics.lg,
     },
     summaryRow: {
         flexDirection: 'row',
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     summaryColon: {
         fontSize: 15,
         color: colors.text,
-        marginRight: spacing.sm,
+        marginRight: metrics.sm,
     },
     summaryValue: {
         flex: 1,

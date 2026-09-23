@@ -11,7 +11,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../../components/Header';
-import { colors, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { JobType, fetchJobOpenings } from '../../../lib/api/jobApi';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import JobCard from '../../../components/jobOpening/JobCard';
@@ -105,46 +105,46 @@ export default function JobOpeningScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
     },
     scrollContent: {
-        paddingBottom: spacing.xxxl,
+        paddingBottom: metrics.xxxl,
     },
     heading: {
-        ...typography.title,
-        paddingHorizontal: spacing.xxl,
-        marginTop: spacing.xl,
-        marginBottom: spacing.lg,
+        // ...typography.title,
+        paddingHorizontal: metrics.xxl,
+        marginTop: metrics.xl,
+        marginBottom: metrics.lg,
     },
     jobsSection: {
-        paddingHorizontal: spacing.xxl,
+        paddingHorizontal: metrics.xxl,
     },
     centerState: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: spacing.xxxl,
+        paddingHorizontal: metrics.xxxl,
         paddingTop: 70,
         paddingBottom: 100,
     },
     stateTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 17,
         textAlign: 'center',
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     stateDescription: {
-        ...typography.description,
+        // ...typography.description,
         textAlign: 'center',
     },
     retryButton: {
-        marginTop: spacing.xl,
-        paddingHorizontal: spacing.xxl,
-        paddingVertical: spacing.md,
+        marginTop: metrics.xl,
+        paddingHorizontal: metrics.xxl,
+        paddingVertical: metrics.md,
         borderRadius: 14,
         backgroundColor: colors.primary,
     },
     retryButtonText: {
-        color: colors.background,
+        color: colors.white,
         fontSize: 14,
         fontWeight: '800',
     },

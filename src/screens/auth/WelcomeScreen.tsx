@@ -1,7 +1,7 @@
+// src/screens/auth/WelcomeScreen.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
-    Text,
     StyleSheet,
     Image,
     Animated,
@@ -11,17 +11,15 @@ import {
     NativeScrollEvent,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { colors, typography, spacing, radius } from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 import Button from '../../components/Button';
+import AppText from '../../components/AppText';
 import { AuthStackParamList } from '../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useDotsInterpolation } from '../../hooks/animations/useDotsInterpolation';
 
-
-// Width
 const { width } = Dimensions.get('window');
 
-
-// Types
 type Props = NativeStackScreenProps<AuthStackParamList, 'Welcome'>;
 type Slide = {
     id: string;
@@ -30,8 +28,6 @@ type Slide = {
     subtitle: string;
 };
 
-
-// Slides
 const slides: Slide[] = [
     {
         id: '1',
@@ -53,11 +49,7 @@ const slides: Slide[] = [
     },
 ];
 
-
-// Welcome screen
 export default function WelcomeScreen({ navigation }: Props) {
-
-    // State
     const AUTOPLAY_INTERVAL_MS = 3500;
     const [activeIndex, setActiveIndex] = useState(0);
     const activeIndexRef = useRef(0);
@@ -66,8 +58,12 @@ export default function WelcomeScreen({ navigation }: Props) {
     const scrollX = useRef(new Animated.Value(0)).current;
     const isLastSlide = activeIndex === slides.length - 1;
 
+    const dots = useDotsInterpolation(scrollX, slides.length, {
+        itemWidth: width,
+        activeColor: colors.primary,
+        inactiveColor: colors.grayBackground,
+    });
 
-    // Functions
     const goToContinue = () => navigation.navigate('ContinueAs');
     const scrollToIndex = (index: number) => {
         listRef.current?.scrollToIndex({ index, animated: true });
@@ -89,8 +85,6 @@ export default function WelcomeScreen({ navigation }: Props) {
         autoPlayEnabled.current = true;
     };
 
-
-    // Auto scrolling
     useEffect(() => {
         const timer = setInterval(() => {
             if (!autoPlayEnabled.current) return;
@@ -141,19 +135,24 @@ export default function WelcomeScreen({ navigation }: Props) {
                                 />
                             </View>
 
-                            <Text style={styles.title}>{item.title}</Text>
-                            <Text style={styles.subtitle}>{item.subtitle}</Text>
+                            <AppText variant='h2'>{item.title}</AppText>
+                            <AppText variant='desc'>{item.subtitle}</AppText>
                         </View>
                     )}
                 />
 
-                <AnimatedDots scrollX={scrollX} count={slides.length} />
+                <View style={styles.dotsRow}>
+                    {dots.map((dotStyle, i) => (
+                        <Animated.View key={i} style={[styles.dot, dotStyle]} />
+                    ))}
+                </View>
             </View>
             <View style={styles.footer}>
                 <Button
                     label='Skip'
                     onPress={goToContinue}
                     type='plain'
+                    textStyle={{ color: colors.white }}
                 />
 
                 <Button
@@ -167,112 +166,56 @@ export default function WelcomeScreen({ navigation }: Props) {
 }
 
 
-// Dots animation
-function AnimatedDots({ scrollX, count }: {scrollX: Animated.Value; count: number;}) {
-    return (
-        <View style={styles.dotsRow}>
-            {Array.from({ length: count }).map((_, i) => {
-                const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
-
-                const dotWidth = scrollX.interpolate({
-                    inputRange,
-                    outputRange: [8, 24, 8],
-                    extrapolate: 'clamp',
-                });
-
-                const dotColor = scrollX.interpolate({
-                    inputRange,
-                    outputRange: [colors.dotInactive, colors.primary, colors.dotInactive],
-                    extrapolate: 'clamp',
-                });
-
-                return (
-                    <Animated.View
-                        key={i}
-                        style={[
-                            styles.dot,
-                            { width: dotWidth, backgroundColor: dotColor },
-                        ]}
-                    />
-                );
-            })}
-        </View>
-    );
-}
-
-
 // Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    whiteContent:{
-        flex:1,
-        backgroundColor: colors.background,
-        borderBottomLeftRadius: radius.xxl,
-        borderBottomRightRadius: radius.xxl,
+    whiteContent: {
+        flex: 1,
+        backgroundColor: colors.white,
+        borderBottomLeftRadius: metrics.xxl,
+        borderBottomRightRadius: metrics.xxl,
     },
     slide: {
         width,
         alignItems: 'center',
         paddingTop: 65,
-        paddingHorizontal: spacing.xxl,
+        paddingHorizontal: metrics.xxl,
     },
     logo: {
         width: 180,
         height: 60,
-        marginBottom: spacing.xxxl,
+        marginBottom: metrics.xxxl,
     },
     illustrationWrapper: {
         width: '100%',
         height: width * 0.62,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     illustration: {
         width: '100%',
         height: '70%',
     },
-    title: {
-        marginTop:spacing.xxxl,
-        ...typography.onboardingTitle,
-        marginBottom: spacing.sm,
-    },
-    subtitle: {
-        ...typography.onboardingSubtitle,
-    },
     dotsRow: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     dot: {
         height: 8,
-        borderRadius: radius.round,
-        marginHorizontal: spacing.xs / 2,
+        borderRadius: metrics.round,
+        marginHorizontal: metrics.xs / 2,
     },
     footer: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 130,
         justifyContent: 'space-between',
-        paddingHorizontal: spacing.xxl,
-        paddingVertical: spacing.xxl,
-    },
-    skipText: {
-        ...typography.button,
-        color: colors.background,
-    },
-    nextButton: {
-        backgroundColor: colors.background,
-        paddingHorizontal: spacing.xxl,
-        paddingVertical: spacing.md,
-        borderRadius: radius.lg,
-    },
-    nextButtonText: {
-        ...typography.button,
-        color: colors.primary,
+        paddingHorizontal: metrics.xxl,
+        paddingVertical: metrics.xxl,
     },
 });

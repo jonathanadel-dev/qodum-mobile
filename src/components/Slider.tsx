@@ -1,5 +1,5 @@
 import { Image, NativeScrollEvent, NativeSyntheticEvent, ScrollView, ScrollViewInstance, StyleSheet, View } from "react-native";
-import { colors, radius } from "../styles/theme";
+import { colors, metrics } from "../styles/theme";
 import { useEffect, useRef, useState } from "react";
 
 type Slide = {
@@ -80,7 +80,7 @@ export default function Slider({ height = 225 }: { height?: number }) {
 const styles = StyleSheet.create({
     sliderWrapper: {
         width: '100%',
-        borderRadius: 24,
+        borderRadius: metrics.md,
         overflow: 'hidden',
         backgroundColor: '#DCECF2',
     },
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     paginationDot: {
         width: 6,
         height: 6,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: 'rgba(255,255,255,0.55)',
         marginHorizontal: 4,
     },

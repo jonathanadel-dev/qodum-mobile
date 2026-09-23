@@ -17,12 +17,7 @@ import Header from '../../../components/Header';
 import Button from '../../../components/Button';
 import AdmitCard from '../../../components/admitCard/AdmitCard';
 import FloatingModal from '../../../components/FloatingModal';
-import {
-    colors,
-    fonts,
-    radius,
-    spacing,
-} from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import toast from '../../../lib/toast';
@@ -307,110 +302,108 @@ export default function AdmitCardScreen({ navigation, route }: Props) {
 
 // Styles
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
+    container: { flex: 1, backgroundColor: colors.white },
     scrollContent: {
-        paddingHorizontal: spacing.lg,
-        paddingTop: spacing.lg,
-        paddingBottom: spacing.xxl,
+        paddingHorizontal: metrics.lg,
+        paddingTop: metrics.lg,
+        paddingBottom: metrics.xxl,
     },
     divider: {
         height: 1,
         backgroundColor: colors.border,
-        marginTop: spacing.xxl,
-        marginBottom: spacing.lg,
+        marginTop: metrics.xxl,
+        marginBottom: metrics.lg,
     },
     examInfo: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     examItem: { flexDirection: 'row', alignItems: 'center' },
-    examLabel: { fontSize: 14, fontFamily: fonts.bold, color: colors.text, marginRight: 4 },
-    examValue: { fontSize: 14, fontFamily: fonts.regular, color: colors.text },
-    instructions: { marginBottom: spacing.xxl },
+    examLabel: { fontSize: 14, color: colors.text, marginRight: 4 },
+    examValue: { fontSize: 14, color: colors.text },
+    instructions: { marginBottom: metrics.xxl },
     instructionsTitle: {
         fontSize: 16,
         lineHeight: 21,
-        fontFamily: fonts.bold,
         color: colors.text,
-        marginBottom: spacing.md,
+        marginBottom: metrics.md,
     },
-    instructionList: { gap: spacing.sm },
+    instructionList: { gap: metrics.sm },
     instruction: { flexDirection: 'row', alignItems: 'flex-start' },
-    bullet: { width: 15, fontSize: 15, lineHeight: 21, fontFamily: fonts.bold, color: colors.text },
-    instructionText: { flex: 1, fontSize: 14, lineHeight: 21, fontFamily: fonts.regular, color: colors.text },
-    actions: { flexDirection: 'row', gap: spacing.md },
+    bullet: { width: 15, fontSize: 15, lineHeight: 21, color: colors.text },
+    instructionText: { flex: 1, fontSize: 14, lineHeight: 21, color: colors.text },
+    actions: { flexDirection: 'row', gap: metrics.md },
     actionButton: { flex: 1 },
     shareButton: {
         width: '100%',
         height: 48,
-        paddingHorizontal: spacing.lg,
+        paddingHorizontal: metrics.lg,
         borderWidth: 1,
         borderColor: '#858585',
-        borderRadius: radius.round,
-        backgroundColor: colors.background,
+        borderRadius: metrics.round,
+        backgroundColor: colors.white,
     },
-    shareText: { fontSize: 15, fontFamily: fonts.medium, color: colors.primary },
+    shareText: { fontSize: 15, color: colors.primary },
     downloadButton: {
         width: '100%',
         height: 48,
-        paddingHorizontal: spacing.lg,
-        borderRadius: radius.md,
+        paddingHorizontal: metrics.lg,
+        borderRadius: metrics.md,
     },
-    downloadText: { fontSize: 15, fontFamily: fonts.semiBold, color: colors.background },
+    downloadText: { fontSize: 15, color: colors.white },
     footer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: spacing.xxl,
+        marginTop: metrics.xxl,
     },
-    footerLabel: { fontSize: 9, fontFamily: fonts.semiBold, letterSpacing: 1, color: colors.hash },
+    footerLabel: { fontSize: 9, letterSpacing: 1, color: colors.hash },
     footerDot: {
         width: 3,
         height: 3,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.border,
-        marginHorizontal: spacing.sm,
+        marginHorizontal: metrics.sm,
     },
-    footerCode: { fontSize: 10, fontFamily: fonts.bold, letterSpacing: 1, color: colors.textSecondary },
+    footerCode: { fontSize: 10, letterSpacing: 1, color: colors.textSecondary },
 
     // Success modal
     successHeaderRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: spacing.sm,
-        marginBottom: spacing.lg,
+        gap: metrics.sm,
+        marginBottom: metrics.lg,
     },
     successTitle: {
-        ...({} as any),
         fontSize: 19,
-        fontFamily: fonts.bold,
+        // fontFamily: fonts.bold,
         color: colors.text,
     },
     successBody: {
         fontSize: 14,
-        fontFamily: fonts.regular,
+        // fontFamily: fonts.regular,
         color: colors.text,
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     successFileName: {
         fontSize: 14,
-        fontFamily: fonts.bold,
+        // fontFamily: fonts.bold,
         color: colors.text,
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     successActions: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        gap: spacing.xl,
+        gap: metrics.xl,
     },
     successAction: {
         fontSize: 15,
-        fontFamily: fonts.semiBold,
+        // fontFamily: fonts.semiBold,
         color: colors.primary,
     },
     successActionPrimary: {
-        fontFamily: fonts.bold,
+        // fontFamily: fonts.bold,
     },
 });

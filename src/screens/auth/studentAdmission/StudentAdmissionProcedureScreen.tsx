@@ -1,4 +1,3 @@
-// screens/admission/admissionProcedure/AdmissionProcedureScreen.tsx
 import React, { useEffect, useRef } from 'react';
 import {
     Animated,
@@ -11,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from '@react-native-vector-icons/ionicons';
 
 import Header from '../../../components/Header';
-import { colors, spacing, typography } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 
 type Props = {
     navigation: any;
@@ -130,7 +129,7 @@ export default function AdmissionProcedureScreen({ navigation, route }: Props) {
                                     end={{ x: 1, y: 1 }}
                                     style={styles.iconCircle}
                                 >
-                                    <Ionicons name={step.icon} size={26} color={colors.background} />
+                                    <Ionicons name={step.icon} size={26} color={colors.white} />
                                 </LinearGradient>
 
                                 {!isLast && <View style={styles.connectorLine} />}
@@ -152,12 +151,12 @@ export default function AdmissionProcedureScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
     },
     scrollContent: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.xxl,
-        paddingBottom: spacing.xxxl,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.xxl,
+        paddingBottom: metrics.xxxl,
     },
     row: {
         flexDirection: 'row',
@@ -178,24 +177,24 @@ const styles = StyleSheet.create({
         flex: 1,
         width: 2,
         backgroundColor: colors.border,
-        marginTop: spacing.sm,
-        marginBottom: spacing.sm,
+        marginTop: metrics.sm,
+        marginBottom: metrics.sm,
     },
     content: {
         flex: 1,
-        paddingLeft: spacing.lg,
-        paddingBottom: spacing.xxl,
+        paddingLeft: metrics.lg,
+        paddingBottom: metrics.xxl,
     },
     stepLabel: {
         fontSize: 13,
         fontWeight: '700',
         color: colors.primary,
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     stepTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 19,
-        marginBottom: spacing.sm,
+        marginBottom: metrics.sm,
     },
     stepDescription: {
         fontSize: 14,

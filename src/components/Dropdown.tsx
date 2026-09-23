@@ -10,7 +10,7 @@ import {
     View,
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { colors, radius, spacing } from '../styles/theme';
+import { colors, metrics } from '../styles/theme';
 
 export type DropdownOption = {
     label: string;
@@ -125,12 +125,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         height: 52,
-        borderRadius: radius.md,
-        backgroundColor: colors.inputBackground,
-        paddingHorizontal: spacing.lg,
+        borderRadius: metrics.md,
+        backgroundColor: colors.grayBackground,
+        paddingHorizontal: metrics.lg,
     },
     fieldIcon: {
-        marginRight: spacing.sm,
+        marginRight: metrics.sm,
     },
     fieldText: {
         flex: 1,
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
     },
     optionsList: {
         position: 'absolute',
-        backgroundColor: colors.background,
-        borderRadius: radius.md,
+        backgroundColor: colors.white,
+        borderRadius: metrics.md,
         maxHeight: 220,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
@@ -159,13 +159,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: spacing.lg,
-        paddingVertical: spacing.md,
+        paddingHorizontal: metrics.lg,
+        paddingVertical: metrics.md,
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
     },
     optionSelected: {
-        backgroundColor: colors.infoBackground,
+        backgroundColor: colors.primaryBackground,
     },
     optionText: {
         fontSize: 15,

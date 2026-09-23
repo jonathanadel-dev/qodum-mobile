@@ -7,7 +7,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import Header from '../../../../components/Header';
 import Card from '../../../../components/Card';
 import Button from '../../../../components/Button';
-import { colors, radius, spacing, typography } from '../../../../styles/theme';
+import { colors, metrics } from '../../../../styles/theme';
 import { getMyAdmittedStudents, StudentRecord } from '../../../../lib/localDB';
 
 export default function PreviousAdmissionsScreen({ navigation, route }: NativeStackScreenProps<any>) {
@@ -99,12 +99,12 @@ export default function PreviousAdmissionsScreen({ navigation, route }: NativeSt
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.background },
+    container: { flex: 1, backgroundColor: colors.white },
     scrollContent: {
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.xl,
-        paddingBottom: spacing.xxxl,
-        gap: spacing.lg,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.xl,
+        paddingBottom: metrics.xxxl,
+        gap: metrics.lg,
     },
     studentCardContent: {
         flexDirection: 'row',
@@ -113,17 +113,17 @@ const styles = StyleSheet.create({
     avatar: {
         width: 56,
         height: 56,
-        borderRadius: radius.round,
-        marginRight: spacing.lg,
+        borderRadius: metrics.round,
+        marginRight: metrics.lg,
     },
     avatarPlaceholder: {
         width: 56,
         height: 56,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.iconBackground,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: spacing.lg,
+        marginRight: metrics.lg,
     },
     studentTextBlock: {
         flex: 1,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '700',
         color: colors.text,
-        marginBottom: spacing.xs,
+        marginBottom: metrics.xs,
     },
     studentValue: {
         fontWeight: '400',
@@ -141,10 +141,10 @@ const styles = StyleSheet.create({
     payFeeButton: {
         alignSelf: 'flex-start',
         height: 34,
-        paddingHorizontal: spacing.lg,
-        borderRadius: radius.round,
-        backgroundColor: colors.infoBackground,
-        marginTop: spacing.xs,
+        paddingHorizontal: metrics.lg,
+        borderRadius: metrics.round,
+        backgroundColor: colors.primaryBackground,
+        marginTop: metrics.xs,
     },
     payFeeText: {
         fontSize: 13,
@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
         height: 54,
         borderWidth: 1.5,
         borderColor: colors.primary,
-        borderRadius: radius.md,
-        marginTop: spacing.sm,
+        borderRadius: metrics.md,
+        marginTop: metrics.sm,
     },
     newRegistrationText: {
         color: colors.primary,

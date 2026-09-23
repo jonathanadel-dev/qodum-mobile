@@ -1,186 +1,156 @@
-// components/form/SubmitButton.tsx 
- 
-import { useRef } from "react"; 
-import { 
-    ActivityIndicator, 
-    Animated, 
-    Pressable, 
-    StyleProp, 
-    StyleSheet, 
-    Text, 
-    View, 
-    ViewStyle, 
-} from "react-native"; 
-import LinearGradient from 'react-native-linear-gradient'; 
- 
-import { colors, radius, spacing } from "../styles/theme"; 
-import Ionicons from "@react-native-vector-icons/ionicons"; 
- 
- 
-// Types 
-type ButtonType = 'white' | 'plain' | 'gradient' | 'arrowRight' | 'arrowLeft' 
-type Props = { 
-    loading?: boolean; 
-    onPress: () => void; 
-    label?: string; 
-    icon?: any; 
-    loadingLabel?: string; 
-    style?: any; 
-    textStyle?: any; 
-    type: ButtonType 
-} 
- 
-// Button 
-export default function Button({ loading, onPress, label = 'Submit', loadingLabel = 'Submitting...', style, textStyle, icon, type }: Props) { 
- 
- 
-    // Animation 
-    const scale = useRef(new Animated.Value(1)).current; 
-    const handlePressIn = () => { 
-        if (loading) return; 
- 
-        Animated.spring(scale, { 
-            toValue: 0.97, 
-            useNativeDriver: true, 
-            speed: 35, 
-            bounciness: 0, 
-        }).start(); 
-    }; 
-    const handlePressOut = () => { 
-        if (loading) return; 
- 
-        Animated.spring(scale, { 
-            toValue: 1, 
-            useNativeDriver: true, 
-            speed: 25, 
-            bounciness: 5, 
-        }).start(); 
-    }; 
- 
- 
-    // Gradient background 
-    if(type == 'gradient' || type == 'arrowRight' || type == 'arrowLeft'){ 
-        return ( 
-            <Animated.View style={{ transform: [{ scale }] }}> 
-                <Pressable 
-                    onPress={onPress} 
-                    onPressIn={handlePressIn} 
-                    onPressOut={handlePressOut} 
-                    disabled={loading} 
-                > 
-                    <LinearGradient 
-                        colors={[colors.gradientStart, colors.gradientEnd]} 
-                        start={{ x: 0, y: 0.5 }} 
-                        end={{ x: 1, y: 0.5 }} 
-                        style={[ 
-                            loading && styles.disabled, 
-                            type == 'gradient' ? styles.button : styles.arrowContainer, 
-                            style, 
-                        ]} 
-                    > 
-                        {loading ? ( 
-                            <ActivityIndicator color="#FFFFFF" size="small" /> 
-                        ) : type == 'arrowRight' ? ( 
-                            <Ionicons name='arrow-forward' size={20} color='#fff'/> 
-                        ) : type == 'arrowLeft' ? ( 
-                            <Ionicons name='arrow-back' size={20} color='#fff'/> 
-                        ) : ( 
-                            <View style={styles.content}> 
-                                <Text style={[styles.gradientText, textStyle]}> 
-                                    {label} 
-                                </Text> 
-                                {icon} 
-                            </View> 
-                        )} 
-                    </LinearGradient> 
-                </Pressable> 
-            </Animated.View> 
-        ) 
-    } 
- 
- 
-    // White background 
-    return ( 
-        <Animated.View style={{ transform: [{ scale }] }}> 
-            <Pressable 
-                style={[ 
-                    styles.button, 
-                    type === 'white' ? styles.whiteButton : '', 
-                    loading && styles.disabled, 
-                    style, 
-                ]} 
-                onPress={onPress} 
-                onPressIn={handlePressIn} 
-                onPressOut={handlePressOut} 
-                disabled={loading} 
-            > 
-                {loading ? ( 
-                    <> 
-                        <ActivityIndicator color="#FFFFFF" size="small" /> 
-                        <Text style={[ 
-                            type == 'white' ? styles.whiteText : styles.gradientText, 
-                            textStyle, 
-                        ]}> 
-                            {loadingLabel} 
-                        </Text> 
-                    </> 
-                ) : ( 
-                    <View style={styles.content}> 
-                        <Text style={[ 
-                            type == 'white' ? styles.whiteText : styles.gradientText, 
-                            textStyle, 
-                        ]}> 
-                            {label} 
-                        </Text> 
-                        {icon} 
-                    </View> 
-                )} 
-            </Pressable> 
-        </Animated.View> 
-    ); 
-}; 
- 
- 
-// Styles 
-const styles = StyleSheet.create({ 
-    button:{ 
-        height: 35, 
-        paddingHorizontal: spacing.xxxl, 
-        borderRadius: radius.xs, 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        gap: 8, 
-    }, 
-    whiteButton: { 
-        backgroundColor: colors.background, 
-    }, 
-    whiteText: { 
-        fontSize: 14, 
-        fontWeight: '400', 
-        color: colors.text, 
-    }, 
-    gradientText:{ 
-        color: colors.background, 
-        fontWeight: '700' 
-    }, 
-    arrowContainer:{ 
-        width:45, 
-        height:45, 
-        display:'flex', 
-        alignItems:'center', 
-        justifyContent:'center', 
-        borderRadius: radius.round, 
-    }, 
-    content: { 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        gap: 6 
-    }, 
-    disabled: { 
-        opacity: 0.65, 
-        elevation: 0, 
-        shadowOpacity: 0 
-    } 
-})
+import { ActivityIndicator, Animated, Pressable, StyleSheet, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import Ionicons from '@react-native-vector-icons/ionicons';
+
+import { colors, metrics } from '../styles/theme';
+import { usePressScale } from '../hooks/animations/usePressScale';
+import AppText from './AppText';
+
+
+// Types
+type ButtonType = 'white' | 'plain' | 'gradient' | 'arrowRight' | 'arrowLeft';
+type Props = {
+  loading?: boolean;
+  onPress: () => void;
+  label?: string;
+  icon?: any;
+  loadingLabel?: string;
+  style?: any;
+  textStyle?: any;
+  type: ButtonType;
+};
+
+
+// Constants
+const GRADIENT_TYPES: ButtonType[] = ['gradient', 'arrowRight', 'arrowLeft'];
+const ARROW_ICON: Partial<Record<ButtonType, string>> = {
+  arrowRight: 'arrow-forward',
+  arrowLeft: 'arrow-back',
+};
+
+
+// Button
+export default function Button({ loading, onPress, label = 'Submit', loadingLabel = 'Submitting...', style, textStyle, icon, type }: Props) {
+
+
+    // State
+    const { scale, onPressIn, onPressOut } = usePressScale();
+    const isGradient = GRADIENT_TYPES.includes(type);
+    const isArrow = type === 'arrowRight' || type === 'arrowLeft';
+
+
+    // Animation
+    const handlePressIn = () => !loading && onPressIn();
+    const handlePressOut = () => !loading && onPressOut();
+
+
+    // Gradient / arrow buttons
+    if (isGradient) {
+        return (
+        <Animated.View style={{ transform: [{ scale }] }}>
+            <Pressable onPress={onPress} onPressIn={handlePressIn} onPressOut={handlePressOut} disabled={loading}>
+            <LinearGradient
+                colors={[colors.gradientStart, colors.gradientEnd]}
+                start={{ x: 0, y: 0.5 }}
+                end={{ x: 1, y: 0.5 }}
+                style={[isArrow ? styles.arrowContainer : styles.button, loading && styles.disabled, style]}
+            >
+                {loading ? (
+                <ActivityIndicator color="#FFFFFF" size="small" />
+                ) : isArrow ? (
+                <Ionicons name={ARROW_ICON[type] as any} size={20} color="#fff" />
+                ) : (
+                <View style={styles.content}>
+                    <AppText variant="text" style={[styles.gradientText, textStyle]}>
+                    {label}
+                    </AppText>
+                    {icon}
+                </View>
+                )}
+            </LinearGradient>
+            </Pressable>
+        </Animated.View>
+        );
+    }
+
+
+    // White / plain buttons
+    const variantButtonStyle = type === 'white' ? styles.whiteButton : styles.plainButton;
+    const variantTextStyle = type === 'white' ? styles.whiteText : styles.plainText;
+
+    return (
+        <Animated.View style={{ transform: [{ scale }] }}>
+            <Pressable
+                style={[styles.button, variantButtonStyle, loading && styles.disabled, style]}
+                onPress={onPress}
+                onPressIn={handlePressIn}
+                onPressOut={handlePressOut}
+                disabled={loading}
+            >
+                {loading ? (
+                    <>
+                        <ActivityIndicator color={type === 'white' ? colors.text : colors.primary} size="small" />
+                        <AppText variant="text" style={[variantTextStyle, textStyle]}>
+                            {loadingLabel}
+                        </AppText>
+                    </>
+                ) : (
+                    <View style={styles.content}>
+                        <AppText variant="text" style={[variantTextStyle, textStyle]}>
+                            {label}
+                        </AppText>
+                        {icon}
+                    </View>
+                )}
+            </Pressable>
+        </Animated.View>
+    );
+}
+
+
+// Styles
+const styles = StyleSheet.create({
+    button: {
+        height: 35,
+        paddingHorizontal: metrics.xxxl,
+        borderRadius: metrics.xs,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: metrics.sm,
+    },
+    whiteButton: {
+        backgroundColor: colors.white,
+    },
+    plainButton: {
+        paddingHorizontal: metrics.md,
+        backgroundColor: 'transparent',
+    },
+    whiteText: {
+        color: colors.text,
+    },
+    plainText: {
+        color: colors.primary,
+    },
+    gradientText: {
+        color: colors.white,
+    },
+    arrowContainer: {
+        width: 45,
+        height: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: metrics.round,
+    },
+    content: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 6,
+    },
+    disabled: {
+        opacity: 0.65,
+        elevation: 0,
+        shadowOpacity: 0,
+    },
+});

@@ -1,26 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
     Image,
-    StyleSheet,
-    Animated,
-    Easing,
+    StyleSheet
 } from 'react-native';
 
-import {
-    colors,
-    typography,
-    spacing,
-    radius,
-    fonts,
-} from '../../styles/theme';
+import { colors, metrics } from '../../styles/theme';
 import BackgroundScreen from '../../components/BackgroundScreen';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import toast from '../../lib/toast';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../navigation/AuthStack';
+import AppText from '../../components/AppText';
 
 
 // Types
@@ -74,37 +67,6 @@ export default function ContinueAsScreen({ navigation }: Props) {
     const [selected, setSelected] = useState<OptionKey | null>(null);
 
 
-    // Animation
-    const cardAnims = useRef(OPTIONS.map(() => new Animated.Value(0))).current;
-    const buttonAnim = useRef(new Animated.Value(0)).current;
-    useEffect(() => {
-        const cardAnimations = cardAnims.map((anim) =>
-            Animated.timing(anim, {
-                toValue: 1,
-                duration: 420,
-                easing: Easing.out(Easing.cubic),
-                useNativeDriver: true,
-            }),
-        );
-
-        Animated.sequence([
-            Animated.stagger(200, cardAnimations),
-
-            Animated.timing(buttonAnim, {
-                toValue: 1,
-                duration: 300,
-                easing: Easing.out(Easing.cubic),
-                useNativeDriver: true,
-            }),
-        ]).start();
-
-        return () => {
-            cardAnims.forEach((anim) => anim.stopAnimation());
-            buttonAnim.stopAnimation();
-        };
-    }, []);
-
-
     // Handle continue
     const handleContinue = () => {
         if (!selected) {
@@ -127,92 +89,47 @@ export default function ContinueAsScreen({ navigation }: Props) {
                 <View style={styles.list}>
                     {OPTIONS.map((option, index) => {
                         const isSelected = selected === option.key;
-                        const anim = cardAnims[index];
-
                         return (
-                            <Animated.View
-                                key={option.key}
-                                style={[
-                                    styles.animatedCard,
-                                    {
-                                        opacity: anim,
-                                        transform: [
-                                            {
-                                                translateX: anim.interpolate({
-                                                    inputRange: [0, 1],
-                                                    outputRange: [400, 0],
-                                                }),
-                                            },
-                                            {
-                                                scale: anim.interpolate({
-                                                    inputRange: [0, 1],
-                                                    outputRange: [0.94, 1],
-                                                }),
-                                            },
-                                        ],
-                                    },
-                                ]}
+                            <Card
+                                key={index}
+                                contentStyle={styles.cardContent}
+                                onPress={() => setSelected(option.key)}
                             >
-                                <Card
-                                    contentStyle={styles.cardContent}
-                                    onPress={() => setSelected(option.key)}
-                                >
-                                    <View style={styles.iconCircle}>
-                                        <Image
-                                            source={option.icon}
-                                            style={styles.icon}
-                                            resizeMode="contain"
+                                <View style={styles.iconCircle}>
+                                    <Image
+                                        source={option.icon}
+                                        style={styles.icon}
+                                        resizeMode="contain"
+                                    />
+                                </View>
+
+                                <View style={styles.textBlock}>
+                                    <View style={styles.titleRow}>
+                                        <AppText variant='h2'>
+                                            {option.title}
+                                        </AppText>
+
+                                        <StatusDot
+                                            selected={isSelected}
                                         />
                                     </View>
 
-                                    <View style={styles.textBlock}>
-                                        <View style={styles.titleRow}>
-                                            <Text style={styles.optionTitle}>
-                                                {option.title}
-                                            </Text>
-
-                                            <StatusDot
-                                                selected={isSelected}
-                                            />
-                                        </View>
-
-                                        <Text style={styles.description}>
-                                            {option.description}
-                                        </Text>
-                                    </View>
-                                </Card>
-                            </Animated.View>
+                                    <AppText variant='text'>
+                                        {option.description}
+                                    </AppText>
+                                </View>
+                            </Card>
                         );
                     })}
                 </View>
             </View>
 
-            <Animated.View
-                style={{
-                    opacity: buttonAnim,
-                    transform: [
-                        {
-                            translateX: buttonAnim.interpolate({
-                                inputRange: [0, 1],
-                                outputRange: [80, 0],
-                            }),
-                        },
-                        {
-                            scale: buttonAnim.interpolate({
-                                inputRange: [0, 1],
-                                outputRange: [0.85, 1],
-                            }),
-                        },
-                    ],
-                }}
-            >
-                <View style={styles.fabWrapper}>
-                    <Button
-                        type="arrowRight"
-                        onPress={handleContinue}
-                    />
-                </View>
-            </Animated.View>
+            <View style={styles.fabWrapper}>
+                <Button
+                    type="arrowRight"
+                    onPress={handleContinue}
+                />
+            </View>
         </BackgroundScreen>
     );
 }
@@ -239,15 +156,15 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 22,
         color: colors.text,
-        marginTop: spacing.xxxl,
-        marginBottom: spacing.xl,
+        marginTop: metrics.xxxl,
+        marginBottom: metrics.xl,
     },
 
     list: {
-        gap: spacing.lg,
+        gap: metrics.lg,
     },
 
     animatedCard: {
@@ -262,11 +179,11 @@ const styles = StyleSheet.create({
     iconCircle: {
         width: 76,
         height: 76,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: '#e0e0e0',
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: spacing.lg,
+        marginRight: metrics.lg,
     },
 
     icon: {
@@ -285,29 +202,29 @@ const styles = StyleSheet.create({
     },
 
     optionTitle: {
-        ...typography.title,
+        // ...typography.title,
         fontSize: 17,
         color: colors.text,
         letterSpacing: 0.3,
     },
 
     description: {
-        ...typography.description,
-        fontFamily: fonts.semiBold,
+        // ...typography.description,
+        // fontFamily: fonts.semiBold,
         maxWidth: 210,
     },
 
     checkCircle: {
         width: 26,
         height: 26,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.success,
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     checkMark: {
-        color: colors.background,
+        color: colors.white,
         fontSize: 14,
         fontWeight: '700',
     },
@@ -315,13 +232,13 @@ const styles = StyleSheet.create({
     radioCircle: {
         width: 24,
         height: 24,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         borderWidth: 1.5,
         borderColor: colors.border,
     },
 
     fabWrapper: {
-        marginTop: spacing.xxxl,
+        marginTop: metrics.xxxl,
         alignItems: 'center',
     },
 });

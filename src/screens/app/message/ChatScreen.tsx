@@ -14,7 +14,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../../components/Header';
-import { colors, radius, spacing } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 
 type Message = {
     id: string;
@@ -227,7 +227,7 @@ export default function ChatScreen({
                                 <Ionicons
                                     name="send"
                                     size={20}
-                                    color={colors.background}
+                                    color={colors.white}
                                 />
                             </Pressable>
                         </Animated.View>
@@ -241,7 +241,7 @@ export default function ChatScreen({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
     },
 
     flex: {
@@ -250,16 +250,16 @@ const styles = StyleSheet.create({
 
     messageList: {
         flexGrow: 1,
-        padding: spacing.xl,
-        gap: spacing.md,
-        paddingBottom: spacing.xl + 70,
+        padding: metrics.xl,
+        gap: metrics.md,
+        paddingBottom: metrics.xl + 70,
     },
 
     bubble: {
         maxWidth: '80%',
-        borderRadius: radius.lg,
-        paddingHorizontal: spacing.lg,
-        paddingVertical: spacing.md,
+        borderRadius: metrics.lg,
+        paddingHorizontal: metrics.lg,
+        paddingVertical: metrics.md,
     },
 
     bubbleReceived: {
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
 
     bubbleTextSent: {
         fontSize: 15,
-        color: colors.background,
+        color: colors.white,
     },
 
     inputContainer: {
@@ -287,16 +287,16 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: colors.background,
+        backgroundColor: colors.white,
     },
 
     inputRow: {
         flexDirection: 'row',
         alignItems: 'flex-end',
-        paddingHorizontal: spacing.xl,
-        paddingTop: spacing.sm,
-        paddingBottom: spacing.xl,
-        gap: spacing.md,
+        paddingHorizontal: metrics.xl,
+        paddingTop: metrics.sm,
+        paddingBottom: metrics.xl,
+        gap: metrics.md,
     },
 
     input: {
@@ -305,9 +305,9 @@ const styles = StyleSheet.create({
         maxHeight: 100,
         borderWidth: 1,
         borderColor: colors.border,
-        borderRadius: radius.round,
-        paddingHorizontal: spacing.lg,
-        paddingVertical: spacing.md,
+        borderRadius: metrics.round,
+        paddingHorizontal: metrics.lg,
+        paddingVertical: metrics.md,
         fontSize: 15,
         color: colors.text,
     },
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     sendButton: {
         width: 50,
         height: 50,
-        borderRadius: radius.round,
+        borderRadius: metrics.round,
         backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center',

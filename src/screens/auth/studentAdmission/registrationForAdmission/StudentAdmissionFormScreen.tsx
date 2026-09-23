@@ -21,14 +21,13 @@ import FormSection from '../../../../components/form/FormSection';
 import SubmitButton from '../../../../components/Button';
 import { admissionSchema, AdmissionFormData } from '../../../../lib/zodSchemas/admissionFormSchema';
 import { formStyles as styles } from '../../../../styles/common';
-import CustomStatusBar from '../../../../components/CustomStatusBar';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../../../navigation/AuthStack';
 import Button from '../../../../components/Button';
 import Header from '../../../../components/Header';
 import FloatingModal from '../../../../components/FloatingModal';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { colors, spacing } from '../../../../styles/theme';
+import { colors, metrics } from '../../../../styles/theme';
 import { addMyAdmissionNumber, saveStudentRecord } from '../../../../lib/localDB';
 
 
@@ -324,20 +323,20 @@ export default function StudentAdmissionFormScreen({ navigation, route }: Props)
 const successStyles = StyleSheet.create({
     header: {
         alignItems: 'center',
-        marginBottom: spacing.xl,
+        marginBottom: metrics.xl,
     },
     title: {
         fontSize: 19,
         fontWeight: '800',
         color: colors.success,
-        marginTop: spacing.md,
-        marginBottom: spacing.sm,
+        marginTop: metrics.md,
+        marginBottom: metrics.sm,
     },
     subtitle: {
         fontSize: 14,
         color: colors.textSecondary,
         textAlign: 'center',
-        marginBottom: spacing.md,
+        marginBottom: metrics.md,
     },
     admissionId: {
         fontSize: 15,

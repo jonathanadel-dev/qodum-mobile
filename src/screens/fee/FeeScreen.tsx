@@ -1,11 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
-    Animated,
     Image,
-    Pressable,
     ScrollView,
     StyleSheet,
-    Text,
     TextInput,
     View,
 } from 'react-native';
@@ -16,6 +13,7 @@ import Header from '../../components/Header';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import Dropdown, { DropdownOption } from '../../components/Dropdown';
+import SegmentedTabs from '../../components/SegmentedTabs';
 import { colors, metrics } from '../../styles/theme';
 import AppText from '../../components/AppText';
 
@@ -46,7 +44,6 @@ const YEAR_OPTIONS: DropdownOption[] = [
     { label: '2023-2024', value: '2023-2024' },
 ];
 
-// Receipt type — extended
 type Receipt = {
     id: string;
     date: string;
@@ -65,7 +62,6 @@ type Receipt = {
     };
 };
 
-// RECEIPTS — extended with the new fields
 const RECEIPTS: Receipt[] = [
     {
         id: 'r1',
@@ -121,188 +117,149 @@ const RECEIPTS: Receipt[] = [
 ];
 
 export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
+    const [activeTab, setActiveTab] = useState<Tab>('pay');
+    const [mobile, setMobile] = useState('9889123450');
+    const [email, setEmail] = useState('abc@gmail.com');
+    const [feeType, setFeeType] = useState<string | null>('exam');
+    const [installment, setInstallment] = useState<string | null>(null);
+    const [year, setYear] = useState<string | null>('2024-2025');
 
-  // State
-  const [activeTab, setActiveTab] = useState<Tab>('pay');
-  const [containerWidth, setContainerWidth] = useState(0);
-  const slideAnim = useRef(new Animated.Value(0)).current;
+    const handlePayNow = () => {
+        // TODO: wire up real payment flow
+    };
+    const handleDownloadReceipt = () => {
+        // TODO: wire up real download
+    };
+    const handleViewReceipt = (receipt: Receipt) => {
+        navigation.navigate('FeeDetails', { receipt, student: STUDENT });
+    };
+    const handleDownloadReceiptRow = (receipt: Receipt) => {
+        // TODO: wire up real download
+    };
 
-  const [mobile, setMobile] = useState('9889123450');
-  const [email, setEmail] = useState('abc@gmail.com');
-  const [feeType, setFeeType] = useState<string | null>('exam');
-  const [installment, setInstallment] = useState<string | null>(null);
-  const [year, setYear] = useState<string | null>('2024-2025');
+    return (
+        <View style={styles.container}>
+            <Header navigation={navigation} title="Fee" isStack />
 
-  const pillWidth = containerWidth ? containerWidth / 2 : 0;
+            <SegmentedTabs
+                options={[
+                    { label: 'Pay', value: 'pay' },
+                    { label: 'Receipt', value: 'receipt' },
+                ]}
+                value={activeTab}
+                onChange={setActiveTab}
+                style={styles.tabsContainer}
+            />
 
+            {activeTab === 'pay' ? (
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+                    <Card contentStyle={styles.studentCardContent}>
+                        <Image source={{ uri: STUDENT_PHOTO }} style={styles.studentPhoto} />
 
-  // Handlers
-  const handleTabPress = (tab: Tab) => {
-    if (tab === activeTab) return;
-    setActiveTab(tab);
-    Animated.timing(slideAnim, {
-      toValue: tab === 'pay' ? 0 : 1,
-      duration: 260,
-      useNativeDriver: true,
-    }).start();
-};
-  const handlePayNow = () => {
-      // TODO: wire up real payment flow
-  };
-  const handleDownloadReceipt = () => {
-      // TODO: wire up real download
-  };
-  // handleViewReceipt — corrected route name, now passes student too
-  const handleViewReceipt = (receipt: Receipt) => {
-      navigation.navigate('FeeDetails', { receipt, student: STUDENT });
-  };
-  const handleDownloadReceiptRow = (receipt: Receipt) => {
-      // TODO: wire up real download
-  };
+                        <View style={styles.studentTextBlock}>
+                            <AppText variant="h3" style={styles.studentName}>{STUDENT.name}</AppText>
+                            <AppText variant="desc">Admission No. {STUDENT.admissionNo}</AppText>
+                        </View>
 
-  return (
-      <View style={styles.container}>
-          <Header navigation={navigation} title="Fee" isStack />
+                        <View style={styles.classPill}>
+                            <AppText variant="text" style={styles.classPillText}>Class {STUDENT.className}</AppText>
+                        </View>
+                    </Card>
 
-          <View
-              style={styles.tabsContainer}
-              onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
-          >
-              {containerWidth > 0 && (
-                  <Animated.View
-                      style={[
-                          styles.tabPill,
-                          {
-                              width: pillWidth,
-                              transform: [
-                                  {
-                                      translateX: slideAnim.interpolate({
-                                          inputRange: [0, 1],
-                                          outputRange: [0, pillWidth],
-                                      }),
-                                  },
-                              ],
-                          },
-                      ]}
-                  />
-              )}
+                    <AppText variant="h3" style={styles.fieldLabel}>Mobile</AppText>
+                    <View style={styles.textField}>
+                        <Ionicons name="call-outline" size={18} color={colors.textSecondary} style={styles.textFieldIcon} />
+                        <TextInput
+                            value={mobile}
+                            onChangeText={setMobile}
+                            keyboardType="phone-pad"
+                            style={styles.textFieldInput}
+                        />
+                    </View>
 
-              <Pressable style={styles.tabButton} onPress={() => handleTabPress('pay')}>
-                  <AppText style={[styles.tabText, activeTab === 'pay' && styles.tabTextActive]}>Pay</AppText>
-              </Pressable>
+                    <AppText variant="h3" style={styles.fieldLabel}>Email</AppText>
+                    <View style={styles.textField}>
+                        <Ionicons name="mail-outline" size={18} color={colors.textSecondary} style={styles.textFieldIcon} />
+                        <TextInput
+                            value={email}
+                            onChangeText={setEmail}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            style={styles.textFieldInput}
+                        />
+                    </View>
 
-              <Pressable style={styles.tabButton} onPress={() => handleTabPress('receipt')}>
-                  <AppText style={[styles.tabText, activeTab === 'receipt' && styles.tabTextActive]}>
-                      Receipt
-                  </AppText>
-              </Pressable>
-          </View>
+                    <AppText variant="h3" style={styles.fieldLabel}>Fees Type</AppText>
+                    <Dropdown
+                        options={FEE_TYPE_OPTIONS}
+                        value={feeType}
+                        onChange={setFeeType}
+                        placeholder="Select fee type"
+                        icon="create-outline"
+                    />
 
-          {activeTab === 'pay' ? (
-              <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                  <Card contentStyle={styles.studentCardContent}>
-                      <Image source={{ uri: STUDENT_PHOTO }} style={styles.studentPhoto} />
+                    <AppText variant="h3" style={styles.fieldLabel}>Installment</AppText>
+                    <Dropdown
+                        options={INSTALLMENT_OPTIONS}
+                        value={installment}
+                        onChange={setInstallment}
+                        placeholder="None Selected"
+                        icon="create-outline"
+                    />
 
-                      <View style={styles.studentTextBlock}>
-                          <AppText style={styles.studentName}>{STUDENT.name}</AppText>
-                          <AppText style={styles.studentAdmission}>Admission No. {STUDENT.admissionNo}</AppText>
-                      </View>
+                    <Button
+                        type="gradient"
+                        label="Pay Now"
+                        onPress={handlePayNow}
+                        style={styles.payNowButton}
+                    />
 
-                      <View style={styles.classPill}>
-                          <AppText style={styles.classPillText}>Class {STUDENT.className}</AppText>
-                      </View>
-                  </Card>
+                    <Button
+                        type="plain"
+                        label="Download Receipt"
+                        onPress={handleDownloadReceipt}
+                        style={styles.downloadReceiptButton}
+                        textStyle={styles.downloadReceiptText}
+                    />
+                </ScrollView>
+            ) : (
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+                    <AppText variant="h3" style={styles.fieldLabel}>Select Year</AppText>
+                    <Dropdown
+                        options={YEAR_OPTIONS}
+                        value={year}
+                        onChange={setYear}
+                        placeholder="Select year"
+                        icon="calendar-outline"
+                    />
 
-                  <AppText style={styles.fieldLabel}>Mobile</AppText>
-                  <View style={styles.textField}>
-                      <Ionicons name="call-outline" size={18} color={colors.textSecondary} style={styles.textFieldIcon} />
-                      <TextInput
-                          value={mobile}
-                          onChangeText={setMobile}
-                          keyboardType="phone-pad"
-                          style={styles.textFieldInput}
-                      />
-                  </View>
+                    <View style={styles.receiptList}>
+                        {RECEIPTS.map((receipt) => (
+                            <Card key={receipt.id} contentStyle={styles.receiptCardContent}>
+                                <View style={styles.receiptTopRow}>
+                                    <AppText variant="h3" style={styles.receiptDate}>{receipt.date}</AppText>
+                                    <AppText variant="desc">Class: {receipt.className}</AppText>
+                                </View>
 
-                  <AppText style={styles.fieldLabel}>Email</AppText>
-                  <View style={styles.textField}>
-                      <Ionicons name="mail-outline" size={18} color={colors.textSecondary} style={styles.textFieldIcon} />
-                      <TextInput
-                          value={email}
-                          onChangeText={setEmail}
-                          keyboardType="email-address"
-                          autoCapitalize="none"
-                          style={styles.textFieldInput}
-                      />
-                  </View>
+                                <View style={styles.receiptDivider} />
 
-                  <AppText style={styles.fieldLabel}>Fees Type</AppText>
-                  <Dropdown
-                      options={FEE_TYPE_OPTIONS}
-                      value={feeType}
-                      onChange={setFeeType}
-                      placeholder="Select fee type"
-                      icon="create-outline"
-                  />
+                                <View style={styles.receiptRow}>
+                                    <AppText variant="h3" style={styles.receiptLabel}>
+                                        Receipt No: <AppText variant="desc">{receipt.receiptNo}</AppText>
+                                    </AppText>
+                                    <AppText variant="h3" style={styles.receiptLabel}>
+                                        Payment Mode: <AppText variant="desc">{receipt.paymentMode}</AppText>
+                                    </AppText>
+                                </View>
 
-                  <AppText style={styles.fieldLabel}>Installment</AppText>
-                  <Dropdown
-                      options={INSTALLMENT_OPTIONS}
-                      value={installment}
-                      onChange={setInstallment}
-                      placeholder="None Selected"
-                      icon="create-outline"
-                  />
+                                <AppText variant="h3" style={styles.receiptLabel}>
+                                    Paid Amount: <AppText variant="desc">{receipt.paidAmount}</AppText>
+                                </AppText>
+                                <AppText variant="h3" style={styles.receiptLabel}>
+                                    Installment: <AppText variant="desc">{receipt.installment}</AppText>
+                                </AppText>
 
-                  <Button
-                      type="gradient"
-                      label="Pay Now"
-                      onPress={handlePayNow}
-                      style={styles.payNowButton}
-                  />
-
-                  <Button
-                      type="plain"
-                      label="Download Receipt"
-                      onPress={handleDownloadReceipt}
-                      style={styles.downloadReceiptButton}
-                      textStyle={styles.downloadReceiptText}
-                  />
-              </ScrollView>
-          ) : (
-              <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-                  <AppText style={styles.fieldLabel}>Select Year</AppText>
-                  <Dropdown
-                      options={YEAR_OPTIONS}
-                      value={year}
-                      onChange={setYear}
-                      placeholder="Select year"
-                      icon="calendar-outline"
-                  />
-
-                  <View style={styles.receiptList}>
-                      {RECEIPTS.map((receipt) => (
-                          <Card key={receipt.id} contentStyle={styles.receiptCardContent}>
-                              <View style={styles.receiptTopRow}>
-                                  <AppText style={styles.receiptDate}>{receipt.date}</AppText>
-                                  <AppText style={styles.receiptClass}>Class: {receipt.className}</AppText>
-                              </View>
-
-                              <View style={styles.receiptDivider} />
-
-                              <View style={styles.receiptRow}>
-                                  <AppText style={styles.receiptLabel}>Receipt No: <AppText style={styles.receiptValue}>{receipt.receiptNo}</AppText></AppText>
-                                  <AppText style={styles.receiptLabel}>Payment Mode: <AppText style={styles.receiptValue}>{receipt.paymentMode}</AppText></AppText>
-                              </View>
-
-                              <AppText style={styles.receiptLabel}>
-                                  Paid Amount: <AppText style={styles.receiptValue}>{receipt.paidAmount}</AppText>
-                              </AppText>
-                              <AppText style={styles.receiptLabel}>
-                                  Installment: <AppText style={styles.receiptValue}>{receipt.installment}</AppText>
-                              </AppText>
-
-                              <View style={styles.receiptActions}>
+                                <View style={styles.receiptActions}>
                                     <Button
                                         type="gradient"
                                         label="View"
@@ -317,51 +274,22 @@ export default function FeeScreen({ navigation }: NativeStackScreenProps<any>) {
                                         onPress={() => handleDownloadReceiptRow(receipt)}
                                         style={styles.receiptActionButton}
                                     />
-                              </View>
-                          </Card>
-                      ))}
-                  </View>
-              </ScrollView>
-          )}
-      </View>
-  );
+                                </View>
+                            </Card>
+                        ))}
+                    </View>
+                </ScrollView>
+            )}
+        </View>
+    );
 }
-
-
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.white, paddingBottom: metrics.xxxl },
     tabsContainer: {
-        flexDirection: 'row',
-        position: 'relative',
-        backgroundColor: colors.grayBackground,
-        borderRadius: metrics.round,
         marginHorizontal: metrics.xl,
         marginTop: metrics.xl,
         marginBottom: metrics.lg,
-        height: 52,
-        overflow: 'hidden',
-    },
-    tabPill: {
-        position: 'absolute',
-        top: 4,
-        left: 4,
-        bottom: 4,
-        backgroundColor: colors.primary,
-        borderRadius: metrics.round,
-    },
-    tabButton: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    tabText: {
-        fontSize: 15,
-        color: colors.textSecondary,
-    },
-    tabTextActive: {
-        color: colors.white,
-        fontWeight: '700',
     },
     scrollContent: {
         paddingHorizontal: metrics.xl,
@@ -382,12 +310,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     studentName: {
-        // ...typography.title,
         fontSize: 16,
         marginBottom: 2,
-    },
-    studentAdmission: {
-        // ...typography.description,
     },
     classPill: {
         backgroundColor: colors.grayBackground,
@@ -397,13 +321,10 @@ const styles = StyleSheet.create({
     },
     classPillText: {
         fontSize: 13,
-        fontWeight: '600',
         color: colors.textSecondary,
     },
     fieldLabel: {
         fontSize: 15,
-        fontWeight: '700',
-        color: colors.text,
         marginTop: metrics.sm,
     },
     textField: {
@@ -453,12 +374,7 @@ const styles = StyleSheet.create({
     },
     receiptDate: {
         fontSize: 15,
-        fontWeight: '700',
         color: colors.primary,
-    },
-    receiptClass: {
-        fontSize: 13,
-        color: colors.textSecondary,
     },
     receiptDivider: {
         height: 1,
@@ -472,22 +388,16 @@ const styles = StyleSheet.create({
     },
     receiptLabel: {
         fontSize: 13,
-        fontWeight: '700',
         color: colors.text,
     },
-    receiptValue: {
-        fontWeight: '400',
-        color: colors.textSecondary,
+    receiptActions: {
+        flexDirection: 'row',
+        gap: metrics.sm,
+        marginTop: metrics.md,
     },
-receiptActions: {
-    flexDirection: 'row',
-    gap: metrics.sm,
-    marginTop: metrics.md,
-},
-
-receiptActionButton: {
-    flex: 1,
-    height: 44,
-    borderRadius: metrics.md,
-},
+    receiptActionButton: {
+        flex: 1,
+        height: 44,
+        borderRadius: metrics.md,
+    },
 });

@@ -1,3 +1,4 @@
+// src/screens/auth/BusStoppageScreen.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import {
     Animated,
@@ -5,7 +6,6 @@ import {
     Image,
     ScrollView,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,18 +17,15 @@ import BackgroundScreen from '../../../components/BackgroundScreen';
 import RouteSelectorButton from '../../../components/busStoppage/RouteSelectorButton';
 import RoutesModal, { ROUTES, RouteType } from '../../../components/busStoppage/RoutesModal';
 import AppText from '../../../components/AppText';
+import { useAnimatedListener } from '../../../hooks/animations/useAnimatedListener';
 
-
-// Type
 type Props = NativeStackScreenProps<AuthStackParamList, 'BusStoppage'>;
 
-
-// Bus stoppage
 export default function BusStoppageScreen({ navigation }: Props) {
     const [isSelectRoute, setIsSelectRoute] = useState(false);
     const [selectedRoute, setSelectedRoute] = useState<RouteType>(ROUTES[0]);
     const [currentStopIndex, setCurrentStopIndex] = useState(0);
-    
+
     const busPositionY = useRef(new Animated.Value(0)).current;
     const busOpacity = useRef(new Animated.Value(0)).current;
     const routeProgress = useRef(new Animated.Value(0)).current;
@@ -61,22 +58,20 @@ export default function BusStoppageScreen({ navigation }: Props) {
         });
     };
 
-    useEffect(() => {
-        const listener = routeProgress.addListener(({ value }) => {
+    useAnimatedListener(
+        routeProgress,
+        (value) => {
             const newPosition = value * routeLength;
             busPositionY.setValue(newPosition);
-            
+
             const stopIndex = Math.min(
                 Math.floor(value * (selectedRoute.stops.length - 1)),
-                selectedRoute.stops.length - 1
+                selectedRoute.stops.length - 1,
             );
             setCurrentStopIndex(stopIndex);
-        });
-
-        return () => {
-            routeProgress.removeListener(listener);
-        };
-    }, [routeLength, selectedRoute.stops.length]);
+        },
+        [routeLength, selectedRoute.stops.length],
+    );
 
     const handleRouteSelect = (route: RouteType) => {
         setSelectedRoute(route);
@@ -107,7 +102,7 @@ export default function BusStoppageScreen({ navigation }: Props) {
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                 >
-                    <View 
+                    <View
                         key={selectedRoute.id}
                         style={[styles.journeyContainer, { height: containerHeight }]}
                     >
@@ -118,7 +113,7 @@ export default function BusStoppageScreen({ navigation }: Props) {
                             const reached = isStopReached(index);
                             const isLeft = index % 2 === 0;
                             const showPin = !isLastStop(index);
-                            
+
                             return (
                                 <Animated.View
                                     key={index}
@@ -128,12 +123,12 @@ export default function BusStoppageScreen({ navigation }: Props) {
                                             top: getStopPosition(index),
                                             opacity: isVisible ? 1 : 0,
                                             transform: [{ scale: isVisible ? 1 : 0.85 }],
-                                        }
+                                        },
                                     ]}
                                 >
                                     <View style={[
                                         styles.buttonAnchor,
-                                        isLeft ? styles.buttonLeft : styles.buttonRight
+                                        isLeft ? styles.buttonLeft : styles.buttonRight,
                                     ]}>
                                         {reached ? (
                                             <LinearGradient
@@ -142,7 +137,7 @@ export default function BusStoppageScreen({ navigation }: Props) {
                                                 end={{ x: 1, y: 0.5 }}
                                                 style={styles.stopButton}
                                             >
-                                                <AppText style={styles.stopTextReached} numberOfLines={1} ellipsizeMode="tail">
+                                                <AppText variant="h3" style={styles.stopTextReached} numberOfLines={1} ellipsizeMode="tail">
                                                     {stop}
                                                 </AppText>
                                             </LinearGradient>
@@ -153,13 +148,13 @@ export default function BusStoppageScreen({ navigation }: Props) {
                                                 end={{ x: 1, y: 0.5 }}
                                                 style={styles.stopButton}
                                             >
-                                                <AppText style={styles.stopText} numberOfLines={1} ellipsizeMode="tail">
+                                                <AppText variant="text" style={styles.stopText} numberOfLines={1} ellipsizeMode="tail">
                                                     {stop}
                                                 </AppText>
                                             </LinearGradient>
                                         )}
                                     </View>
-                                    
+
                                     {showPin && (
                                         <View style={styles.pinContainer}>
                                             <View style={styles.pin} />
@@ -199,11 +194,9 @@ export default function BusStoppageScreen({ navigation }: Props) {
     );
 }
 
-
-// Styles
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     routeSelectorContainer: {
         marginBottom: metrics.xl,
@@ -253,7 +246,7 @@ const styles = StyleSheet.create({
     stopButton: {
         width: '100%',
         height: '100%',
-        borderRadius: 20,
+        borderRadius: metrics.xl,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10,
@@ -265,13 +258,11 @@ const styles = StyleSheet.create({
     },
     stopText: {
         fontSize: 13,
-        // fontFamily: fonts.medium,
         color: '#6B7280',
         textAlign: 'center',
     },
     stopTextReached: {
         fontSize: 13,
-        // fontFamily: fonts.semiBold,
         color: colors.white,
         textAlign: 'center',
     },

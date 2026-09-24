@@ -5,7 +5,6 @@ import {
     ScrollView,
     Share,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
@@ -23,12 +22,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import toast from '../../../lib/toast';
 import AppText from '../../../components/AppText';
 
-
-// Type
 type Props = NativeStackScreenProps<AuthStackParamList, 'AdmitCard'>;
 
-
-// Admit card
 const ADMIT_CARD = {
     schoolName: 'THE PILLAR PUBLIC SCHOOL',
     schoolAddress:
@@ -44,15 +39,12 @@ const ADMIT_CARD = {
         'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
 };
 
-
-// Instructions
 const INSTRUCTIONS = [
     'Candidates must report to the examination center at least 15 minutes before the exam time.',
     'Entry will not be allowed without a valid admit card.',
     'Mobile phones, smart watches, calculators, and electronic devices are strictly prohibited.',
     'Late entry after the reporting time will not be permitted.',
 ];
-
 
 // Splits a full file path into its directory and file name for display.
 function splitPath(fullPath: string) {
@@ -64,18 +56,12 @@ function splitPath(fullPath: string) {
     };
 }
 
-
-// Admit card screen
 export default function AdmitCardScreen({ navigation, route }: Props) {
-
-    // State
     const { schoolCode } = route.params || {};
     const cardRef = useRef<any>(null);
     const [downloading, setDownloading] = useState(false);
     const [successPath, setSuccessPath] = useState<string | null>(null);
 
-
-    // Handlers
     const handleShare = async () => {
         try {
             await Share.share({
@@ -232,7 +218,7 @@ export default function AdmitCardScreen({ navigation, route }: Props) {
                     <View style={styles.instructionList}>
                         {INSTRUCTIONS.map((instruction, index) => (
                             <View key={index} style={styles.instruction}>
-                                <AppText style={styles.bullet}>•</AppText>
+                                <AppText variant='text' style={styles.bullet}>•</AppText>
                                 <AppText variant='desc' style={styles.instructionText}>{instruction}</AppText>
                             </View>
                         ))}
@@ -264,9 +250,9 @@ export default function AdmitCardScreen({ navigation, route }: Props) {
                 </View>
 
                 <View style={styles.footer}>
-                    <AppText style={styles.footerLabel}>SCHOOL CODE</AppText>
+                    <AppText variant='text' style={styles.footerLabel}>SCHOOL CODE</AppText>
                     <View style={styles.footerDot} />
-                    <AppText style={styles.footerCode}>{schoolCode || '------'}</AppText>
+                    <AppText variant='text' style={styles.footerCode}>{schoolCode || '------'}</AppText>
                 </View>
             </ScrollView>
 
@@ -277,21 +263,21 @@ export default function AdmitCardScreen({ navigation, route }: Props) {
             >
                 <View style={styles.successHeaderRow}>
                     <Ionicons name="checkmark-circle" size={24} color={colors.success} />
-                    <AppText style={styles.successTitle}>Download Successful</AppText>
+                    <AppText variant='h2' style={styles.successTitle}>Download Successful</AppText>
                 </View>
 
                 {successParts && (
                     <>
-                        <AppText style={styles.successBody}>Saved in: {successParts.dir}</AppText>
-                        <AppText style={styles.successFileName}>{successParts.name}</AppText>
+                        <AppText variant='desc' style={styles.successBody}>Saved in: {successParts.dir}</AppText>
+                        <AppText variant='h2' style={styles.successFileName}>{successParts.name}</AppText>
                     </>
                 )}
 
                 <View style={styles.successActions}>
-                    <AppText style={styles.successAction} onPress={() => setSuccessPath(null)}>
+                    <AppText variant='h3' style={styles.successAction} onPress={() => setSuccessPath(null)}>
                         Ok
                     </AppText>
-                    <AppText style={[styles.successAction, styles.successActionPrimary]} onPress={handleOpenFile}>
+                    <AppText variant='h2' style={[styles.successAction, styles.successActionPrimary]} onPress={handleOpenFile}>
                         Open
                     </AppText>
                 </View>
@@ -300,8 +286,6 @@ export default function AdmitCardScreen({ navigation, route }: Props) {
     );
 }
 
-
-// Styles
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.white },
     scrollContent: {
@@ -322,8 +306,6 @@ const styles = StyleSheet.create({
         marginBottom: metrics.xl,
     },
     examItem: { flexDirection: 'row', alignItems: 'center' },
-    examLabel: { fontSize: 14, marginRight: 4 },
-    examValue: { fontSize: 14 },
     instructions: { marginBottom: metrics.xxl },
     instructionsTitle: {
         lineHeight: 21,
@@ -377,18 +359,15 @@ const styles = StyleSheet.create({
     },
     successTitle: {
         fontSize: 19,
-        // fontFamily: fonts.bold,
         color: colors.text,
     },
     successBody: {
         fontSize: 14,
-        // fontFamily: fonts.regular,
         color: colors.text,
         marginBottom: metrics.xs,
     },
     successFileName: {
         fontSize: 14,
-        // fontFamily: fonts.bold,
         color: colors.text,
         marginBottom: metrics.xl,
     },
@@ -399,10 +378,7 @@ const styles = StyleSheet.create({
     },
     successAction: {
         fontSize: 15,
-        // fontFamily: fonts.semiBold,
         color: colors.primary,
     },
-    successActionPrimary: {
-        // fontFamily: fonts.bold,
-    },
+    successActionPrimary: {},
 });

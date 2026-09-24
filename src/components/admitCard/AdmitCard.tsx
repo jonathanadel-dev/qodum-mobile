@@ -2,14 +2,11 @@ import React from 'react';
 import {
     Image,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
 import { colors, metrics } from '../../styles/theme';
 import AppText from '../AppText';
 
-
-// Types
 type Props = {
     schoolLogo: any;
     schoolName: string;
@@ -62,6 +59,7 @@ export default function AdmitCard({
                     </AppText>
 
                     <AppText
+                        variant="desc"
                         style={styles.schoolAddress}
                         numberOfLines={2}
                     >
@@ -255,7 +253,7 @@ const styles = StyleSheet.create({
         paddingRight: 100,
     },
     detail: {
-        marginBottom: 8,
+        marginBottom: metrics.sm,
     },
     detailLabel: {
         fontSize: 15,
@@ -285,7 +283,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 19,
         color: colors.text,
-        marginRight: 4,
+        marginRight: metrics.xs,
     },
     inlineValue: {
         fontSize: 14,

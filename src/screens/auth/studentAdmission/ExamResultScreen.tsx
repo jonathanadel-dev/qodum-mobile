@@ -1,24 +1,20 @@
+// src/screens/auth/ExamResultScreen.tsx
 import React from 'react';
 import {
     Image,
     ScrollView,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
 
-import { colors } from '../../../styles/theme';
+import { colors, metrics } from '../../../styles/theme';
 import { AuthStackParamList } from '../../../navigation/AuthStack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '../../../components/Header';
 import AppText from '../../../components/AppText';
 
-
-// Type
 type Props = NativeStackScreenProps<AuthStackParamList, 'ExamResult'>;
 
-
-// Mock result
 const EXAM_RESULT = {
     schoolName: 'THE PILLAR PUBLIC SCHOOL',
     schoolAddress: 'Rajendra Nagar, Sector 4 Ghaziabad,\nUttar Pradesh – 201001',
@@ -31,12 +27,10 @@ const EXAM_RESULT = {
     resultStatus: 'PASS',
 };
 
-
-// Exam result screen
 export default function ExamResultScreen({ navigation }: Props) {
     return (
         <View style={styles.container}>
-            <Header title="Exam Result" navigation={navigation}/>
+            <Header title="Exam Result" navigation={navigation} />
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -50,10 +44,10 @@ export default function ExamResultScreen({ navigation }: Props) {
                             resizeMode="contain"
                         />
                         <View style={styles.schoolTextContainer}>
-                            <AppText style={styles.schoolName} numberOfLines={1}>
+                            <AppText variant="h2" style={styles.schoolName} numberOfLines={1}>
                                 {EXAM_RESULT.schoolName}
                             </AppText>
-                            <AppText style={styles.schoolAddress}>
+                            <AppText variant="h3" style={styles.schoolAddress}>
                                 {EXAM_RESULT.schoolAddress}
                             </AppText>
                         </View>
@@ -62,42 +56,42 @@ export default function ExamResultScreen({ navigation }: Props) {
                     <View style={styles.divider} />
 
                     <View style={styles.row}>
-                        <AppText style={styles.label}>Student Name</AppText>
-                        <AppText style={styles.colon}>:</AppText>
-                        <AppText style={styles.value}>{EXAM_RESULT.studentName}</AppText>
+                        <AppText variant="h2" style={styles.label}>Student Name</AppText>
+                        <AppText variant="h2" style={styles.colon}>:</AppText>
+                        <AppText variant="desc" style={styles.value}>{EXAM_RESULT.studentName}</AppText>
                     </View>
 
                     <View style={styles.row}>
-                        <AppText style={styles.label}>Registration No</AppText>
-                        <AppText style={styles.colon}>:</AppText>
-                        <AppText style={styles.value}>{EXAM_RESULT.registrationNo}</AppText>
+                        <AppText variant="h2" style={styles.label}>Registration No</AppText>
+                        <AppText variant="h2" style={styles.colon}>:</AppText>
+                        <AppText variant="desc" style={styles.value}>{EXAM_RESULT.registrationNo}</AppText>
                     </View>
 
                     <View style={styles.row}>
-                        <AppText style={styles.label}>Class:</AppText>
-                        <AppText style={styles.colon}>:</AppText>
-                        <AppText style={styles.value}>{EXAM_RESULT.className}</AppText>
+                        <AppText variant="h2" style={styles.label}>Class</AppText>
+                        <AppText variant="h2" style={styles.colon}>:</AppText>
+                        <AppText variant="desc" style={styles.value}>{EXAM_RESULT.className}</AppText>
                     </View>
 
                     <View style={styles.divider} />
 
                     <View style={styles.row}>
-                        <AppText style={styles.label}>Maximum Marks</AppText>
-                        <AppText style={styles.colon}>:</AppText>
-                        <AppText style={styles.value}>{EXAM_RESULT.maximumMarks}</AppText>
+                        <AppText variant="h2" style={styles.label}>Maximum Marks</AppText>
+                        <AppText variant="h2" style={styles.colon}>:</AppText>
+                        <AppText variant="desc" style={styles.value}>{EXAM_RESULT.maximumMarks}</AppText>
                     </View>
 
                     <View style={styles.row}>
-                        <AppText style={styles.label}>Marks Obtained</AppText>
-                        <AppText style={styles.colon}>:</AppText>
-                        <AppText style={styles.value}>{EXAM_RESULT.marksObtained}</AppText>
+                        <AppText variant="h2" style={styles.label}>Marks Obtained</AppText>
+                        <AppText variant="h2" style={styles.colon}>:</AppText>
+                        <AppText variant="desc" style={styles.value}>{EXAM_RESULT.marksObtained}</AppText>
                     </View>
 
                     <View style={styles.divider} />
 
                     <View style={styles.statusRow}>
-                        <AppText style={styles.label}>Result Status</AppText>
-                        <AppText style={styles.passText}>{EXAM_RESULT.resultStatus}</AppText>
+                        <AppText variant="h2" style={styles.label}>Result Status</AppText>
+                        <AppText variant="h2" style={styles.passText}>{EXAM_RESULT.resultStatus}</AppText>
                     </View>
                 </View>
             </ScrollView>
@@ -105,25 +99,18 @@ export default function ExamResultScreen({ navigation }: Props) {
     );
 }
 
-
-// Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.admitCardBackground,
     },
-    header: {
-        paddingTop: 50,
-        paddingBottom: 20,
-        paddingHorizontal: 16,
-    },
     scrollContent: {
-        padding: 16,
+        padding: metrics.lg,
     },
     card: {
         borderWidth: 1,
         borderColor: '#999',
-        padding: 12,
+        padding: metrics.md,
     },
     schoolRow: {
         flexDirection: 'row',
@@ -135,17 +122,15 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     schoolTextContainer: {
-        flex: 1
+        flex: 1,
     },
     schoolName: {
         fontSize: 18,
-        // fontFamily: fonts.bold,
         color: colors.primary,
-        marginBottom: 4,
+        marginBottom: metrics.xs,
     },
     schoolAddress: {
         fontSize: 12,
-        // fontFamily: fonts.semiBold,
         color: colors.text,
         lineHeight: 16,
         textAlign: 'center',
@@ -162,19 +147,16 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
-        // fontFamily: fonts.bold,
         color: colors.text,
         width: 130,
     },
     colon: {
         fontSize: 14,
-        // fontFamily: fonts.bold,
         color: colors.text,
-        marginRight: 8,
+        marginRight: metrics.sm,
     },
     value: {
         fontSize: 14,
-        // fontFamily: fonts.regular,
         color: colors.text,
         flex: 1,
     },
@@ -182,11 +164,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 4,
+        marginTop: metrics.xs,
     },
     passText: {
         fontSize: 14,
-        // fontFamily: fonts.bold,
         color: '#28C76F',
     },
 });

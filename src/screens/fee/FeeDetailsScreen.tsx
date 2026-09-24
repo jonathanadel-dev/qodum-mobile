@@ -1,5 +1,6 @@
+// src/screens/dashboard/FeeDetailsScreen.tsx
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Header from '../../components/Header';
@@ -10,9 +11,13 @@ import { colors, metrics } from '../../styles/theme';
 function SummaryRow({ label, value, bold = false }: { label: string; value: string; bold?: boolean }) {
     return (
         <View style={styles.summaryRow}>
-            <AppText style={styles.summaryLabel}>{label}</AppText>
-            <AppText style={styles.summaryColon}>:</AppText>
-            <AppText style={[styles.summaryValue, bold && styles.summaryValueBold]} numberOfLines={2}>
+            <AppText variant="h3" style={styles.summaryLabel}>{label}</AppText>
+            <AppText variant="text" style={styles.summaryColon}>:</AppText>
+            <AppText
+                variant={bold ? 'h3' : 'text'}
+                style={[styles.summaryValue, bold && styles.summaryValueBold]}
+                numberOfLines={2}
+            >
                 {value}
             </AppText>
         </View>
@@ -57,39 +62,39 @@ export default function FeeDetailsScreen({ navigation, route }: NativeStackScree
                         />
 
                         <View style={styles.studentTextBlock}>
-                            <AppText style={styles.studentName}>{student.name}</AppText>
-                            <AppText style={styles.studentAdmission}>Admission No. {student.admissionNo}</AppText>
+                            <AppText variant="h3" style={styles.studentName}>{student.name}</AppText>
+                            <AppText variant="desc">Admission No. {student.admissionNo}</AppText>
                         </View>
 
                         <View style={styles.classPill}>
-                            <AppText style={styles.classPillText}>Class {student.className}</AppText>
+                            <AppText variant="text" style={styles.classPillText}>Class {student.className}</AppText>
                         </View>
                     </View>
 
                     <View style={styles.headerMetaRow}>
-                        <AppText style={styles.headerMetaText}>
-                            <AppText style={styles.headerMetaLabel}>Pay Date: </AppText>
+                        <AppText variant="text" style={styles.headerMetaText}>
+                            <AppText variant="h3" style={styles.headerMetaLabel}>Pay Date: </AppText>
                             {receipt.date}
                         </AppText>
-                        <AppText style={styles.headerMetaText}>
-                            <AppText style={styles.headerMetaLabel}>Paid Amt: </AppText>
+                        <AppText variant="text" style={styles.headerMetaText}>
+                            <AppText variant="h3" style={styles.headerMetaLabel}>Paid Amt: </AppText>
                             {receipt.paidAmount}
                         </AppText>
                     </View>
 
                     <View style={styles.headerMetaRow}>
-                        <AppText style={styles.headerMetaText}>
-                            <AppText style={styles.headerMetaLabel}>Receipt No: </AppText>
+                        <AppText variant="text" style={styles.headerMetaText}>
+                            <AppText variant="h3" style={styles.headerMetaLabel}>Receipt No: </AppText>
                             {receipt.receiptNo}
                         </AppText>
-                        <AppText style={styles.headerMetaText}>
-                            <AppText style={styles.headerMetaLabel}>Payment Mode: </AppText>
+                        <AppText variant="text" style={styles.headerMetaText}>
+                            <AppText variant="h3" style={styles.headerMetaLabel}>Payment Mode: </AppText>
                             {receipt.paymentMode}
                         </AppText>
                     </View>
                 </Card>
 
-                <AppText style={styles.sectionTitle}>Fee Summary</AppText>
+                <AppText variant="h2" style={styles.sectionTitle}>Fee Summary</AppText>
                 <Card contentStyle={styles.summaryCardContent}>
                     <SummaryRow label="Receipt No" value={receipt.receiptNo} />
                     <SummaryRow label="Amount Paid" value={receipt.paidAmount} />
@@ -100,7 +105,7 @@ export default function FeeDetailsScreen({ navigation, route }: NativeStackScree
                     <SummaryRow label="Transaction ID" value={receipt.transactionId} />
                 </Card>
 
-                <AppText style={styles.sectionTitle}>Amount Summary</AppText>
+                <AppText variant="h2" style={styles.sectionTitle}>Amount Summary</AppText>
                 <Card contentStyle={styles.summaryCardContent}>
                     <SummaryRow label="Tuition Fee" value={receipt.breakdown.tuitionFee} />
                     <SummaryRow label="Lab Fee" value={receipt.breakdown.labFee} />
@@ -138,12 +143,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     studentName: {
-        // ...typography.title,
         fontSize: 16,
         marginBottom: 2,
-    },
-    studentAdmission: {
-        // ...typography.description,
     },
     classPill: {
         backgroundColor: colors.iconBackground,
@@ -153,7 +154,6 @@ const styles = StyleSheet.create({
     },
     classPillText: {
         fontSize: 13,
-        fontWeight: '600',
         color: colors.textSecondary,
     },
     headerMetaRow: {
@@ -165,11 +165,10 @@ const styles = StyleSheet.create({
         color: colors.textSecondary,
     },
     headerMetaLabel: {
-        fontWeight: '700',
+        fontSize: 14,
         color: colors.text,
     },
     sectionTitle: {
-        // ...typography.title,
         fontSize: 19,
         marginTop: metrics.sm,
     },
@@ -182,8 +181,6 @@ const styles = StyleSheet.create({
     },
     summaryLabel: {
         fontSize: 15,
-        fontWeight: '700',
-        color: colors.text,
         width: 130,
     },
     summaryColon: {
@@ -197,7 +194,6 @@ const styles = StyleSheet.create({
         color: colors.textSecondary,
     },
     summaryValueBold: {
-        fontWeight: '700',
         color: colors.primary,
     },
 });

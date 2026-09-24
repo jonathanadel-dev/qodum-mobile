@@ -1,4 +1,3 @@
-// src/screens/auth/WelcomeScreen.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
@@ -49,6 +48,8 @@ const slides: Slide[] = [
     },
 ];
 
+
+// Welcome screen
 export default function WelcomeScreen({ navigation }: Props) {
     const AUTOPLAY_INTERVAL_MS = 3500;
     const [activeIndex, setActiveIndex] = useState(0);

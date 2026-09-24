@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+// src/screens/dashboard/HomeScreen.tsx
+import React, { useState } from 'react';
 import {
     Animated,
     Image,
     Pressable,
     ScrollView,
     StyleSheet,
-    Text,
     View,
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
@@ -16,6 +16,9 @@ import { colors, metrics } from '../../../styles/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import { useAuth } from '../../../context/AuthContext';
 import AppText from '../../../components/AppText';
+import { usePressScale } from '../../../hooks/animations/usePressScale';
+import { useToggleSpring } from '../../../hooks/animations/useToggleSpring';
+import { useAnimatedProgress } from '../../../hooks/animations/useAnimatedProgress';
 
 // image paths corrected
 const WARD_AVATAR = { uri: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80' };
@@ -80,18 +83,11 @@ function PressableScale({
     children: React.ReactNode;
     style?: any;
 }) {
-    const scale = useRef(new Animated.Value(1)).current;
-
-    const handlePressIn = () => {
-        Animated.spring(scale, { toValue: 0.9, useNativeDriver: true, speed: 35, bounciness: 0 }).start();
-    };
-    const handlePressOut = () => {
-        Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 25, bounciness: 5 }).start();
-    };
+    const { scale, onPressIn, onPressOut } = usePressScale();
 
     return (
         <Animated.View style={[{ transform: [{ scale }] }, style]}>
-            <Pressable onPress={onPress} onPressIn={handlePressIn} onPressOut={handlePressOut}>
+            <Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
                 {children}
             </Pressable>
         </Animated.View>
@@ -99,16 +95,7 @@ function PressableScale({
 }
 
 function WardAvatar({ avatar, selected, onPress }: { avatar: any; selected: boolean; onPress: () => void }) {
-    const badgeAnim = useRef(new Animated.Value(selected ? 1 : 0)).current;
-
-    useEffect(() => {
-        Animated.spring(badgeAnim, {
-            toValue: selected ? 1 : 0,
-            useNativeDriver: true,
-            speed: 20,
-            bounciness: 10,
-        }).start();
-    }, [selected]);
+    const badgeAnim = useToggleSpring(selected);
 
     return (
         <PressableScale onPress={onPress} style={styles.wardAvatarWrapper}>
@@ -129,34 +116,14 @@ function WardAvatar({ avatar, selected, onPress }: { avatar: any; selected: bool
 }
 
 function AnimatedProgressBar({ value }: { value: number }) {
-    const widthAnim = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        Animated.timing(widthAnim, {
-            toValue: value,
-            duration: 900,
-            useNativeDriver: false, // width can't use the native driver
-        }).start();
-    }, [value]);
+    const width = useAnimatedProgress(value);
 
     return (
         <View style={styles.progressTrack}>
-            <Animated.View
-                style={[
-                    styles.progressFill,
-                    {
-                        width: widthAnim.interpolate({
-                            inputRange: [0, 100],
-                            outputRange: ['0%', '100%'],
-                        }),
-                    },
-                ]}
-            />
+            <Animated.View style={[styles.progressFill, { width }]} />
         </View>
     );
 }
-
-// HomeScreen.tsx — updated card components only; everything above (imports, data arrays, PressableScale, WardAvatar, AnimatedProgressBar) stays exactly as you have it
 
 function UpdateCard({ icon, title, count, onDetailsPress }: { icon: any; title: string; count: number; onDetailsPress: () => void }) {
     return (
@@ -167,8 +134,8 @@ function UpdateCard({ icon, title, count, onDetailsPress }: { icon: any; title: 
                 </View>
 
                 <View style={styles.titleCountRow}>
-                    <AppText style={styles.updateTitle}>{title}</AppText>
-                    <AppText style={styles.updateCount}>{count}</AppText>
+                    <AppText variant="h3" style={styles.updateTitle}>{title}</AppText>
+                    <AppText variant="desc">{count}</AppText>
                 </View>
             </View>
 
@@ -178,25 +145,24 @@ function UpdateCard({ icon, title, count, onDetailsPress }: { icon: any; title: 
                 end={{ x: 1, y: 0 }}
                 style={styles.detailsButton}
             >
-                <AppText style={styles.detailsButtonText}>Details</AppText>
+                <AppText variant="h3" style={styles.detailsButtonText}>Details</AppText>
             </LinearGradient>
         </PressableScale>
     );
 }
 
+// AcademicCard — unchanged from before, just confirming for context
 function AcademicCard({ icon, title, count, onDetailsPress }: { icon: any; title: string; count: number; onDetailsPress: () => void }) {
     return (
-        <View style={styles.academicWrapper}>
+        <PressableScale onPress={onDetailsPress} style={styles.academicWrapper}>
             <View style={styles.academicIconCircle}>
                 <Image source={icon} style={styles.academicIcon} resizeMode="contain" />
             </View>
 
-            <PressableScale onPress={onDetailsPress} style={styles.academicCard}>
+            <View style={styles.academicCard}>
                 <View style={styles.academicCardBody}>
-                    <View style={styles.titleCountRow}>
-                        <AppText style={styles.updateTitle}>{title}</AppText>
-                        <AppText style={styles.updateCount}>{count}</AppText>
-                    </View>
+                    <AppText variant="h3" style={styles.updateTitle}>{title}</AppText>
+                    <AppText variant="desc" style={styles.academicCount}>{count}</AppText>
                 </View>
 
                 <LinearGradient
@@ -205,10 +171,10 @@ function AcademicCard({ icon, title, count, onDetailsPress }: { icon: any; title
                     end={{ x: 1, y: 0 }}
                     style={styles.detailsButton}
                 >
-                    <AppText style={styles.detailsButtonText}>Details</AppText>
+                    <AppText variant="h3" style={styles.detailsButtonText}>Details</AppText>
                 </LinearGradient>
-            </PressableScale>
-        </View>
+            </View>
+        </PressableScale>
     );
 }
 
@@ -220,14 +186,14 @@ function CommunicationCard({ icon, title, count, badge, onPress }: { icon: any; 
                     <Image source={icon} style={styles.updateIcon} resizeMode="contain" />
                     {badge > 0 && (
                         <View style={styles.commBadge}>
-                            <AppText style={styles.commBadgeText}>{badge}</AppText>
+                            <AppText variant="h3" style={styles.commBadgeText}>{badge}</AppText>
                         </View>
                     )}
                 </View>
 
                 <View style={styles.titleCountRow}>
-                    <AppText style={styles.updateTitle}>{title}</AppText>
-                    <AppText style={styles.updateCount}>{count}</AppText>
+                    <AppText variant="h3" style={styles.updateTitle}>{title}</AppText>
+                    <AppText variant="desc">{count}</AppText>
                 </View>
             </View>
         </PressableScale>
@@ -236,7 +202,7 @@ function CommunicationCard({ icon, title, count, badge, onPress }: { icon: any; 
 
 export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) {
     const [selectedWard, setSelectedWard] = useState<string>('w1');
-    const {logout} = useAuth();
+    const { logout } = useAuth();
 
     return (
         <View style={styles.container}>
@@ -269,14 +235,14 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                 <View style={styles.progressCard}>
                     <View style={styles.progressColumn}>
                         <View style={styles.progressRow}>
-                            <AppText style={styles.progressLabel}>Attendance</AppText>
-                            <AppText style={styles.progressValue}>85</AppText>
+                            <AppText variant="h2" style={styles.progressLabel}>Attendance</AppText>
+                            <AppText variant="h3" style={styles.progressValue}>85</AppText>
                         </View>
                         <AnimatedProgressBar value={85} />
 
                         <View style={[styles.progressRow, { marginTop: metrics.lg }]}>
-                            <AppText style={styles.progressLabel}>Fee</AppText>
-                            <AppText style={styles.progressValue}>70</AppText>
+                            <AppText variant="h2" style={styles.progressLabel}>Fee</AppText>
+                            <AppText variant="h3" style={styles.progressValue}>70</AppText>
                         </View>
                         <AnimatedProgressBar value={70} />
                     </View>
@@ -284,7 +250,7 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                     <Image source={TODO_ILLUSTRATION} style={styles.progressIllustration} resizeMode="contain" />
                 </View>
 
-                <AppText style={styles.sectionTitle}>School Updates</AppText>
+                <AppText variant="h2" style={styles.sectionTitle}>School Updates</AppText>
                 <View style={styles.threeColRow}>
                     {SCHOOL_UPDATES.map((item) => (
                         <UpdateCard
@@ -297,7 +263,7 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                     ))}
                 </View>
 
-                <AppText style={styles.sectionTitle}>Academics</AppText>
+                <AppText variant="h2" style={styles.sectionTitle}>Academics</AppText>
                 <View style={styles.threeColRow}>
                     {ACADEMICS.map((item) => (
                         <AcademicCard
@@ -310,7 +276,7 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                     ))}
                 </View>
 
-                <AppText style={styles.sectionTitle}>Communication</AppText>
+                <AppText variant="h2" style={styles.sectionTitle}>Communication</AppText>
                 <View style={styles.twoColRow}>
                     {COMMUNICATION.map((item) => (
                         <CommunicationCard
@@ -324,14 +290,14 @@ export default function HomeScreen({ navigation }: NativeStackScreenProps<any>) 
                     ))}
                 </View>
 
-                <AppText style={styles.sectionTitle}>Edisapp Today</AppText>
+                <AppText variant="h2" style={styles.sectionTitle}>Edisapp Today</AppText>
                 <View style={styles.fiveColRow}>
                     {EDISAPP_TODAY.map((item) => (
                         <PressableScale key={item.id} onPress={() => {}} style={styles.edisappItem}>
                             <View style={styles.edisappIconFrame}>
                                 <Image source={item.icon} style={styles.edisappIcon} resizeMode="contain" />
                             </View>
-                            <AppText style={styles.edisappTitle}>{item.title}</AppText>
+                            <AppText variant="text" style={styles.edisappTitle}>{item.title}</AppText>
                         </PressableScale>
                     ))}
                 </View>
@@ -348,11 +314,11 @@ const styles = StyleSheet.create({
         paddingBottom: metrics.xxxl,
     },
     titleCountRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      width: '100%',
-  },
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+    },
 
     // Wards row
     wardsRow: {
@@ -405,13 +371,9 @@ const styles = StyleSheet.create({
     },
     progressLabel: {
         fontSize: 15,
-        // fontFamily: fonts.bold,
-        color: colors.text,
     },
     progressValue: {
         fontSize: 13,
-        // fontFamily: fonts.semiBold,
-        color: colors.text,
     },
     progressTrack: {
         height: 8,
@@ -430,8 +392,6 @@ const styles = StyleSheet.create({
     },
 
     sectionTitle: {
-        // ...typography.title,
-        fontSize: 20,
         marginBottom: metrics.md,
     },
 
@@ -468,28 +428,21 @@ const styles = StyleSheet.create({
     },
     updateTitle: {
         fontSize: 13,
-        fontWeight: '700',
-        color: colors.text,
     },
-    updateCount: {
-        fontSize: 12,
-        color: colors.textSecondary,
-    },
-    detailsButtonWrapper: {},
     detailsButton: {
         paddingVertical: metrics.sm,
         alignItems: 'center',
     },
     detailsButtonText: {
         fontSize: 13,
-        fontWeight: '700',
         color: colors.white,
     },
 
-    // Academics — icon overlaps card top
+    // Academics — icon overlaps card top. These offsets (30, -30, 34)
+    // are geometry tied to the icon's fixed 60px size, not spacing —
+    // left as literals rather than forced onto the metrics scale.
     academicWrapper: {
         width: '31%',
-        alignItems: 'center',
         marginTop: 30,
     },
     academicIconCircle: {
@@ -502,6 +455,7 @@ const styles = StyleSheet.create({
         marginBottom: -30,
         zIndex: 2,
         overflow: 'hidden',
+        alignSelf: 'center',
     },
     academicIcon: {
         width: '65%',
@@ -518,6 +472,9 @@ const styles = StyleSheet.create({
     academicCardBody: {
         alignItems: 'center',
         paddingBottom: metrics.md,
+    },
+    academicCount: {
+        marginTop: 2,
     },
 
     // Communication
@@ -557,11 +514,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.danger,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 4,
+        paddingHorizontal: metrics.xs,
     },
     commBadgeText: {
         fontSize: 10,
-        fontWeight: '700',
         color: colors.white,
     },
 
@@ -592,7 +548,5 @@ const styles = StyleSheet.create({
     },
     edisappTitle: {
         fontSize: 11,
-        color: colors.text,
-        textAlign: 'center',
     },
 });

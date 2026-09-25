@@ -1,97 +1,174 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+<div align="center">
 
-# Getting Started
+# Qodum Mobile
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+**The companion app to Qodum ERP — built for teachers, students, and staff.**
 
-## Step 1: Start Metro
+Where the [web platform](https://github.com/jonathanadel-dev/qodum-web) handles school operations from an admin/staff view, Qodum Mobile gives teachers and students their own dedicated way to interact with the system day-to-day, from wherever they are.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+![React Native](https://img.shields.io/badge/React_Native-0.74-61DAFB?logo=react)
+![Firebase](https://img.shields.io/badge/Firebase-Messaging-FFCA28?logo=firebase)
+![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+<img src="https://res.cloudinary.com/jobook/image/upload/v1785648059/1_ecoihe.png" alt="Student Dashboard" width="300"/>
+<img src="https://res.cloudinary.com/jobook/image/upload/v1785648071/2_bw8m0y.png" alt="Payment Page" width="300"/>
+<img src="https://res.cloudinary.com/jobook/image/upload/v1785648080/3_ny3u6r.png" alt="Push Notifications" width="300"/>
+<img src="https://res.cloudinary.com/jobook/image/upload/v1785648092/4_yoqltq.png" alt="Teachers Assignments" width="300"/>
+<img src="https://res.cloudinary.com/jobook/image/upload/v1785648102/6_remha3.jpg" alt="Students Assignments" width="300"/>
 
-```sh
-# Using npm
-npm start
+</div>
 
-# OR using Yarn
-yarn start
+---
+
+## 📖 Overview
+
+Qodum Mobile is a single-codebase React Native app supporting **two distinct user roles** — Teachers and Students — each with their own tailored navigation, screens, and permissions.
+
+Multi-tenancy is built in from the ground up: users log in with a **school code** first, so the same app instance can serve different schools, each seeing only their own data.
+
+---
+
+## ✨ Features
+
+### 👨‍🏫 Teacher
+- 🏠 Home dashboard
+- 📝 Assignments — create, review, and give feedback on student submissions
+- 📓 E-diaries
+- 📣 Class notices
+- 🔔 General notices
+- 💬 Messages
+- 📊 Activity log
+- 👤 Profile & settings
+
+### 🎓 Student
+- 🏠 Home dashboard
+- 📝 Assignments — view and submit answers, receive teacher feedback
+- 💳 Fee payment — pay school fees directly from the app
+- 📓 E-diaries
+- 📣 Class notices
+- 🔔 General notices
+- 💬 Messages
+- 📊 Activity log
+- 👤 Profile & settings
+
+### 🔐 Authentication
+- School-code based login (multi-school / multi-tenant support)
+- OTP verification flow (send OTP → verify OTP)
+- Registration flow for new users
+- Session persisted locally via `AsyncStorage`, with JWT decoded client-side to check expiry on load
+
+### 🔔 Push Notifications
+- Real-time push notifications via **Firebase Cloud Messaging**
+- Dedicated `NotificationProvider` context to manage notification state app-wide
+
+### 💳 Payments
+- Integrated fee payment gateway using **Easebuzz** (`react-native-easebuzz-kit`)
+
+---
+
+## 🏗️ Architecture
+
+- **Framework:** React Native 0.74, using the **React Native CLI (bare workflow)** — native `android/` and `ios/` folders are present and versioned — run via `react-native run-android` / `react-native run-ios`
+- **Navigation:** React Navigation — native stack + bottom tabs, with separate navigators per role (teacher vs. student)
+- **State & Session:** Two dedicated context providers:
+  - `Auth` context — handles user/session/school state, backed by `AsyncStorage`
+  - `NotificationProvider` — manages Firebase push notification state
+- **Forms:** `react-hook-form` for input handling across auth and in-app forms
+- **UI:** `react-native-paper` components, `react-native-vector-icons`, `react-native-linear-gradient` for themed gradients
+- **File handling:** `react-native-document-picker`, `react-native-fs`, `@react-native-camera-roll/camera-roll` for uploads/downloads (e.g. assignment submissions), backed by AWS S3
+- **In-app web content:** `react-native-webview` (used for the Easebuzz payment checkout flow)
+
+### Folder structure
+
+```
+qodum-app/
+├─ App.js                  → Root navigation & providers
+├─ context/
+│  ├─ Auth.js               → Session, token, and school-code state
+│  └─ NotificationProvider.js → Firebase push notification handling
+├─ pages/
+│  ├─ auth/                  → welcome, login, register, send-otp, check-otp, school-code
+│  └─ app/
+│     ├─ teacher/             → home, assignments, e-diaries, class-notice, notice, messages, activity, profile, settings
+│     └─ student/             → home, assignments, fee, e-diaries, class-notices, notice, messages, activity, profile, settings
+├─ utils/
+│  ├─ teacher/                → Teacher-specific helpers
+│  └─ student/                → Student-specific helpers
+├─ theme/                     → App-wide theming
+├─ android/ & ios/             → Native project files
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## 🚀 Getting Started
 
-### Android
+### Prerequisites
+- Node.js 18+
+- Watchman (recommended for macOS/Linux)
+- A Firebase project with `google-services.json` (Android) and `GoogleService-Info.plist` (iOS)
+- Xcode (for iOS) and/or Android Studio (for Android)
 
-```sh
-# Using npm
-npm run android
+### Installation
 
-# OR using Yarn
-yarn android
-```
+```bash
+git clone https://github.com/jonathanadel-dev/qodum-app.git
+cd qodum-app
+npm install
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
+# iOS only
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### Firebase setup
 
-```sh
-# Using npm
+Place your Firebase config files in the project root:
+- `google-services.json` (Android)
+- `GoogleService-Info.plist` (iOS)
+
+These are referenced directly in the native Android/iOS projects and are required for push notifications to work.
+
+### Run locally
+
+```bash
+# Start Metro
+npm start
+
+# Run on Android
+npm run android
+
+# Run on iOS
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+> This project uses the React Native CLI (bare workflow) — native modules (Firebase, Easebuzz) require a native rebuild, not just a JS reload.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+---
 
-## Step 3: Modify your app
+## 🛠️ Tech Stack
 
-Now that you have successfully run the app, let's make changes!
+| Layer | Technology |
+|---|---|
+| Framework | React Native 0.74 (React Native CLI, bare workflow) |
+| Navigation | React Navigation (native stack + bottom tabs) |
+| Auth | School-code + OTP login, JWT session (AsyncStorage) |
+| Push Notifications | Firebase Cloud Messaging |
+| Forms | React Hook Form |
+| UI | React Native Paper, Vector Icons, Linear Gradient |
+| File Storage | AWS S3 SDK, React Native Document Picker / FS / Camera Roll |
+| Payments | Easebuzz (`react-native-easebuzz-kit`) |
+| Build & Deploy | Native Gradle (Android) & Xcode (iOS) build pipelines |
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+---
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 📌 Project Status
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Actively developed as the mobile counterpart to the live Qodum ERP platform, sharing the same school-management domain (assignments, notices, fees) but scoped specifically to the day-to-day teacher and student experience.
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
+<div align="center">
 
-### Now what?
+Built and maintained by **Jonathan Adel**
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+</div>

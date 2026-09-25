@@ -13,7 +13,7 @@ import type { AuthStackParamList } from '../../../navigation/AuthStack';
 import CodeInput from '../../../components/form/CodeInput';
 import BackgroundScreen from '../../../components/BackgroundScreen';
 import Button from '../../../components/Button';
-import { colors, metrics } from '../../../styles/theme';
+import { metrics } from '../../../styles/theme';
 import { SchoolType, verifySchoolCode } from '../../../lib/api/schoolApi';
 import AppText from '../../../components/AppText';
 

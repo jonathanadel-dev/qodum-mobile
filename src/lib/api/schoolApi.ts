@@ -23,8 +23,8 @@ export const verifySchoolCode = async (code: string): Promise<SchoolType | null>
 };
 
 
-// Search school
-export const searchSchools = async (query: string): Promise<SchoolType[]> => {
+// Get school
+export const getSchools = async () => {
     // TODO: replace with a real API request.
     await new Promise((resolve: any) => setTimeout(resolve, 700));
 

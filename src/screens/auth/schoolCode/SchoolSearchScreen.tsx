@@ -14,7 +14,7 @@ import type { AuthStackParamList } from '../../../navigation/AuthStack';
 
 import Header from '../../../components/Header';
 import { colors, metrics } from '../../../styles/theme';
-import { searchSchools, SchoolType } from '../../../lib/api/schoolApi';
+import { getSchools, SchoolType } from '../../../lib/api/schoolApi';
 import AppText from '../../../components/AppText';
 import { useStaggeredFadeInUp } from '../../../hooks/animations/useStaggeredFadeInUp';
 
@@ -40,7 +40,7 @@ export default function SchoolSearchScreen({ navigation, route }: Props) {
             setLoading(true);
             setLoadError(false);
             try {
-                const schools = await searchSchools('');
+                const schools = await getSchools();
                 if (!cancelled) setAllSchools(schools);
             } catch {
                 if (!cancelled) setLoadError(true);
